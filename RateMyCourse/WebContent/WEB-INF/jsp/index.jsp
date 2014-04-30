@@ -53,20 +53,17 @@
 <div id="header">
 <%@include file="includes/menu.jsp" %>
 <div id="header_small">
-        	<!-- Start Social area -->
-            	<form action="#" method="post" id="search-form">
- <span id="search-page-border">
- <label class="accessibly-hidden">Search for:</label>  <input type="text" class="search-terms" name="search-terms" onfocus="if(this.value == 'Search...') { this.value = ''; }" onblur="if(this.value == '') { this.value = 'Search...'; }" value="Search..." />
- <label for="search-which" class="accessibly-hidden">Search these:</label><select name="search-which" id="search-which" style="width: auto"><option value="members">Members</option><option value="groups">Groups</option><option value="forums">Forums</option><option value="posts">Posts</option></select> </span>
- <input type="submit" name="search-submit" id="search-submit" value="Search" />
-</form>
+       
+	<form action="#" method="post" id="search-form">
+		 <span id="search-page-border">
+		 <label class="accessibly-hidden">Search for:</label>  <input type="text" class="search-terms" name="search-terms" onfocus="if(this.value == 'Search...') { this.value = ''; }" onblur="if(this.value == '') { this.value = 'Search...'; }" value="Search..." />
+		 <label for="search-which" class="accessibly-hidden">Search these:</label><select name="search-which" id="search-which" style="width: auto"><option value="members">Members</option><option value="groups">Groups</option><option value="forums">Forums</option><option value="posts">Posts</option></select> </span>
+		 <input type="submit" name="search-submit" id="search-submit" value="Search" />
+	</form>
 
 
-            </div>
-            <!-- End Logo area -->
-                <div class="clear"></div>
-	
-        <!-- End Social & Logo area -->
+</div>
+<div class="clear"></div>
 
 </div>
 
@@ -155,6 +152,7 @@
         
        
 </div>
+</div>
 <!-- Start Footer -->
 <div id="footer">
 	<!-- Start Footer Top -->
@@ -175,11 +173,11 @@
                 <div id="usefulbody">
                		<ul>
                     
-                    	<li><a href="#" title="">About</a></li>
-                        <li><a href="#" title="">Most Rated Course</a></li>
-                        <li><a href="#" title="">Most Followed Course</a></li>
-                        <li><a href="#" title="">Industry Oriented Course</a></li>
-                        <li><a href="#" title="">Top Courses by College</a></li>
+                    	<li><a href="about" title="">About</a></li>
+                        <li><a href="most_rated_course" title="">Most Rated Course</a></li>
+                        <li><a href="most_followed_course" title="">Most Followed Course</a></li>
+                        <li><a href="industry_oriented_course" title="">Industry Oriented Course</a></li>
+                        <li><a href="top_courses_colleges" title="">Top Courses by College</a></li>
                                          
                     </ul>
                 	

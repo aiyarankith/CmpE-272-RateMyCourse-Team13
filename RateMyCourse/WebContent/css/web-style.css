@@ -255,7 +255,7 @@ hr{
 }
 
 #navigation_wrap{
-	max-width:1500px;
+	max-width:1000px;
 	float:none;
 	margin:0px auto 0px auto;
 }
@@ -274,7 +274,7 @@ hr{
 }
 
 #navi{
-	width:720px;
+	width:620px;
 	float:right;
 }
 
@@ -288,7 +288,7 @@ hr{
 #navi ul li{
 	float:left;
 	display:inline-block;
-	padding:20px 20px 20px 20px;
+	padding:12px 12px 13px 12px;
 	list-style-type: none;
 	position:relative;
 	border-right: 1px dotted #CCC;
