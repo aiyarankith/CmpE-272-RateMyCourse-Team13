@@ -31,7 +31,6 @@ UserService userService;
 //Index Page
 @RequestMapping(value = "/index", method = RequestMethod.GET)
 public ModelAndView getUserLIst() {
-	
 	  List<String> RSSList = userService.RSSList();
 	  
 	  return new ModelAndView("index", "RSSList", RSSList);
