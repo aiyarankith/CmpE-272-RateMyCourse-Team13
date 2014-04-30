@@ -26,10 +26,14 @@
                         <li><a href="course_ratings" title="Course Ratings">Course Ratings</a>
                         	
                         </li>
-                        <li><a href="about" title="Respons'se Portfolio">About</a>
-                        	
+                        
+                        <li><a href="add_course">Course</a>
+                        	<ul>
+                        		<li><a href="add_course" title="Response Buttons">Add Course</a></li>
+                            	<li><a href="edit_course" title="Response Buttons">Edit Course</a></li>
+                            </ul>
                         </li>
-                        <li><a href="add_course">Add Course</a>
+                        <li><a href="about" title="Respons'se Portfolio">About</a>
                         	
                         </li>
                         <li><a href="<c:url value="registration" />">Create an account</a></li>

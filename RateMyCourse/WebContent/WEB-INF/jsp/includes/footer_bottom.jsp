@@ -3,10 +3,10 @@
     	<div class="footerwrap">
         
         	<!-- Start Copyright Div -->
-            <div id="copyright">&copy;2014. All rights reserved! - by 
+            <div id="copyright">&copy;2014. All rights reserved! 
             <!-- End Copyright Div -->
 			
-            <a href="http://www.derby-web-design-agency.co.uk" title="Theme Provided By UBL Designs">Team 13</a></div>
+            <a href="http://www.derby-web-design-agency.co.uk" title="Theme Provided By UBL Designs"></a></div>
             
             <!-- Start Social area -->
             <div class="socialfooter">

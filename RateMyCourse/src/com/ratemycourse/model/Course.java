@@ -12,6 +12,7 @@ public class Course {
 	private String university;
 	private String professor;
 	private String is_course;
+	private String course_id;
 
 
 //Course ID
@@ -84,6 +85,14 @@ public void setrelated_doc_link(String related_doc_link) {
 } 
 public String getrelated_doc_link() {
 	return related_doc_link;
+}
+
+//Course ID from Search
+public void setcourse_id(String course_id) {
+	this.course_id = course_id;
+} 
+public String getcourse_id() {
+	return course_id;
 }
 
 		 

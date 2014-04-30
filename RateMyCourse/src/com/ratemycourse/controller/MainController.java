@@ -67,7 +67,7 @@ public String insert_course(@ModelAttribute("details") Course details, final Red
 		message = new String (userService.insertCourse(details));
 		redirectedattributes.addFlashAttribute("message",message);
 	}
-return "redirect:index";
+return "redirect:add_course";
 }
 
 //Most Rated Course Page
@@ -96,9 +96,19 @@ public String top_courses_colleges() {
 
 //Course Ratings Page
 @RequestMapping(value="/course_ratings", method = RequestMethod.GET)
-public String course_ratings() {
+public String course_ratings(@ModelAttribute("course_id") Course course_id) {
 	return "course_ratings";
 }
+//Course Page Action to Search
+@RequestMapping(value="/get_course", method = RequestMethod.POST)
+public ModelAndView get_course(@ModelAttribute("course_id") Course course_id) {
+	//List<String> course_details = userService.getCourse(course_id);
+	Object course_details = userService.getCourse(course_id);
+
+	  return new ModelAndView("course_ratings", "course_details", course_details);
+}
+
+
 
 //About Page
 @RequestMapping(value="/about", method = RequestMethod.GET)

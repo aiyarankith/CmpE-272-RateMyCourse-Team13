@@ -1,8 +1,18 @@
 <!DOCTYPE HTML>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.lang.*" %>
+    <%@ page import="java.io.*" %>
+    <%@ page import="java.util.*" %>
+<%@ page import="java.util.ArrayList" %>
+<%@page import="org.json.simple.*"%>
+<%@page import="org.json.simple.parser.JSONParser"%>
+<%@page import="org.json.simple.parser.ParseException"%>
+
+
 <html>
 <head>
 <meta charset="utf-8">
-<title>Response Single Blog Post Page</title>
+<title>Course Ratings Page</title>
 <meta name="description" content="Response Premium Html Responsive Template - Blog Section" />
 <meta name="keywords" content="Responsive Html, Responsive Template, Response, Free Icons, List Section" />
 <meta name="apple-mobile-web-app-capable" content="yes" /> 
@@ -35,21 +45,37 @@
 	}
 	//// End Simple Sliders //// 
 </script> 
+
+<script>
+	var json = JSON.parse(course_details);
+	var name = json["name"];
+
+	System.out.println("JSON Name :"+name);
+</script>
 </head>
 
 <body>
 <div id="header">
 <%@include file="includes/menu.jsp" %>
+<div id="header_small">
+       
+	<form:form action="get_course" method="post" id="search-form" modelAttribute="course_id">
+		 <span id="search-page-border">
+		 <label class="accessibly-hidden">Search for:</label>  <form:input path="course_id" type="text" class="search-terms" name="search-terms" onfocus="if(this.value == 'Search...') { this.value = ''; }" onblur="if(this.value == '') { this.value = 'Search...'; }" value="Search..." />
+		 <label for="search-which" class="accessibly-hidden">Search these:</label><select name="search-which" id="search-which" style="width: auto"><option value="members">Course ID</option><option value="groups">Course Name</option><option value="forums"></select> </span>
+		 <input type="submit" name="search-submit" id="search-submit" value="Search" />
+	</form:form>
+
+</div>
 <div class="clear"></div>
-        <!-- Start Social & Logo area -->
-<%@include file="includes/social.jsp" %>     
+	
 </div>
 
 <div id="main">
     <!-- Start H1 Title -->
     <div class="titlesnormal">
     
-    	<h1>Response Single Blog Post Page</h1>
+    	<h1>Course Ratings</h1>
         
         <span></span>
     
@@ -64,7 +90,7 @@
         	<!-- Start Blog Post -->
         	<div class="blogwrapstart">
             
-            	<div class="blogtitle"><h3><a href="blog-post.html" title="5 ways to get top of google">5 ways to get top of google</a></h3></div>
+            	<div class="blogtitle"><h3>Course Details</h3></div>
                 
                 <div class="blogbody">
                 	<!-- Start Blog Image -->
@@ -82,13 +108,9 @@
                     <!-- End Blog Information -->
                     <!-- Start Blog Text -->
                     <div class="blogtext">
+                    ${course_details}
                     
-                    	<p>Lorem ipsum dolor sit amet, consectetur elit. Maecenas non ipsum nunc, nec sagittis tellus Maecenas non ipsum nunc, nec sagittis tellus.Lorem ipsum dolor sit amet, consectetur elit. Maecenas 
-non ipsum nunc, nec sagittis tellus Maecenas non ipsum nunc, nec sagittis tellus.</p>
-
-						<p>Lorem ipsum dolor sit amet, consectetur elit. Maecenas non ipsum nunc, nec sagittis tellus Maecenas non ipsum nunc, nec sagittis tellus.Lorem ipsum dolor sit amet, consectetur elit. Maecenas 
-non ipsum nunc, nec sagittis tellus Maecenas non ipsum nunc, nec sagittis tellus. Lorem ipsum dolor sit amet, consectetur elit. Maecenas non ipsum nunc, nec sagittis tellus Maecenas non ipsum nunc, nec sagittis tellus.Lorem ipsum dolor sit amet, consectetur elit. Maecenas 
-non ipsum nunc, nec sagittis tellus Maecenas non ipsum nunc, nec sagittis tellus.</p>
+                    <br><br><br>
                     
                     </div>
                 	<!-- End Blog Text -->
@@ -203,25 +225,8 @@ non ipsum nunc, nec sagittis tellus Maecenas non ipsum nunc, nec sagittis tellus
         	<!-- Start Blog Widget -->
             <div class="blogwidgetstart">
             	<!-- Start Advertising Widget -->
-            	<div class="widgettitle"><h4>Advertising</h4></div>
-                
-                <div class="widgetbody">
-                
-                	<div class="blogadvertising">
-                    
-                    <a href="#"><img src="images/advertising/themeadvertising.jpg"  alt="Themeforest"></a>
-                    <a href="#"><img src="images/advertising/audioadvertising.jpg" alt="Audiojungle"></a>
-                    <a href="#"><img src="images/advertising/graphicadvertising.jpg" alt="Grahpicrive"></a>
-                    <a href="#"><img src="images/advertising/tutorialadvertising.jpg" alt="Tutsplus"></a>
-                    
-                    </div>
-                
-              </div>
-              <!-- End Advertising Widget -->
-              <span class="box-arrow"></span>
-            
-            </div>
-            <!-- End Blog Widget -->
+            	
+              
             
         	<!-- Start Blog Widget -->
             <div class="blogwidget">
@@ -289,6 +294,7 @@ non ipsum nunc, nec sagittis tellus Maecenas non ipsum nunc, nec sagittis tellus
     </div>
     <!-- End Main Body Wrap -->
 
+</div>
 </div>
 <!-- Start Footer -->
 <div id="footer">

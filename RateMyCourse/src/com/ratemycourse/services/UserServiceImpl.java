@@ -125,6 +125,7 @@ public String insertCourse(Course details) {
 		.setCreateDbIfNotExist(true)
 		.setProtocol("http")
 		.setHost("127.0.0.1")
+		//.setHost("aiyarankith.cloudbees.cloudant.com")
 		.setPort(5984)
 		.setConnectionTimeout(0);
 		//.setUsername("aiyarankith.cloudbees")
@@ -154,5 +155,44 @@ public String insertCourse(Course details) {
 		//model.addAttribute("message", "Hello Spring MVC Framework!"+dbClient.getBaseUri());
 		//System.out.println(dbClient.getBaseUri());
 }
+ 
+ @Override
+ public Object getCourse(Course course_details) {
+ 		
+ 		
+ 		CouchDbProperties properties = new CouchDbProperties()
+ 		.setDbName("ankith")
+ 		.setCreateDbIfNotExist(true)
+ 		.setProtocol("http")
+ 		.setHost("127.0.0.1")
+ 		//.setHost("aiyarankith.cloudbees.cloudant.com")
+ 		.setPort(5984)
+ 		.setConnectionTimeout(0);
+ 		//.setUsername("aiyarankith.cloudbees")
+ 		//.setPassword("bs5854fh4I3nnGYJQ5e58FML");
+ 		CouchDbClient dbClient = new CouchDbClient(properties);
+ 		
+ 	// CouchDbClient dbClient = new CouchDbClient("./couchdb.properties");
+ 	// Map<String, Object> map = new HashMap<>();
+ 		
+ 		
+ 		
+ 		//System.out.println("Find Result");
+ 		//ArrayList<String> result = (ArrayList <String>) map.get(course_details.getcourse_id().toLowerCase());
+ 		JsonObject json = dbClient.find(JsonObject.class, course_details.getcourse_id());
+
+ 		//HashMap<String,Object> result = new ObjectMapper().readValue(json, HashMap.class); 	
+ 		//JSONObject result = (JSONObject)new JSONParser().parse(json);
+ 		System.out.println("Course result :" +json);
+
+ 		
+ 		
+ 		return json;
+
+ 		//System.out.println("Find Result :" +json.toString(dbClient.find("asdgads")));
+ 		//model.addAttribute("message", "Hello Spring MVC Framework!"+dbClient.getBaseUri());
+ 		//System.out.println(dbClient.getBaseUri());
+ }
+
 
 }

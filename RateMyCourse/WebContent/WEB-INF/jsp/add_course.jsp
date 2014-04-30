@@ -56,6 +56,7 @@ $(document).ready(function() {
 			var dept = $("#dept");
 			var description = $("#description");
 			var university = $("#university");
+			var hidden = $("#hidden");
 
 			//var contactformid = $("#contactformid");
 			
@@ -99,6 +100,7 @@ $(document).ready(function() {
 				   $('input[type=submit]', $("#ajaxcontactform")).removeAttr('disabled');
 				   return false;
 			  }
+			 
 
 			  
 		  }
@@ -137,19 +139,21 @@ $(document).ready(function() {
             <div class="contacttitle">
             
                 <h2>Course Details</h2>
-            
+            	
             </div>
         
         	<div class="boxes-padding fullpadding">
             
-            <div id="contactwarning"></div>
+            <div id="contactwarning">    
+            	
+            </div>
             <div id="contactajax"></div>
             
             <form:form action="${pageContext.request.contextPath}/insert_course" method="post" name="ajaxcontactform" id="ajaxcontactform" modelAttribute="details">
             
             	<div class="contacttextarea">
                 
-                	
+                		 <b> ${message} </b> 
                     	<div align="left"> <b>Description* :</b></div> <form:textarea path="description" name="description" id="description" cols="5" rows="5" class="contacttextarea" />
                     
 					<fieldset>
@@ -178,8 +182,7 @@ $(document).ready(function() {
                     <div align="left" style="color:black"> <b>Email* :</b></div>	<form:input path="email" id="email" name="email" type="text" class="contacttextform" />
 					
              	  	<div align="left" style="color:black"> <b>University* :</b></div><form:input path="university" id="university" name="university" type="text" class="contacttextform" />
-					
-					
+				
 	                <div align="left" style="color:black"> <b>Professor Name :</b></div><form:input path="professor" id="professor" name="professor" type="text" class="contacttextform" />
 					
 					

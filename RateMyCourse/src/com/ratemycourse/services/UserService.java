@@ -8,6 +8,6 @@ public interface UserService {
  public void insertData(User user);
  public List<String> RSSList();
  public String insertCourse(Course details);
-
+public Object getCourse(Course course_id);
 
 }
