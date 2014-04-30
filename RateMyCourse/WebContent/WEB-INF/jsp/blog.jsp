@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Response Blogging Page</title>
+<title>Bugs</title>
 <meta name="description" content="Response Premium Html Responsive Template - Blog Section" />
 <meta name="keywords" content="Responsive Html, Responsive Template, Response" />
 <meta name="apple-mobile-web-app-capable" content="yes" /> 
