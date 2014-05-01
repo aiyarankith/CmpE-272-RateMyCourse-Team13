@@ -1,2 +1,2 @@
-CmpE-272-Distributed-Enterprise-Platforms
+CmpE-272-Enterprise-Software-Platforms
 =========================================
