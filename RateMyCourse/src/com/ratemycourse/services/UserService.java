@@ -1,6 +1,8 @@
 package com.ratemycourse.services;
 
 import java.util.List;
+
+import com.google.gson.JsonObject;
 import com.ratemycourse.model.*;
 
 public interface UserService {
@@ -27,4 +29,9 @@ public interface UserService {
 	 */
 	public String saveRating(final String userName, final String email, final String userType,
 			final String userRating, final String comment);
+	/**
+	 * To get top N courses list.
+	 * @return top course list as JsonObject
+	 */
+	public List<JsonObject> getNTopRtdCourse(final int count);
 }

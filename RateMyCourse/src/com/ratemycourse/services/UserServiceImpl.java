@@ -12,9 +12,7 @@ import javax.sql.DataSource;
 //CouchDB Imports
 import org.lightcouch.CouchDbClient;
 import org.lightcouch.CouchDbProperties;
-import org.lightcouch.DesignDocument;
 import org.lightcouch.DocumentConflictException;
-import org.lightcouch.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -274,11 +272,11 @@ public class UserServiceImpl implements UserService {
 	private JsonObject verifyConfirmation(String key) {
 		JsonObject doc02RatingAndComment = null;
 		try {
-			//access view[unique_key,doc] to get the doc_02;
-			DesignDocument designDoc = dbClient.design().getFromDb("_design/views");//dd name ie._design/view name
+			/*			DesignDocument designDoc = dbClient.design().getFromDb("_design/views");//dd name ie._design/view name
 			Response response;
 			response = dbClient.design().synchronizeWithDb(designDoc);//dunno wt this shit is doing
-
+			 */
+			//access view[unique_key,doc] to get the doc_02;
 			//if doc's _id is used as unique key, then no need to use by_unique_verif_key view.
 			List<JsonObject> ratingAndComments = dbClient.view("views/by_unique_verif_key").key(key).query(JsonObject.class);
 			for (JsonObject doc02 : ratingAndComments) {
@@ -321,5 +319,32 @@ public class UserServiceImpl implements UserService {
 	 */
 	private String getUniqueKey() {
 		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.ratemycourse.services.UserService#getTopNRtdCourse(int)
+	 */
+	@Override
+	public List<JsonObject> getNTopRtdCourse(int count) {
+		List<JsonObject> courseList = null;
+		try {
+			/*
+			 * Corresponding sample CouchDB query
+			 * http://127.0.0.1:5984/monish/_design/views/_view/by_top_rated?descending=true&limit=10
+			 */
+			courseList = dbClient.view("views/by_top_rated")
+					.descending(true)
+					.limit(count)
+					.query(JsonObject.class);
+			if (courseList.isEmpty()) {
+				JsonObject error = new JsonObject();
+				error.addProperty("error_type", "data_missing");
+				error.addProperty("error_message", "Course data missing");
+				courseList.add(error);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return courseList;
 	}
 }
