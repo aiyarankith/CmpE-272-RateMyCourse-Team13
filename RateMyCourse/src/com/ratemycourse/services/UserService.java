@@ -2,15 +2,48 @@ package com.ratemycourse.services;
 
 import java.util.List;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.ratemycourse.model.*;
 
 public interface UserService {
 
 	public void insertData(User user);
+
+	/**
+	 * To Retrive RSS Feeds from any sourse.
+	 * @return RSS Feeds List.
+	 */
 	public List<String> RSSList();
+
+	/**
+	 * To Insert Course, Admin Function.
+	 * @param description
+	 * @param demo_video_link
+	 * @param related_doc_link
+	 * @param c_id
+	 * @param name
+	 * @param dept
+	 * @param university
+	 * @param professor
+	 * @return confirmation or conflict message.
+	 */
 	public String insertCourse(Course details);
-	public Object getCourse(Course course_id);
+
+	/**
+	 * To Course Details on Search with Course ID.
+	 * @param key - c_id.
+	 * @return course details.
+	 */
+	public JsonObject getCourse(Course course_id);
+
+	/**
+	 * To get course comments, search by url.
+	 * @param key - c_id.
+	 * @return comments and time stamp.
+	 */
+	public List<JsonObject> getCourseRatings(Course course_id);
+
 	/**
 	 * To verify user rating confirmation mail, recalculate and update the course rating details.
 	 * @param key - unique key from the url.

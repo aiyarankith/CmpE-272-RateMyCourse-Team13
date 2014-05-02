@@ -1,29 +1,41 @@
 package com.ratemycourse.services;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
-//CouchDB Imports
-import org.lightcouch.CouchDbClient;
-import org.lightcouch.CouchDbProperties;
-import org.lightcouch.DocumentConflictException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.JsonObject;
-import com.ratemycourse.model.Course;
-import com.ratemycourse.model.Rss;
-import com.ratemycourse.model.User;
+import java.net.URL;
+import java.util.Date;
+import java.util.Iterator;
+
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.ratemycourse.model.User;
+import com.ratemycourse.model.Rss;
+import com.ratemycourse.model.Course;
+
+import java.util.HashMap;
+import java.util.Map;
+
+
+//CouchDB Imports
+import org.lightcouch.CouchDbClient;
+import org.lightcouch.CouchDbProperties;
+import org.lightcouch.Document;
+import org.lightcouch.DocumentConflictException;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 
 public class UserServiceImpl implements UserService {
@@ -91,31 +103,17 @@ public class UserServiceImpl implements UserService {
 		}
 
 		System.out.println("USerService::: "+items);
-		// System.out.println("USerService::: "+items.get(2));
-		//System.out.println("USerService::: "+items.get(3));
 
 		return items;
 	}
 
 	@Override
 	public String insertCourse(Course details) {
-		System.out.println("Course At Service:: " +details);
-		System.out.println("Course At Controller:: " +details.getdept());
 
-
-		CouchDbProperties properties = new CouchDbProperties()
-		.setDbName("ankith")
-		.setCreateDbIfNotExist(true)
-		.setProtocol("http")
-		.setHost("127.0.0.1")
 		//.setHost("aiyarankith.cloudbees.cloudant.com")
-		.setPort(5984)
-		.setConnectionTimeout(0);
 		//.setUsername("aiyarankith.cloudbees")
 		//.setPassword("bs5854fh4I3nnGYJQ5e58FML");
-		CouchDbClient dbClient = new CouchDbClient(properties);
 
-		// CouchDbClient dbClient = new CouchDbClient("./couchdb.properties");
 		Map<String, Object> map = new HashMap<>();
 		map.put("_id", (details.getc_id()).toLowerCase());
 
@@ -134,49 +132,54 @@ public class UserServiceImpl implements UserService {
 		}
 		return result;
 
-		//System.out.println("Find Result :" +json.toString(dbClient.find("asdgads")));
-		//model.addAttribute("message", "Hello Spring MVC Framework!"+dbClient.getBaseUri());
-		//System.out.println(dbClient.getBaseUri());
 	}
 
 	@Override
-	public Object getCourse(Course course_details) {
+	public JsonObject getCourse(Course course_details) {
 
+		JsonObject json = null;
+		try {
+			json = dbClient.find(JsonObject.class, course_details.getcourse_id());
+			System.out.println("JSON at GET:: "+json);
 
-		CouchDbProperties properties = new CouchDbProperties()
-		.setDbName("ankith")
-		.setCreateDbIfNotExist(true)
-		.setProtocol("http")
-		.setHost("127.0.0.1")
-		//.setHost("aiyarankith.cloudbees.cloudant.com")
-		.setPort(5984)
-		.setConnectionTimeout(0);
-		//.setUsername("aiyarankith.cloudbees")
-		//.setPassword("bs5854fh4I3nnGYJQ5e58FML");
-		CouchDbClient dbClient = new CouchDbClient(properties);
+		} catch (Exception e){
 
-		// CouchDbClient dbClient = new CouchDbClient("./couchdb.properties");
-		// Map<String, Object> map = new HashMap<>();
+			e.printStackTrace();
+		}
+		return json; 		
 
-
-
-		//System.out.println("Find Result");
-		//ArrayList<String> result = (ArrayList <String>) map.get(course_details.getcourse_id().toLowerCase());
-		JsonObject json = dbClient.find(JsonObject.class, course_details.getcourse_id());
-
-		//HashMap<String,Object> result = new ObjectMapper().readValue(json, HashMap.class); 	
-		//JSONObject result = (JSONObject)new JSONParser().parse(json);
-		System.out.println("Course result :" +json);
-
-
-
-		return json;
-
-		//System.out.println("Find Result :" +json.toString(dbClient.find("asdgads")));
-		//model.addAttribute("message", "Hello Spring MVC Framework!"+dbClient.getBaseUri());
-		//System.out.println(dbClient.getBaseUri());
 	}
 
+
+	@Override
+	public List<JsonObject> getCourseRatings(Course course_details) {
+
+		System.out.println("Get Ratings::: "+course_details.getcourse_id());
+
+		List<JsonObject> json = null;
+		try {
+			/*
+			 * CouchDB query for Retriving Comments
+			 * http://127.0.0.1:5984/demo/_design/views/_view/by_comments?key="cmpe271"
+			 */
+			json = dbClient.view("views/by_comments")
+					.key(course_details.getcourse_id())
+					.descending(true)
+					.query(JsonObject.class);
+			if (json.isEmpty()) {
+				JsonObject error = new JsonObject();
+				error.addProperty("error_type", "data_missing");
+				error.addProperty("error_message", "Course Ratings data missing");
+				json.add(error);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("Get Ratings::: "+json);
+		return json;		
+
+	}
 	/* (non-Javadoc)
 	 * @see com.ratemycourse.services.UserService#verifyAndUpdateRating(java.lang.String)
 	 */
@@ -347,4 +350,5 @@ public class UserServiceImpl implements UserService {
 		}
 		return courseList;
 	}
+
 }

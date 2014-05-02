@@ -1,6 +1,9 @@
 package com.ratemycourse.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ratemycourse.model.Course;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.ratemycourse.model.User;
+import com.ratemycourse.model.Rss;
 import com.ratemycourse.services.UserService;
+import com.ratemycourse.model.Course;
 //import com.ratemycourse.services.UserService;
 
 
@@ -99,8 +105,14 @@ public class MainController {
 	//Course Page Action to Search
 	@RequestMapping(value="/get_course", method = RequestMethod.POST)
 	public ModelAndView get_course(@ModelAttribute("course_id") Course course_id) {
-		//List<String> course_details = userService.getCourse(course_id);
-		Object course_details = userService.getCourse(course_id);
+		JsonObject course_details = userService.getCourse(course_id);
+		List<JsonObject> course_ratings = userService.getCourseRatings(course_id);
+		
+		 Map<String, Object> map = new HashMap<>();
+		 map.put("ratings", course_ratings);
+		 map.put("details", course_details);
+		 ModelAndView mav = new ModelAndView("someView", map);
+		 mav.addAllObjects(map);
 
 		return new ModelAndView("course_ratings", "course_details", course_details);
 	}
@@ -109,28 +121,36 @@ public class MainController {
 
 	//About Page
 	@RequestMapping(value="/about", method = RequestMethod.GET)
-	public String about() {
-		return "about";
+	public ModelAndView about() {
+		Map m1 = new HashMap();
+		m1.put("Zara", "8");
+		m1.put("Mahnaz", "31");
+		m1.put("Ayan", "12");
+		m1.put("Daisy", "14");
+
+		return new ModelAndView("about", "mav", m1);
+
 	}
 	//User rating and comment confirmation
-	@RequestMapping(value="/confirm_user_activity", method = RequestMethod.GET)
-	public ModelAndView verifyAndUpdateRating(@RequestParam String key, HttpServletRequest req) {
-		String message = userService.verifyAndUpdateRating(key);
-		List<String> RSSList = userService.RSSList();
-		req.setAttribute("message", message);
-		return new ModelAndView("index", "RSSList", RSSList);
-	}
+		@RequestMapping(value="/confirm_user_activity", method = RequestMethod.GET)
+		public ModelAndView verifyAndUpdateRating(@RequestParam String key, HttpServletRequest req) {
+			String message = userService.verifyAndUpdateRating(key);
+			List<String> RSSList = userService.RSSList();
+			req.setAttribute("message", message);
+			return new ModelAndView("index", "RSSList", RSSList);
+		}
 
-	//To save user rating and comments
-	@RequestMapping(value="/save_rating", method = RequestMethod.POST)
-	public String saveRating(@RequestParam String userName,
-			@RequestParam String email,
-			@RequestParam String userType,
-			@RequestParam String userRating,
-			@RequestParam String comment,
-			HttpServletRequest req) {
-		String message = userService.saveRating(userName, email, userType, userRating, comment);
-		req.setAttribute("message", message);
-		return "course_ratings";
-	}
+		//To save user rating and comments
+		@RequestMapping(value="/save_rating", method = RequestMethod.POST)
+		public String saveRating(@RequestParam String userName,
+				@RequestParam String email,
+				@RequestParam String userType,
+				@RequestParam String userRating,
+				@RequestParam String comment,
+				HttpServletRequest req) {
+			String message = userService.saveRating(userName, email, userType, userRating, comment);
+			req.setAttribute("message", message);
+			return "course_ratings";
+		}
+
 }
