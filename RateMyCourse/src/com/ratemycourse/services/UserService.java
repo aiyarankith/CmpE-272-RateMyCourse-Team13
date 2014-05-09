@@ -67,4 +67,10 @@ public interface UserService {
 	 * @return top course list as JsonObject
 	 */
 	public List<JsonObject> getNTopRtdCourse(final int count);
+	
+	/**
+	 * To get top industry oriented courses
+	 * @return top industry oriented course list as JsonObject
+	 */
+	public List<JsonObject> getIndOrientedCourse(final int count);
 }

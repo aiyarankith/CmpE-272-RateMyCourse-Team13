@@ -72,12 +72,15 @@ public class MainController {
 		}
 		return "redirect:add_course";
 	}
-
 	//Most Rated Course Page
-	@RequestMapping(value="/most_rated_course", method = RequestMethod.GET)
-	public String most_rated_course() {
-		return "most_rated_course";
-	}
+		@RequestMapping(value="/most_rated_course", method = RequestMethod.GET)
+		public ModelAndView most_rated_course(@RequestParam(value = "numOfCourses", defaultValue = "10") int count) {
+			List<JsonObject> courseList = userService.getNTopRtdCourse(count);
+			return new ModelAndView("most_rated_course", "courseList", courseList);
+		}
+
+	
+	
 
 	//Most Followed Course Page
 	@RequestMapping(value="/most_followed_course", method = RequestMethod.GET)
@@ -87,8 +90,9 @@ public class MainController {
 
 	//Most Industry Course Page
 	@RequestMapping(value="/industry_oriented_course", method = RequestMethod.GET)
-	public String industry_oriented_course() {
-		return "industry_oriented_course";
+	public ModelAndView industry_oriented_course(@RequestParam(value = "numOfCourses", defaultValue = "10") int count) {
+		List<JsonObject> courseList = userService.getIndOrientedCourse(count);
+		return new ModelAndView("industry_oriented_course", "courseList", courseList);
 	}
 
 	//Top Courses College wise Page

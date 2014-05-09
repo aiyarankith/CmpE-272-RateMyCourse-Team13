@@ -1,4 +1,4 @@
-package com.ratemycourse.services;
+  package com.ratemycourse.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -338,6 +338,7 @@ public class UserServiceImpl implements UserService {
 			courseList = dbClient.view("views/by_top_rated")
 					.descending(true)
 					.limit(count)
+					
 					.query(JsonObject.class);
 			if (courseList.isEmpty()) {
 				JsonObject error = new JsonObject();
@@ -349,6 +350,36 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 		}
 		return courseList;
+}
+
+
+
+/* (non-Javadoc)
+ * @see com.ratemycourse.services.UserService#getIndOrientedCourse(int)
+ */
+@Override
+public List<JsonObject> getIndOrientedCourse(int count) {
+	List<JsonObject> courseList = null;
+	try {
+		/*
+		 * Corresponding sample CouchDB query
+		 * http://127.0.0.1:5984/demo/_design/views/_view/by_top_ind_user_rated?descending=true&limit=10
+		 */
+		courseList = dbClient.view("views/by_top_ind_user_rated")
+				.descending(true)
+				.limit(count)
+				.query(JsonObject.class);
+		if (courseList.isEmpty()) {
+			JsonObject error = new JsonObject();
+			error.addProperty("error_type", "data_missing");
+			error.addProperty("error_message", "Course data missing");
+			courseList.add(error);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
 	}
+	return courseList;
+}
 
 }
+

@@ -123,6 +123,7 @@
 								<%=details.get("name").getAsString() %>
 								<b class="settingsicon">Course ID:</b>
 								<%=details.get("c_id").getAsString() %>
+								
 							</p>
 							<p>
 								<b class="settingsicon">Department: </b><%=details.get("dept").getAsString() %>
