@@ -1,40 +1,106 @@
 <!DOCTYPE HTML>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.lang.*" %>
+    <%@ page import="java.io.*" %>
+    <%@ page import="java.util.*" %>
+<%@ page import="java.util.ArrayList" %>
+<%@page import="org.json.simple.*"%>
+<%@page import="org.json.simple.parser.JSONParser"%>
+<%@page import="com.google.gson.JsonObject"%>
 <html>
 <head>
 <meta charset="utf-8">
-<title>Response Blogging Page</title>
-<meta name="description" content="Response Premium Html Responsive Template - Blog Section" />
-<meta name="keywords" content="Responsive Html, Responsive Template, Response, Free Icons, List Section" />
-<meta name="apple-mobile-web-app-capable" content="yes" /> 
-<meta name="apple-mobile-web-app-status-bar-style" content="grey" /> 
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" /> 
-<link rel="shortcut icon" href="http://www.derby-web-design-agency.co.uk/themes/response/images/favicon.png" /> 
-<link rel="bookmark icon" href="http://www.derby-web-design-agency.co.uk/themes/response/images/favicon.png" /> 
+<title>Top 10 Most Followed Courses</title>
+<style type="text/css">
+#chartDiv {
+	width		: 90%;
+	height		: 500px;
+	font-size	: 11px;
+	
+}
+</style>
+
+
 <link href="css/main.css" rel="stylesheet" type="text/css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.nivo.slider.js"></script>
+<script type="text/javascript" src="js/amcharts.js"></script>
+<script type="text/javascript" src="js/serial.js"></script>
+<script type="text/javascript" src="http://docs.amcharts.com/2/javascriptcharts/AmGraph#fillColors"></script>
+
 <script src="js/twitter.js"></script>    
 <script src="js/custom.js"></script>   
-<script>
-	//// Start Simple Sliders ////
-	$(function() {
-		setInterval("rotateDiv()", 10000);
-	});
-		
-		function rotateDiv() {
-		var currentDiv=$("#simpleslider div.current");
-		var nextDiv= currentDiv.next ();
-		if (nextDiv.length ==0)
-			nextDiv=$("#simpleslider div:first");
-		
-		currentDiv.removeClass('current').addClass('previous').fadeOut('2000');
-		nextDiv.fadeIn('3000').addClass('current',function() {
-			currentDiv.fadeOut('2000', function () {currentDiv.removeClass('previous');});
-		});
-	
-	}
-	//// End Simple Sliders //// 
-</script> 
+
+<script type="text/javascript">
+<% List<JsonObject> details = null;
+JsonObject name=null;
+System.out.println("helloooo"); %>
+
+<% if (request.getAttribute("courseList") != null) { %>
+<% details = (List<JsonObject>)request.getAttribute("courseList"); 
+ Iterator itr=details.iterator();
+
+ while(itr.hasNext()){
+	 name=(JsonObject)itr.next();
+	 
+	name.add("coursename", name.get("value"));
+	//System.out.println(name);
+}
+System.out.println(details);
+//System.out.println(name);
+ 
+} %>
+
+
+
+var chart;
+// var data=[{"id": "EE 234", "key":5, "value": "intro"}, {"id": "CE235", "key": 4, "value":"gsdhfaj"}];
+var data= <%=details %>
+
+function handleClick(event)
+{
+	alert("under construction");
+}
+
+
+AmCharts.ready(function() {
+    
+    chart = new AmCharts.AmSerialChart();
+    chart.dataProvider = data;
+    chart.categoryField = "id";
+    chart.startDuration = 1;
+    chart.columnWidth=0.2;
+    chart.columnSpacing= 5;
+    chart.angle=30;
+    chart.depth3D=15;
+    chart.color="#AD3E28";
+    chart.handDrawn=true;
+    
+    
+  
+    chart.addListener("clickGraphItem", handleClick);
+    
+
+    
+    var categoryAxis = chart.categoryAxis;
+    categoryAxis.labelRotation = 60;
+    categoryAxis.gridPosition = "start";
+
+    
+    var graph = new AmCharts.AmGraph();
+    graph.valueField = "key";
+    graph.balloonText = "[[coursename]]: [[value]]";
+    graph.type = "column";
+    graph.lineAlpha = 0;
+    graph.fillAlphas = 0.8;
+    graph.fillColors="#2897AD"
+    chart.addGraph(graph);
+
+    chart.write("chartDiv");
+});
+
+
+</script>
 </head>
 
 <body>
@@ -49,7 +115,7 @@
     <!-- Start H1 Title -->
     <div class="titlesnormal">
     
-    	<h1>Response Blogging Page</h1>
+    	<h1>Top 10 Most Followed Courses</h1>
         
         <span></span>
     
@@ -59,235 +125,10 @@
     <div id="main-wrap">
         
         <!-- Start Left Section -->
-        <div class="leftsection leftsectionalt">
-        
-        	<!-- Start Blog Post -->
-        	<div class="blogwrapstart">
-            
-            	<div class="blogtitle"><h3><a href="blog-post.html" title="5 ways to get top of google">5 ways to get top of google</a></h3></div>
-                
-                <div class="blogbody">
-                	<!-- Start Blog Image -->
-                	<div class="blogimage"><a href="blog-post.html"><img src="images/5google.jpg" alt="5 Ways to get top of google"></a></div>
-                    <!-- End Blog Text -->
-                    <!-- Start Blog Information -->
-                    <div class="bloginfo">
-                    
-                   	  <p class="usericon">Posted By: <span>Admin</span></p>
-                      <p class="calendericon">On: <span>March 15th 2010</span></p>
-                      <p class="settingsicon">Category: <span>Loremipsom</span></p>
-                      <p class="tagicon">Tags: <span>SEO, Google</span></p>
-                    
-                    </div>
-                    <!-- End Blog Information -->
-                    <!-- Start Blog Text -->
-                    <div class="blogtext">
-                    
-                    	<p>Lorem ipsum dolor sit amet, consectetur elit. Maecenas non ipsum nunc, nec sagittis tellus Maecenas non ipsum nunc, nec sagittis tellus.Lorem ipsum dolor sit amet, consectetur elit. Maecenas 
-non ipsum nunc, nec sagittis tellus Maecenas non ipsum nunc, nec sagittis tellus.</p>
-                    
-						<p class="blogbutton"><a href="blog-post.html" title="Read More" class="smallsmoothrectange orangebutton">Read More</a></p>
-                    
-                    </div>
-                	<!-- End Blog Text -->
-                </div>
-                
-                <span class="box-arrow"></span>
-            
-            </div>
-            <!-- End Blog Post -->
-            
-        	<!-- Start Blog Post -->
-        	<div class="blogwrap">
-            
-            	<div class="blogtitle"><h3><a href="blog-post.html" title="5 ways to make your code cleaner">5 ways to make your code cleaner</a></h3></div>
-                
-                <div class="blogbody">
-                	<!-- Start Blog Image -->
-                	<div class="blogimage"><a href="blog-post.html"><img src="images/5code.jpg" alt="5 ways to make your code cleaner"></a></div>
-                    <!-- End Blog Text -->
-                    <!-- Start Blog Information -->
-                    <div class="bloginfo">
-                    
-                   	  <p class="usericon">Posted By: <span>Admin</span></p>
-                      <p class="calendericon">On: <span>March 15th 2010</span></p>
-                      <p class="settingsicon">Category: <span>Loremipsom</span></p>
-                      <p class="tagicon">Tags: <span>SEO, Google</span></p>
-                    
-                    </div>
-                    <!-- End Blog Information -->
-                    <!-- Start Blog Text -->
-                    <div class="blogtext">
-                    
-                    	<p>Lorem ipsum dolor sit amet, consectetur elit. Maecenas non ipsum nunc, nec sagittis tellus Maecenas non ipsum nunc, nec sagittis tellus.Lorem ipsum dolor sit amet, consectetur elit. Maecenas 
-non ipsum nunc, nec sagittis tellus Maecenas non ipsum nunc, nec sagittis tellus.</p>
-
-						<p class="blogbutton"><a href="blog-post.html" title="Read More" class="smallsmoothrectange orangebutton">Read More</a></p>
-                    
-                    </div>
-                	<!-- End Blog Text -->
-                </div>
-                
-                <span class="box-arrow"></span>
-            
-            </div>
-            <!-- End Blog Post -->
-            
-        	<!-- Start Blog Post -->
-        	<div class="blogwrap">
-            
-            	<div class="blogtitle"><h3><a href="blog-post.html" title="how to sell on themeforest">how to sell on themeforest</a></h3></div>
-                
-                <div class="blogbody">
-                	<!-- Start Blog Image -->
-                	<div class="blogimage"><a href="blog-post.html"><img src="images/selltheme.jpg" alt="how to sell on themeforest"></a></div>
-                    <!-- End Blog Text -->
-                    <!-- Start Blog Information -->
-                    <div class="bloginfo">
-                    
-                   	  <p class="usericon">Posted By: <span>Admin</span></p>
-                      <p class="calendericon">On: <span>March 15th 2010</span></p>
-                      <p class="settingsicon">Category: <span>Loremipsom</span></p>
-                      <p class="tagicon">Tags: <span>SEO, Google</span></p>
-                    
-                    </div>
-                    <!-- End Blog Information -->
-                    <!-- Start Blog Text -->
-                    <div class="blogtext">
-                    
-                    	<p>Lorem ipsum dolor sit amet, consectetur elit. Maecenas non ipsum nunc, nec sagittis tellus Maecenas non ipsum nunc, nec sagittis tellus.Lorem ipsum dolor sit amet, consectetur elit. Maecenas 
-non ipsum nunc, nec sagittis tellus Maecenas non ipsum nunc, nec sagittis tellus.</p>
-
-						<p class="blogbutton"><a href="blog-post.html" title="Read More" class="smallsmoothrectange orangebutton">Read More</a></p>
-                    
-                    </div>
-                	<!-- End Blog Text -->
-                </div>
-                
-                <span class="box-arrow"></span>
-            
-            </div>
-            <!-- End Blog Post -->
-            
-            <!-- Start Pagination -->
-            <div class="blogwrap">
-            
-                <div class="blogpagination">
-                
-                    <ul>
-                        <li><a href="#" title="Start" class="normal">Start</a></li>
-                        <li><a href="#" title="Previous" class="normal">&lt;Prev</a></li>
-                        <li><a href="#" title="1" class="normal">1</a></li>
-                        <li><a href="#" title="2" class="normal">2</a></li>
-                        <li><a href="#" title="3" class="normal">3</a></li>
-                        <li><a href="#" title="4" class="normal">4</a></li>
-                        <li><a href="#" title="5" class="normalactive">5</a></li>
-                        <li><a href="#" title="6" class="normal">6</a></li>
-                        <li><a href="#" title="7" class="normal">7</a></li>
-                        <li><a href="#" title="8" class="normal">8</a></li>
-                        <li><a href="#" title="9" class="normal">9</a></li>
-                        <li><a href="#" title="10" class="normal">10</a></li>
-                        <li><a href="#" title="Next" class="normal">Next&gt;</a></li>
-                        <li><a href="#" title="Last" class="normal">Last</a></li>
-                    </ul>
-                
-                </div>  
-                
-                <span class="box-arrow"></span>
-            </div> 
-            <!-- End Pagination -->
-        
-        </div>
+        <div id="chartDiv"></div>	
         <!-- End Left Section -->
         
-        <!-- Start Right Section -->
-        <div class="rightsection rightsectionalt">
         
-        	<!-- Start Blog Widget -->
-            <div class="blogwidgetstart">
-            	<!-- Start Advertising Widget -->
-            	<div class="widgettitle"><h4>Advertising</h4></div>
-                
-                <div class="widgetbody">
-                
-                	<div class="blogadvertising">
-                    
-                    <a href="#"><img src="images/advertising/themeadvertising.jpg"  alt="Themeforest"></a>
-                    <a href="#"><img src="images/advertising/audioadvertising.jpg" alt="Audiojungle"></a>
-                    <a href="#"><img src="images/advertising/graphicadvertising.jpg" alt="Grahpicrive"></a>
-                    <a href="#"><img src="images/advertising/tutorialadvertising.jpg" alt="Tutsplus"></a>
-                    
-                    </div>
-                
-              </div>
-              <!-- End Advertising Widget -->
-              <span class="box-arrow"></span>
-            
-            </div>
-            <!-- End Blog Widget -->
-            
-        	<!-- Start Blog Widget -->
-            <div class="blogwidget">
-            	<!-- Start Categories Widget -->
-            	<div class="widgettitle"><h4>Blog Categories</h4></div>
-                
-                <div class="widgetbody">
-                
-                	<div class="blogcategories">
-                    
-                    	<ul>
-                        	<li><a href="#" title="All Blogs">All Blogs</a></li>
-                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
-                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
-                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
-                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
-                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
-                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
-                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
-                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
-                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
-                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
-                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
-                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>                            
-                        </ul>
-                    
-                    </div>
-                
-              </div>
-              <!-- End Categories Widget -->
-              <span class="box-arrow"></span>
-            
-            </div>
-            <!-- End Blog Widget -->
-            
-        	<!-- Start Blog Widget -->
-            <div class="blogwidget">
-            	<!-- Start Categories Widget -->
-            	<div class="widgettitle"><h4>Top 5 Blog Posts</h4></div>
-                
-                <div class="widgetbody">
-                
-                	<div class="blogcategories">
-                    
-                    	<ul>
-                        	<li><a href="#" title="All Blogs">Maecenas non ipsum nunc</a></li>
-                            <li><a href="#" title="All Blogs">Lorem ipsum dolor </a></li>
-                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
-                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
-                            <li><a href="#" title="All Blogs">Maecenas non ipsum nunc</a></li>                        
-                        </ul>
-                    
-                    </div>
-                
-              </div>
-              <!-- End Categories Widget -->
-              <span class="box-arrow"></span>
-            
-            </div>
-            <!-- End Blog Widget -->
-        
-        </div>
-        <!-- End Right Section -->
     
     </div>
     <!-- End Main Body Wrap -->

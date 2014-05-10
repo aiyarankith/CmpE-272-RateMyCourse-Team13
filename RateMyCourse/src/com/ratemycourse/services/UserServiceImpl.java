@@ -333,7 +333,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			/*
 			 * Corresponding sample CouchDB query
-			 * http://127.0.0.1:5984/monish/_design/views/_view/by_top_rated?descending=true&limit=10
+			 * http://127.0.0.1:5984/demo/_design/views/_view/by_top_rated?descending=true&limit=10
 			 */
 			courseList = dbClient.view("views/by_top_rated")
 					.descending(true)
@@ -380,6 +380,34 @@ public List<JsonObject> getIndOrientedCourse(int count) {
 	}
 	return courseList;
 }
+
+/* (non-Javadoc)
+ * @see com.ratemycourse.services.UserService#getMostFollowedCourse(int)
+ */
+@Override
+public List<JsonObject> getMostFollowedCourse(int count) {
+	List<JsonObject> courseList = null;
+	try {
+		/*
+		 * Corresponding sample CouchDB query
+		 * http://127.0.0.1:5984/demo/_design/views/_view/by_most_no_of_comments?descending=true&limit=10
+		 */
+		courseList = dbClient.view("views/by_most_no_of_comments")
+				.descending(true)
+				.limit(count)
+				.query(JsonObject.class);
+		if (courseList.isEmpty()) {
+			JsonObject error = new JsonObject();
+			error.addProperty("error_type", "data_missing");
+			error.addProperty("error_message", "Course data missing");
+			courseList.add(error);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	return courseList;
+}
+
 
 }
 

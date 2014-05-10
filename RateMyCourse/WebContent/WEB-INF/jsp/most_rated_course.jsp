@@ -32,61 +32,90 @@
 <script src="js/custom.js"></script>   
 
 <script type="text/javascript">
-<% List<JsonObject> details = null; 
-System.out.println("helloooo");%>
+<% List<JsonObject> details = null;
+JsonObject name=null;
+System.out.println("helloooo"); %>
 
 <% if (request.getAttribute("courseList") != null) { %>
 <% details = (List<JsonObject>)request.getAttribute("courseList"); 
+ Iterator itr=details.iterator();
+
+ while(itr.hasNext()){
+	 name=(JsonObject)itr.next();
+	 
+	name.add("coursename", name.get("value"));
+	//System.out.println(name);
+}
 System.out.println(details);
+//System.out.println(name);
+ 
 } %>
 
-var data= <%= details %>
 
-var chart = AmCharts.makeChart("chartDiv", {
-    "type": "serial",
-    "theme": "none",
-    "columnWidth:": 0.6,
-    "columnSpacing": 5,
-    "angle" : 30,
-    "depth3D": 15,
-    "color": "#3AB1A3",
-    "handDrawn": true,
-    "dataProvider": data,
-    "valueAxes": [{
-        "axisAlpha": 0,
-        "position": "top"
-    }],
-    "startDuration": 1,
-    "graphs": [{
-        "balloonText": "Courses:[[value]]",
-        "fillAlphas": 0.8,
-        "fillColors": "#DD3245",
-        "lineAlpha": 0.2,
-        "title": "Rate",
-        "type": "column",
-        "color": "#B13A48",
-        "valueField": "id"
-    }, {
-        "balloonText": "Ratings:[[value]]",
-        "fillAlphas": 0.8,
-        "fillColors": "#B13A48",
-        "lineAlpha": 0.2,
-        "title": "Courses",
-        "type": "column",
-        "valueField": "key"
-    }],
-    "rotate": false,
-    "categoryField": "id",
-    "categoryAxis": {
-        "gridPosition": "start",
-        "position": "left"
-    },
-	"exportConfig":{
-		"menuBottom":"20px",
-        "menuRight":"20px",
-        
-    }
+
+var chart;
+// var data=[{"id": "EE 234", "key":5, "value": "intro"}, {"id": "CE235", "key": 4, "value":"gsdhfaj"}];
+var data= <%=details %>
+
+function handleClick(event)
+{
+	//alert("under construction");
+	$.ajax(
+			{
+	type: "post",
+	url: "/com/MainController/get_course",
+	success:
+		function(result)
+		{
+			if(result.success)
+				console.log("ffhdfhsjfhuf");
+		},
+		error: function(req,status,error){
+			window.alert("Error");
+		}
+	
+	
+			});
+	
+}
+
+
+AmCharts.ready(function() {
+   
+    chart = new AmCharts.AmSerialChart();
+    chart.dataProvider = data;
+    chart.categoryField = "id";
+    chart.startDuration = 1;
+    chart.columnWidth=0.2;
+    chart.columnSpacing= 5;
+    chart.angle=30;
+    chart.depth3D=15;
+    chart.color="#3AB1A3";
+    chart.handDrawn=true;
+    
+   
+    chart.addListener("clickGraphItem", handleClick);
+    
+
+   
+    var categoryAxis = chart.categoryAxis;
+    categoryAxis.labelRotation = 60;
+    categoryAxis.gridPosition = "start";
+
+    
+    var graph = new AmCharts.AmGraph();
+    graph.valueField = "key";
+    graph.balloonText = "[[coursename]]: [[value]]";
+    graph.type = "column";
+    graph.lineAlpha = 0;
+    graph.fillAlphas = 0.8;
+    graph.fillColors="#C7525F"
+    chart.addGraph(graph);
+
+    chart.write("chartDiv");
 });
+
+
 </script>
 </head>
 
