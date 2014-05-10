@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.ratemycourse.model.User;
 import com.ratemycourse.model.Rss;
+import com.ratemycourse.services.SearchService;
 import com.ratemycourse.services.UserService;
 import com.ratemycourse.model.Course;
 import com.ratemycourse.model.Comment;
@@ -31,6 +31,8 @@ public class MainController {
 	@Autowired
 	UserService userService;
 
+	@Autowired
+	SearchService searchService;
 	//Index Page
 		@RequestMapping(value = "/index", method = RequestMethod.GET)
 		public ModelAndView getUserLIst() {
@@ -243,5 +245,23 @@ public class MainController {
 		req.setAttribute("message", message);
 		return "course_ratings";
 	}
-
+	/**
+	 * Search courses based on various categories,
+	 * 	1)Course Name
+	 * 	2)Course ID
+	 * 	3)Course Description
+	 * @param searchValue
+	 * @param searchCategory
+	 * @param searchLevel
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping(value="/search", method = RequestMethod.POST)
+	public ModelAndView search(@RequestParam String searchValue,
+			@RequestParam String searchCategory,
+			@RequestParam(value="searchLevel", defaultValue="FULL") String searchLevel,
+			HttpServletRequest req) {
+		List<JsonObject> courseList = searchService.search(searchValue.trim().toLowerCase(), searchCategory, searchLevel);
+		return new ModelAndView("search", "courseList", courseList);
+	}
 }
