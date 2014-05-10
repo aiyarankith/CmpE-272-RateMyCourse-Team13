@@ -46,13 +46,32 @@ public class MainController {
 		return "registration";
 	}
 
+	//login page
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login_page(@ModelAttribute User user) {
+		
+		return "login";
+	}
+
 	//Registration Button 
 	@RequestMapping("/insert")
-	public String insertData(@ModelAttribute User user) {
+	public String insertData(@ModelAttribute("user") User user) {
 		System.out.println("Data At Controller:: "+user);
 		if (user != null)
 			userService.insertData(user);
-		return "index";
+		return "redirect:index";
+	}
+	
+	//login page for admin
+	@RequestMapping("/fetchdata")
+	public String fetchData(@ModelAttribute User user) {
+		System.out.println("Data At fetch:: "+user);
+	 
+	  boolean check= userService.fetchData(user);
+	  if(check==true)
+	 return "redirect:index";
+	  else
+		  return "login";
 	}
 
 	//CouchDB Insert Course Page (Admin)

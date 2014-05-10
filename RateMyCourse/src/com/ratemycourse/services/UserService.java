@@ -9,6 +9,7 @@ import com.ratemycourse.model.*;
 public interface UserService {
 
 	public void insertData(User user);
+	public boolean fetchData(User user);
 
 	/**
 	 * To Retrive RSS Feeds from any sourse.

@@ -52,19 +52,72 @@ public class UserServiceImpl implements UserService {
 	public void insertData(User user) {
 
 		String sql = "INSERT INTO user "
-				+ "(user_id, first_name,last_name, gender, city) VALUES (?, ?, ?, ?,?)";
+			    + "(first_name,last_name, email, password, state) VALUES (?, ?, ?,?,?)";
 
-		System.out.println("Values : "+user);
+			  System.out.println("Values : "+user.getLastName());
+			 
+			JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-
-		jdbcTemplate.update(
-				sql,
-				new Object[] { user.getUserId(), user.getFirstName(), user.getLastName(),
-						user.getGender(), user.getCity() });
+			  jdbcTemplate.update(
+			    sql,
+			    new Object[] {user.getFirstName(), user.getLastName(),
+			        user.getEmail(), user.getPassword(),user.getState() });
 
 
 	}
+	@Override
+	 public boolean fetchData(User user) {
+		 String email=user.getEmail();
+		 String password=user.getPassword();
+		 
+		 JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+
+			String username="";
+			String pass="";	 
+		 
+	 String sql = "select email, password from user where email = '"+email+"' and password='"+password+"'";
+		  List results=jdbcTemplate.queryForList(sql);
+		  for (Object result : results) {
+			  System.out.println(result);
+	          HashMap map = (HashMap) result;
+			
+			/*Map <String,Object> results = 
+			        JdbcTemplate.queryForMap(
+			        "SELECT email, password FROM user WHERE email = ? AND password = ? "
+			        ,user.getEmail(), user.getPassword());*/
+			
+	          /*email=(String)result.get("email");
+	          password=(String)result.get("password");*/
+	        System.out.println("Email " +email);
+	          System.out.println ("password " +password);
+	          for (Object key : map.keySet()) {
+	        	  map.get(1);
+	        	  
+	        	  
+	        	  if(key.equals("email")){
+	        		  username=(String)map.get(key);
+	        	  }
+	        	  else{
+	        		  pass=(String)map.get(key);
+	        	  }
+	              System.out.print(key + " = " + map.get(key) + "; ");
+	          }
+		      }
+	          
+
+		 		
+		 		if((email.equals(username)) && (password.equals(pass))){
+		 			System.out.println("Apply Login");
+		 			return true;
+		 		} else {
+		 			
+		 		
+		 		System.out.println("Do not apply login");
+		 		return false;
+		  }
+	}
+
+	
 
 	@Override
 	public List<String> RSSList() {

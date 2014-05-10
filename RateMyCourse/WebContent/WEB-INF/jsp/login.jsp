@@ -54,14 +54,14 @@
 		<%@include file="includes/menu.jsp"%>
 		<div class="clear"></div>
 		<!-- Start Social & Logo area -->
-		
+	
 	</div>
 
 	<div id="main">
 		<!-- Start H1 Title -->
 		<div class="titlesnormal">
 
-			<h1>Registration Page</h1>
+			<h1>Login Page</h1>
 
 			<span></span>
 
@@ -78,99 +78,140 @@
 
 					<div class="blogtitle">
 						<h3>
-							<a href="blog-post.html" title="5 ways to get top of google">Admin-Registration</a>
+							<a href="blog-post.html" title="5 ways to get top of google">login
+</a>
 						</h3>
 					</div>
 
 					<div class="blogbody">
-						<div class="contacttextarea">
+						<div class="blogtext">
 
-							<form:form method="post" id="RegistrationForm"
-								action="${pageContext.request.contextPath}/insert"
+							<form:form method="post" id="loginForm"
+								action="${pageContext.request.contextPath}/fetchdata"
 								modelAttribute="user">
 								<p>
-								
 									<%--                         User ID: <form:input path="userId" /><br><br><br> --%>
-									<div class="required"><label>First Name :</label><form:input path="firstName" placeholder="Firstname" id="fname" /></div> <br>	
-					                <div class="required"><label>Last Name  :</label><form:input path="lastName" placeholder="Lastname" id="lname" /></div><br>
-									<div class="required"><label>Email      :</label><form:input path="email" placeholder="email" id="email"/></div> <br>
-									<div class="required"><label>State      :</label><form:input path="state" placeholder="state" id="state" /></div><br> 
-									<div class="required"><label>Password   :</label><form:input path="password" placeholder="password" class="password" id="password" type="password" /></div><br>
-									<div align="center"><input type="submit" id="SubmitButton" value="Register"  />	</div>							
+									
+									<div class="required"><label>Email :</label><form:input path="email" placeholder="Email" id="email" /> </div><br>
+									<div class="required"><label> Password :</label><form:input path="password" placeholder="password" class="password" id="password" /></div><br>
+									
+									<input type="submit" id="submitButton" value="Login" />
+								</p>
 							</form:form>
 
 						</div>
 						<!-- End Blog Text -->
 					</div>
 
-					<span class="box-arrow"></span>
 
-				</div>
-				<!-- End Blog Post -->
-
-				<!-- Start Blog Post -->
-			<!--  	<div class="blogwrap">
-
-					<div class="blogcommenttitle">
-						<h3>2 Comments</h3>
-					</div>
-					<span class="box-arrow"></span>
-
-				</div> -->
-				
-				
-				
-		
-				<!-- End Blog Widget -->
-
-				<!-- Start Blog Widget -->
-				<div class="blogwidget">
-					<!-- Start Categories Widget -->
-					<div class="widgettitle">
-						<h4>Top 5 Blog Posts</h4>
-					</div>
-
-					<div class="widgetbody">
-
-						<div class="blogcategories">
-
-							<ul>
-								<li><a href="#" title="All Blogs">About</a></li>
-								<li><a href="#" title="All Blogs">Most Rated Course</a></li>
-								<li><a href="#" title="All Blogs">Most Followed Course </a></li>
-								<li><a href="#" title="All Blogs">Industry Oriented Course</a></li>
-								<li><a href="#" title="All Blogs">Top Courses by College</a></li>
-							</ul>
-
-						</div>
-
-					</div>
-					<!-- End Categories Widget -->
-					<span class="box-arrow"></span>
-
-				</div>
-				<!-- End Blog Widget -->
-
-			</div>
-			<!-- End Right Section -->
-
-		</div>
+					
+			
 		<!-- End Main Body Wrap -->
 
 	</div>
-	<!-- Start Footer Bottom -->
-    <%@include file="includes/footer_bottom.jsp" %>
-	<!-- End Footer Bottom -->
+	<!-- Start Footer -->
+	<div id="footer">
+		<!-- Start Footer Top -->
+		<div id="footertop">
 
+			<div class="footerwrap">
+				<!-- Start Latest Tweets -->
+				<div id="latest-tweets">
+					<div id="twittertitle">Latest Tweets</div>
+					<div id="twitterbody"></div>
+				</div>
+				<!-- End Latest Tweets -->
+				<!-- Start Useful Links -->
+				<!-- <div id="useful_links">
+					<div id="usefultitle">Latest Tweets</div>
+					<div id="usefulbody">
 
-<!-- End Footer -->
-<!-- Start Scroll To Top Div -->
-<div id="scrolltab"></div>
-<!-- End Scroll To Top Div -->
+						<ul>
 
+							<li><a href="#" title="">Lorem ipsum dolor sit </a></li>
+							<li><a href="#" title="">Maecenas non ipsum nunc</a></li>
+							<li><a href="#" title="">Lorem ipsum dolor </a></li>
+							<li><a href="#" title="">Maecenas non ipsum </a></li>
+							<li><a href="#" title="">Lorem ipsum dolor sit </a></li>
+							<li><a href="#" title="">Maecenas non ipsum nunc</a></li>
+							<li><a href="#" title="">Lorem ipsum dolor </a></li>
+							<li><a href="#" title="">Maecenas non ipsum </a></li>
+							<li><a href="#" title="">Lorem ipsum dolor sit </a></li>
+							<li><a href="#" title="">Maecenas non ipsum nunc</a></li>
 
+						</ul> -->
+
+					</div>
+				</div>
+				<!-- End Useful Links -->
+				<!-- Start Testimonials -->
+				<div id="latest-testimonial">
+					<div id="testimonialtitle">Latest Testimonials</div>
+					<div id="testimonialbody">
+						<!-- Starting simple slider -->
+						<div id="simpleslider">
+							<!-- Slide 1 -->
+							<div class="current">
+								<h6>Title 1</h6>
+								<p>Lorem ipsum dolor sit amet, consectetur elit. Maecenas
+									non ipsum nunc, nec sagittis tellus. Lorem ipsum dolor sit
+									amet, consectetur elit. Maecenas non ipsum nunc</p>
+							</div>
+							<!-- End Slide 1 -->
+							<!-- Slide 2 -->
+							<div>
+								<h6>iusdhfisd sdf</h6>
+								<p>Lorem ipsum dolor sit amet, consectetur elit. Maecenas
+									non ipsum nunc, nec sagittis tellus. Lorem ipsum dolor sit
+									amet, consectetur elit. Maecenas non ipsum nunc</p>
+							</div>
+							<!-- End Slide 2 -->
+							<!-- Slide 3 -->
+							<div>
+								<h6>eco sodalirity ltd</h6>
+								<p>Lorem ipsum dolor sit amet, consectetur elit. Maecenas
+									non ipsum nunc, nec sagittis tellus. Lorem ipsum dolor sit
+									amet, consectetur elit. Maecenas non ipsum nunc</p>
+							</div>
+							<!-- End Slide 3 -->
+							<!-- Slide 4 -->
+							<div>
+								<h6>asd</h6>
+								<p>Lorem ipsum dolor sit amet, consectetur elit. Maecenas
+									non ipsum nunc, nec sagittis tellus. Lorem ipsum dolor sit
+									amet, consectetur elit. Maecenas non ipsum nunc</p>
+							</div>
+							<!-- End Slide 4 -->
+							<!-- Slide 5 -->
+							<div>
+								<h6>ec234234234</h6>
+								<p>Lorem ipsum dolor sit amet, consectetur elit. Maecenas
+									non ipsum nunc, nec sagittis tellus. Lorem ipsum dolor sit
+									amet, consectetur elit. Maecenas non ipsum nunc</p>
+							</div>
+							<!-- End Slide 5 -->
+						</div>
+						<!-- Ending simple slider -->
+						<div class="speachlower"></div>
+					</div>
+				</div>
+				<!-- End Latest Testimonials -->
+			</div>
+
+		</div>
+		<!-- End Footer Top -->
+		<div class="clear"></div>
+		<!-- Start Footer Bottom -->
+		<%@include file="includes/footer_bottom.jsp"%>
+		<!-- End Footer Bottom -->
+
+	</div>
+	<!-- End Footer -->
+	<!-- Start Scroll To Top Div -->
+	<div id="scrolltab"></div>
+	<!-- End Scroll To Top Div -->
 </body>
-<!-- <script>
+<script>
 // function validateForm()
 // {
 // var y=document.forms["myForm"]["email"].value;
@@ -233,5 +274,5 @@ $(document).ready(function() {
 		
 	});
 });
-</script> -->
+</script>
 </html>
