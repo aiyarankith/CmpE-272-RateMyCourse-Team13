@@ -82,10 +82,6 @@
 		 	<option value="CID">Course ID</option>
 		 	<option value="CDESC">Course Content</option>
 		 </select>
-		 <select class="search-terms" name="searchLevel" id="searchLevel" style="width: auto" data-selected="FULL">
-		 	<option value="FULL">is</option>
-		 	<option value="STARTS_WITH">starts with</option>
-		 </select>
 		 <label class="accessibly-hidden">Search for:</label>
 		 <input type="text" class="search-terms" name="searchValue" onfocus="if(this.value == 'Search...') { this.value = ''; }" onblur="if(this.value == '') { this.value = 'Search...'; }" placeholder="Search..." />
 		 <label for="search-which" class="accessibly-hidden">Search these:</label>

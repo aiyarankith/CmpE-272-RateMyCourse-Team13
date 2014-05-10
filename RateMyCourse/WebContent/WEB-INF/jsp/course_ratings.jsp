@@ -70,24 +70,26 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
 		<%@include file="includes/menu.jsp"%>
 		<div id="header_small">
 
-			<form:form action="get_course" method="post" id="search-form"
-				modelAttribute="course_id">
-				<span id="search-page-border"> <label
-					class="accessibly-hidden">Search for:</label> <form:input
-						path="course_id" type="text" class="search-terms"
-						name="search-terms"
-						onfocus="if(this.value == 'Search...') { this.value = ''; }"
-						onblur="if(this.value == '') { this.value = 'Search...'; }"
-						value="Search..." /> <label for="search-which"
-					class="accessibly-hidden">Search these:</label><select
-					name="search-which" id="search-which" style="width: auto"><option
-							value="members">Course ID</option>
-						<option value="groups">Course Name</option>
-						<option value="forums"></select>
+			<form action="${pageContext.request.contextPath}/search"
+				method="post" name="searchForm">
+				<span id="search-page-border"> <select class="search-terms"
+					name="searchCategory" id="searchCategory" style="width: auto"
+					data-selected="CNAME">
+						<option id="cname" value="CNAME">Course Name</option>
+						<option id="cid" value="CID">Course ID</option>
+						<option id="cdesc" value="CDESC">Course Content</option>
+				</select>
+				<label class="accessibly-hidden">Search for:</label>
+				<input
+					type="text" class="search-terms" name="searchValue" id="searchValue"
+					onfocus="if(this.value == 'Search...') { this.value = ''; }"
+					onblur="if(this.value == '') { this.value = 'Search...'; }"
+					placeholder="Search..." /> <label for="search-which"
+					class="accessibly-hidden">Search these:</label>
 				</span>
 				<input type="submit" name="search-submit" id="search-submit"
 					value="Search" />
-			</form:form>
+			</form>
 
 		</div>
 		<div class="clear"></div>

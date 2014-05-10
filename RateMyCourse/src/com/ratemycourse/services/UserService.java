@@ -2,9 +2,10 @@ package com.ratemycourse.services;
 
 import java.util.List;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.ratemycourse.model.*;
+import com.ratemycourse.model.Comment;
+import com.ratemycourse.model.Course;
+import com.ratemycourse.model.User;
 
 public interface UserService {
 
@@ -36,14 +37,14 @@ public interface UserService {
 	 * @param key - c_id.
 	 * @return course details.
 	 */
-	public JsonObject getCourse(Course course_id);
+	public JsonObject getCourse(String course_id);
 
 	/**
 	 * To get course comments, search by url.
 	 * @param key - c_id.
 	 * @return comments and time stamp.
 	 */
-	public List<JsonObject> getCourseRatings(Course course_id);
+	public List<JsonObject> getCourseComments(String course_id);
 
 	/**
 	 * To verify user rating confirmation mail, recalculate and update the course rating details.

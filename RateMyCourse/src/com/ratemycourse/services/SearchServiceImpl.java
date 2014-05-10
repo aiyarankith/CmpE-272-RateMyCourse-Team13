@@ -26,7 +26,7 @@ public class SearchServiceImpl implements SearchService {
 	 * @see com.ratemycourse.services.UserService#search(java.lang.String)
 	 */
 	@Override
-	public List<JsonObject> search(String value, String category, String level) {
+	public List<JsonObject> search(String value, String category) {
 		String byCourseName = "CNAME";
 		String byCourseId = "CID";
 		String byCourseDesc = "CDESC";
@@ -36,11 +36,10 @@ public class SearchServiceImpl implements SearchService {
 		try {
 			if (byCourseName.equals(category)) {
 				//sample view: http://127.0.0.1:5984/demo/_design/views/_view/by_course_name?key=""
-				if (level_full.equals(level)) {
-					courseList = dbClient.view("views/by_course_name")
-							.key(value)
-							.query(JsonObject.class);
-				} else if (level_partial.equals(level)){
+				courseList = dbClient.view("views/by_course_name")
+						.key(value)
+						.query(JsonObject.class);
+				if (courseList != null && courseList.size() < 1) {
 					String endKeyValue = String.valueOf((char) (value.charAt(0) + 1));
 					System.out.println("end"+endKeyValue);
 					courseList = dbClient.view("views/by_course_name")
@@ -48,13 +47,13 @@ public class SearchServiceImpl implements SearchService {
 							.endKey(endKeyValue)
 							.query(JsonObject.class);
 				}
+				System.out.println("cList::"+courseList);
 			} else if (byCourseId.equals(category)) {
 				//sample view: http://127.0.0.1:5984/demo/_design/views/_view/by_course_id?startkey=""&endkey=""
-				if (level_full.equals(level)) {
-					courseList = dbClient.view("views/by_course_id")
-							.key(value)
-							.query(JsonObject.class);
-				} else if (level_partial.equals(level)){
+				courseList = dbClient.view("views/by_course_id")
+						.key(value)
+						.query(JsonObject.class);
+				if (courseList != null && courseList.size() < 1) {
 					String endKeyValue = String.valueOf((char) (value.charAt(value.length()-1) + 1));
 					endKeyValue = value.substring(0, value.length()-1) + endKeyValue;
 					courseList = dbClient.view("views/by_course_id")

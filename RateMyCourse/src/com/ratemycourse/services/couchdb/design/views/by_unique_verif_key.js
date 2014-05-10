@@ -1,0 +1,1 @@
+function(doc) { if (doc.is_course !== 'Yes') { emit(doc.unique_key, doc) }}

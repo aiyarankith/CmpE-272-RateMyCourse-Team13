@@ -1,0 +1,1 @@
+function(doc) { if (doc.is_course === 'Yes') { emit([doc.university.toLowerCase(),doc.dept.toLowerCase(),doc.overall_rating], doc.name) }}

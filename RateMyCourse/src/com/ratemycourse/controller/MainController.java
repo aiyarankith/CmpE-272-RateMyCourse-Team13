@@ -2,6 +2,7 @@ package com.ratemycourse.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -16,13 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.ratemycourse.model.Comment;
+import com.ratemycourse.model.Course;
 import com.ratemycourse.model.User;
-import com.ratemycourse.model.Rss;
 import com.ratemycourse.services.SearchService;
 import com.ratemycourse.services.UserService;
-import com.ratemycourse.model.Course;
-import com.ratemycourse.model.Comment;
 
 
 @Controller
@@ -124,28 +125,6 @@ public class MainController {
 		return "top_courses_colleges";
 	}
 
-	//Course Ratings Page
-	@RequestMapping(value="/course_ratings", method = RequestMethod.GET)
-	public String course_ratings(@ModelAttribute("course_id") Course course_id, @ModelAttribute("comment_detail") Comment comment_detail, HttpServletRequest req) {
-
-		ArrayList <String> user_type = new ArrayList<String> (); 
-		user_type.add("Enrolled Student");
-		user_type.add("Industrialist");
-		user_type.add("Unenrolled");
-
-		ArrayList <String> stars = new ArrayList<String> (); 
-		stars.add("1 Star");
-		stars.add("2 Star");
-		stars.add("3 Star");
-		stars.add("4 Star");
-		stars.add("5 Star");
-
-		req.setAttribute("user_type", user_type);
-		req.setAttribute("stars", stars);
-
-		return "course_ratings";
-
-	}
 	//Insert Comments
 	@RequestMapping("/insert_comment")
 	public String insert_comment(@ModelAttribute("course_id") Course course_id, @ModelAttribute("comment_detail") Comment comment_detail, final RedirectAttributes redirectedattributes, HttpServletRequest req) {
@@ -179,10 +158,10 @@ public class MainController {
 	}
 
 	//Course Page Action to Search
-	@RequestMapping(value="/get_course", method = RequestMethod.POST)
-	public ModelAndView get_course(@ModelAttribute("course_id") Course course_id, HttpServletRequest req, @ModelAttribute("comment_detail") Comment comment_detail) {
-		JsonObject course_details = userService.getCourse(course_id);
-		List<JsonObject> course_comments = userService.getCourseRatings(course_id);
+	@RequestMapping(value="/get_course", method = RequestMethod.GET)
+	public ModelAndView get_course(@RequestParam String courseId, @ModelAttribute("comment_detail") Comment comment_detail, HttpServletRequest req) {
+		JsonObject course_details = userService.getCourse(courseId);
+		List<JsonObject> course_comments = userService.getCourseComments(courseId);
 
 		System.out.println("COurse Comments :" +course_comments);
 		req.setAttribute("course_comments",course_comments);
@@ -257,11 +236,23 @@ public class MainController {
 	 * @return
 	 */
 	@RequestMapping(value="/search", method = RequestMethod.POST)
-	public ModelAndView search(@RequestParam String searchValue,
+	public String search(@RequestParam String searchValue,
 			@RequestParam String searchCategory,
-			@RequestParam(value="searchLevel", defaultValue="FULL") String searchLevel,
 			HttpServletRequest req) {
-		List<JsonObject> courseList = searchService.search(searchValue.trim().toLowerCase(), searchCategory, searchLevel);
-		return new ModelAndView("search", "courseList", courseList);
+		List<JsonObject> courseList = searchService.search(searchValue.trim().toLowerCase(), searchCategory);
+		String cID = null;
+		Iterator<JsonObject> itr = courseList.iterator();
+		System.out.println(courseList.size());
+		if (courseList != null & courseList.size() == 1) {
+			while (itr.hasNext()) {
+				JsonObject courseDetails = (JsonObject) itr.next().get("value");
+				System.out.println("courseDetails"+courseDetails);
+				cID = courseDetails.get("c_id").getAsString();
+				return "redirect:get_course?courseId="+ cID;
+			}
+		}
+		req.setAttribute("courseList", courseList);
+		return "search";
+		//return new ModelAndView("search", "courseList", courseList);
 	}
 }

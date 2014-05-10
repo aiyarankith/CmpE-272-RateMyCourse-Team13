@@ -57,14 +57,12 @@
 <script>
        $(document).ready(function(){
           document.getElementById("searchValue").value = localStorage.getItem("value");
-          document.getElementById("searchLevel").value = localStorage.getItem("level");
           document.getElementById("searchCategory").value = localStorage.getItem("category");
        });
 </script>
- <script>
+<script>
        $(window).on('beforeunload', function() {
           localStorage.setItem("value",document.getElementById("searchValue").value);
-          localStorage.setItem("level",document.getElementById("searchLevel").value);
           localStorage.setItem("category",document.getElementById("searchCategory").value);
       });
 </script>
@@ -84,20 +82,19 @@
 				<span id="search-page-border"> <select class="search-terms"
 					name="searchCategory" id="searchCategory" style="width: auto"
 					data-selected="CNAME">
-						<option value="CNAME">Course Name</option>
-						<option value="CID">Course ID</option>
-						<option value="CDESC">Course Content</option>
-				</select> <select class="search-terms" name="searchLevel" id="searchLevel"
-					style="width: auto" data-selected="FULL">
-						<option value="FULL">is</option>
-						<option value="STARTS_WITH">starts with</option>
-				</select> <label class="accessibly-hidden">Search for:</label> <input
+						<option id="cname" value="CNAME">Course Name</option>
+						<option id="cid" value="CID">Course ID</option>
+						<option id="cdesc" value="CDESC">Course Content</option>
+				</select>
+				<label class="accessibly-hidden">Search for:</label>
+				<input
 					type="text" class="search-terms" name="searchValue" id="searchValue"
 					onfocus="if(this.value == 'Search...') { this.value = ''; }"
 					onblur="if(this.value == '') { this.value = 'Search...'; }"
 					placeholder="Search..." /> <label for="search-which"
 					class="accessibly-hidden">Search these:</label>
-				</span> <input type="submit" name="search-submit" id="search-submit"
+				</span>
+				<input type="submit" name="search-submit" id="search-submit"
 					value="Search" />
 			</form>
 
@@ -136,8 +133,9 @@
 					%>
 					<!-- Start None Split Section -->
 					<div class="splitnone">
-
-						<h3><a	href="${pageContext.request.contextPath}/<%=courseDetails.get("c_id").getAsString()%>"><%=courseDetails.get("name").getAsString()%></a>
+ 
+						<h3>
+							<a href="${pageContext.request.contextPath}/get_course?courseId=<%=courseDetails.get("c_id").getAsString()%>" ><%=courseDetails.get("name").getAsString()%></a>
 						<form id="ratingsForm">
 								<div class="stars">
 									<% if ((courseDetails.get("overall_rating").getAsFloat()) == 5 && courseDetails.get("overall_rating").getAsFloat() >= 4.5) { %>

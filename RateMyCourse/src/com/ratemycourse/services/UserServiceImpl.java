@@ -1,42 +1,29 @@
 package com.ratemycourse.services;
 
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
+//CouchDB Imports
+import org.lightcouch.CouchDbClient;
+import org.lightcouch.DocumentConflictException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.net.URL;
-import java.util.Date;
-import java.util.Iterator;
-
+import com.google.gson.JsonObject;
+import com.ratemycourse.model.Comment;
+import com.ratemycourse.model.Course;
+import com.ratemycourse.model.Rss;
+import com.ratemycourse.model.User;
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.ratemycourse.model.User;
-import com.ratemycourse.model.Rss;
-import com.ratemycourse.model.Course;
-import com.ratemycourse.model.Comment;
-
-import java.util.HashMap;
-import java.util.Map;
-
-
-//CouchDB Imports
-import org.lightcouch.CouchDbClient;
-import org.lightcouch.CouchDbProperties;
-import org.lightcouch.Document;
-import org.lightcouch.DocumentConflictException;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 
 public class UserServiceImpl implements UserService {
@@ -187,11 +174,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public JsonObject getCourse(Course course_details) {
+	public JsonObject getCourse(String cId) {
 
 		JsonObject json = null;
 		try {
-			json = dbClient.find(JsonObject.class, course_details.getcourse_id());
+			json = dbClient.find(JsonObject.class, cId);
 			System.out.println("JSON at GET:: "+json);
 
 		} catch (Exception e){
@@ -204,32 +191,23 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public List<JsonObject> getCourseRatings(Course course_details) {
-
-		System.out.println("Get Ratings::: "+course_details.getcourse_id());
-
-		List<JsonObject> json = null;
+	public List<JsonObject> getCourseComments(String cId) {
+		System.out.println("Get Ratings for::: "+cId);
+		List<JsonObject> commentList = null;
 		try {
 			/*
-			 * CouchDB query for Retriving Comments
+			 * CouchDB query for Retrieving Comments
 			 * http://127.0.0.1:5984/demo/_design/views/_view/by_comments?key="cmpe271"
 			 */
-			json = dbClient.view("views/by_comments")
-					.key(course_details.getcourse_id())
+			commentList = dbClient.view("views/by_comments")
+					.key(cId)
 					.descending(true)
 					.query(JsonObject.class);
-			if (json.isEmpty()) {
-				JsonObject error = new JsonObject();
-				error.addProperty("error_type", "data_missing");
-				error.addProperty("error_message", "Course Ratings data missing");
-				json.add(error);
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		System.out.println("Get Ratings::: "+json);
-		return json;		
+		System.out.println("Get Ratings::: "+commentList);
+		return commentList;		
 
 	}
 	/* (non-Javadoc)
@@ -485,9 +463,5 @@ public class UserServiceImpl implements UserService {
 			result = "Course Already Exists";
 		}
 		return result;
-
 	}
-
 }
-
-
