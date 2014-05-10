@@ -84,8 +84,9 @@ public class MainController {
 
 	//Most Followed Course Page
 	@RequestMapping(value="/most_followed_course", method = RequestMethod.GET)
-	public String most_followed_course() {
-		return "most_followed_course";
+	public ModelAndView most_followed_course(@RequestParam(value="numOfCourses", defaultValue="10") int count) {
+		List<JsonObject> courseList= userService.getMostFollowedCourse(count);
+		return new ModelAndView ("most_followed_course","courseList",courseList);
 	}
 
 	//Most Industry Course Page
