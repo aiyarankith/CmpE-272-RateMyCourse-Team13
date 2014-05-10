@@ -22,7 +22,7 @@ import com.ratemycourse.model.User;
 import com.ratemycourse.model.Rss;
 import com.ratemycourse.services.UserService;
 import com.ratemycourse.model.Course;
-//import com.ratemycourse.services.UserService;
+import com.ratemycourse.model.Comment;
 
 
 @Controller
@@ -32,47 +32,47 @@ public class MainController {
 	UserService userService;
 
 	//Index Page
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public ModelAndView getUserLIst() {
-		List<String> RSSList = userService.RSSList();
+		@RequestMapping(value = "/index", method = RequestMethod.GET)
+		public ModelAndView getUserLIst() {
+			List<String> RSSList = userService.RSSList();
 
-		return new ModelAndView("index", "RSSList", RSSList);
-	}
+			return new ModelAndView("index", "RSSList", RSSList);
+		}
 
-	//Registration Page
-	@RequestMapping(value = "/registration", method = RequestMethod.GET)
-	public String registration_page(@ModelAttribute User user) {
+		//Registration Page
+		@RequestMapping(value = "/registration", method = RequestMethod.GET)
+		public String registration_page(@ModelAttribute User user) {
 
-		return "registration";
-	}
+			return "registration";
+		}
 
-	//login page
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login_page(@ModelAttribute User user) {
+		//login page
+		@RequestMapping(value = "/login", method = RequestMethod.GET)
+		public String login_page(@ModelAttribute User user) {
+			
+			return "login";
+		}
+
+		//Registration Button 
+		@RequestMapping("/insert")
+		public String insertData(@ModelAttribute("user") User user) {
+			System.out.println("Data At Controller:: "+user);
+			if (user != null)
+				userService.insertData(user);
+			return "redirect:index";
+		}
 		
-		return "login";
-	}
-
-	//Registration Button 
-	@RequestMapping("/insert")
-	public String insertData(@ModelAttribute("user") User user) {
-		System.out.println("Data At Controller:: "+user);
-		if (user != null)
-			userService.insertData(user);
-		return "redirect:index";
-	}
-	
-	//login page for admin
-	@RequestMapping("/fetchdata")
-	public String fetchData(@ModelAttribute User user) {
-		System.out.println("Data At fetch:: "+user);
-	 
-	  boolean check= userService.fetchData(user);
-	  if(check==true)
-	 return "redirect:index";
-	  else
-		  return "login";
-	}
+		//login page for admin
+		@RequestMapping("/fetchdata")
+		public String fetchData(@ModelAttribute User user) {
+			System.out.println("Data At fetch:: "+user);
+		 
+		  boolean check= userService.fetchData(user);
+		  if(check==true)
+		 return "redirect:index";
+		  else
+			  return "login";
+		}
 
 	//CouchDB Insert Course Page (Admin)
 	@RequestMapping(value="/add_course", method = RequestMethod.GET)
@@ -92,18 +92,19 @@ public class MainController {
 		return "redirect:add_course";
 	}
 	//Most Rated Course Page
-		@RequestMapping(value="/most_rated_course", method = RequestMethod.GET)
-		public ModelAndView most_rated_course(@RequestParam(value = "numOfCourses", defaultValue = "10") int count) {
-			List<JsonObject> courseList = userService.getNTopRtdCourse(count);
-			return new ModelAndView("most_rated_course", "courseList", courseList);
-		}
+	@RequestMapping(value="/most_rated_course", method = RequestMethod.GET)
+	public ModelAndView most_rated_course(@RequestParam(value = "numOfCourses", defaultValue = "10") int count) {
+		List<JsonObject> courseList = userService.getNTopRtdCourse(count);
+		return new ModelAndView("most_rated_course", "courseList", courseList);
+	}
 
-	
-	
+
+
 
 	//Most Followed Course Page
 	@RequestMapping(value="/most_followed_course", method = RequestMethod.GET)
 	public ModelAndView most_followed_course(@RequestParam(value="numOfCourses", defaultValue="10") int count) {
+
 		List<JsonObject> courseList= userService.getMostFollowedCourse(count);
 		return new ModelAndView ("most_followed_course","courseList",courseList);
 	}
@@ -123,20 +124,86 @@ public class MainController {
 
 	//Course Ratings Page
 	@RequestMapping(value="/course_ratings", method = RequestMethod.GET)
-	public String course_ratings(@ModelAttribute("course_id") Course course_id) {
+	public String course_ratings(@ModelAttribute("course_id") Course course_id, @ModelAttribute("comment_detail") Comment comment_detail, HttpServletRequest req) {
+
+		ArrayList <String> user_type = new ArrayList<String> (); 
+		user_type.add("Enrolled Student");
+		user_type.add("Industrialist");
+		user_type.add("Unenrolled");
+
+		ArrayList <String> stars = new ArrayList<String> (); 
+		stars.add("1 Star");
+		stars.add("2 Star");
+		stars.add("3 Star");
+		stars.add("4 Star");
+		stars.add("5 Star");
+
+		req.setAttribute("user_type", user_type);
+		req.setAttribute("stars", stars);
+
 		return "course_ratings";
+
 	}
+	//Insert Comments
+	@RequestMapping("/insert_comment")
+	public String insert_comment(@ModelAttribute("course_id") Course course_id, @ModelAttribute("comment_detail") Comment comment_detail, final RedirectAttributes redirectedattributes, HttpServletRequest req) {
+		System.out.println("Course At Controller:: " +comment_detail);
+		String message;
+		if (comment_detail != null) {
+			message = new String (userService.insertcomment(comment_detail));
+			redirectedattributes.addFlashAttribute("message",message);
+		}
+
+		/**
+		 * Ratings from the user
+		 */
+
+		ArrayList <String> user_type = new ArrayList<String> (); 
+		user_type.add("Enrolled Student");
+		user_type.add("Industrialist");
+		user_type.add("Unenrolled");
+
+		ArrayList <String> stars = new ArrayList<String> (); 
+		stars.add("1 Star");
+		stars.add("2 Star");
+		stars.add("3 Star");
+		stars.add("4 Star");
+		stars.add("5 Star");
+
+		req.setAttribute("user_type", user_type);
+		req.setAttribute("stars", stars);
+
+		return "redirect:course_ratings";
+	}
+
 	//Course Page Action to Search
 	@RequestMapping(value="/get_course", method = RequestMethod.POST)
-	public ModelAndView get_course(@ModelAttribute("course_id") Course course_id) {
+	public ModelAndView get_course(@ModelAttribute("course_id") Course course_id, HttpServletRequest req, @ModelAttribute("comment_detail") Comment comment_detail) {
 		JsonObject course_details = userService.getCourse(course_id);
-		List<JsonObject> course_ratings = userService.getCourseRatings(course_id);
-		
-		 Map<String, Object> map = new HashMap<>();
-		 map.put("ratings", course_ratings);
-		 map.put("details", course_details);
-		 ModelAndView mav = new ModelAndView("someView", map);
-		 mav.addAllObjects(map);
+		List<JsonObject> course_comments = userService.getCourseRatings(course_id);
+
+		System.out.println("COurse Comments :" +course_comments);
+		req.setAttribute("course_comments",course_comments);
+
+		/**
+		 * Ratings from the user
+		 */
+
+		ArrayList <String> user_type = new ArrayList<String> (); 
+		user_type.add("Enrolled Student");
+		user_type.add("Industrialist");
+		user_type.add("Unenrolled");
+
+		ArrayList <String> stars = new ArrayList<String> (); 
+		stars.add("1 Star");
+		stars.add("2 Star");
+		stars.add("3 Star");
+		stars.add("4 Star");
+		stars.add("5 Star");
+
+		req.setAttribute("user_type", user_type);
+		req.setAttribute("stars", stars);
+
 
 		return new ModelAndView("course_ratings", "course_details", course_details);
 	}
@@ -156,25 +223,25 @@ public class MainController {
 
 	}
 	//User rating and comment confirmation
-		@RequestMapping(value="/confirm_user_activity", method = RequestMethod.GET)
-		public ModelAndView verifyAndUpdateRating(@RequestParam String key, HttpServletRequest req) {
-			String message = userService.verifyAndUpdateRating(key);
-			List<String> RSSList = userService.RSSList();
-			req.setAttribute("message", message);
-			return new ModelAndView("index", "RSSList", RSSList);
-		}
+	@RequestMapping(value="/confirm_user_activity", method = RequestMethod.GET)
+	public ModelAndView verifyAndUpdateRating(@RequestParam String key, HttpServletRequest req) {
+		String message = userService.verifyAndUpdateRating(key);
+		List<String> RSSList = userService.RSSList();
+		req.setAttribute("message", message);
+		return new ModelAndView("index", "RSSList", RSSList);
+	}
 
-		//To save user rating and comments
-		@RequestMapping(value="/save_rating", method = RequestMethod.POST)
-		public String saveRating(@RequestParam String userName,
-				@RequestParam String email,
-				@RequestParam String userType,
-				@RequestParam String userRating,
-				@RequestParam String comment,
-				HttpServletRequest req) {
-			String message = userService.saveRating(userName, email, userType, userRating, comment);
-			req.setAttribute("message", message);
-			return "course_ratings";
-		}
+	//To save user rating and comments
+	@RequestMapping(value="/save_rating", method = RequestMethod.POST)
+	public String saveRating(@RequestParam String userName,
+			@RequestParam String email,
+			@RequestParam String userType,
+			@RequestParam String userRating,
+			@RequestParam String comment,
+			HttpServletRequest req) {
+		String message = userService.saveRating(userName, email, userType, userRating, comment);
+		req.setAttribute("message", message);
+		return "course_ratings";
+	}
 
 }

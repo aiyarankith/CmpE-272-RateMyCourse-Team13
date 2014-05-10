@@ -80,4 +80,18 @@ public interface UserService {
 	 * @return top industry oriented course list as JsonObject
 	 */
 	public List<JsonObject> getMostFollowedCourse(final int count);
+
+	/**
+	 * To Insert Comment, User Function.
+	 * @param commenter_name
+	 * @param commenter_email
+	 * @param rating
+	 * @param c_id
+	 * @param name
+	 * @param dept
+	 * @param university
+	 * @param professor
+	 * @return confirmation or conflict message.
+	 */
+	public String insertcomment(Comment comment_detail);
 }

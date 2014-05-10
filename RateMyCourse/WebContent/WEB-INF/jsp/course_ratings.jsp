@@ -38,27 +38,30 @@
 	$(function() {
 		setInterval("rotateDiv()", 10000);
 	});
-		
-		function rotateDiv() {
-		var currentDiv=$("#simpleslider div.current");
-		var nextDiv= currentDiv.next ();
-		if (nextDiv.length ==0)
-			nextDiv=$("#simpleslider div:first");
-		
+
+	function rotateDiv() {
+		var currentDiv = $("#simpleslider div.current");
+		var nextDiv = currentDiv.next();
+		if (nextDiv.length == 0)
+			nextDiv = $("#simpleslider div:first");
+
 		currentDiv.removeClass('current').addClass('previous').fadeOut('2000');
-		nextDiv.fadeIn('3000').addClass('current',function() {
-			currentDiv.fadeOut('2000', function () {currentDiv.removeClass('previous');});
+		nextDiv.fadeIn('3000').addClass('current', function() {
+			currentDiv.fadeOut('2000', function() {
+				currentDiv.removeClass('previous');
+			});
 		});
-	
+
 	}
-	//// End Simple Sliders //// 
+	//// End Simple Sliders ////
 </script>
-
-<script>
-	var json = JSON.parse(course_details);
-	var name = json["name"];
-
-	System.out.println("JSON Name :"+name);
+<script language="JavaScript" type="text/javascript">
+function showhidediv(rad){
+var rads=document.getElementsByName(rad.name);
+document.getElementById('one').style.display=(rads[0].checked)?'block':'none' ;
+document.getElementById('two').style.display=(rads[1].checked)?'block':'none' ;
+document.getElementById('three').style.display=(rads[2].checked)?'block':'none' ;
+}
 </script>
 </head>
 
@@ -116,42 +119,50 @@
 					<div class="blogbody">
 						<!-- Start Blog Text -->
 						<div class="blogtext">
-							<% if (request.getAttribute("course_details") != null) { %>
-							<% JsonObject details = (JsonObject) request.getAttribute("course_details"); %>
+							<%
+								if (request.getAttribute("course_details") != null) {
+							%>
+							<%
+								JsonObject details = (JsonObject) request
+											.getAttribute("course_details");
+							%>
 							<p>
 								<b class="settingsicon">Name:</b>
-								<%=details.get("name").getAsString() %>
+								<%=details.get("name").getAsString()%>
 								<b class="settingsicon">Course ID:</b>
-								<%=details.get("c_id").getAsString() %>
-								
+								<%=details.get("c_id").getAsString()%>
+
 							</p>
 							<p>
-								<b class="settingsicon">Department: </b><%=details.get("dept").getAsString() %>
-								<b class="settingsicon">University: </b><%=details.get("university").getAsString() %>
+								<b class="settingsicon">Department: </b><%=details.get("dept").getAsString()%>
+								<b class="settingsicon">University: </b><%=details.get("university").getAsString()%>
 							</p>
 							<p>
-								<b class="settingsicon">Professor: </b><%=details.get("professor").getAsString() %>
+								<b class="settingsicon">Professor: </b><%=details.get("professor").getAsString()%>
 							</p>
 							<p>
 								<b class="settingsicon"> Demo Video Link: </b><a
-									href="<%=details.get("demo_video_link").getAsString() %>"><%=details.get("demo_video_link").getAsString() %>
+									href="<%=details.get("demo_video_link").getAsString()%>"><%=details.get("demo_video_link").getAsString()%>
 								</a>
 							</p>
 							<p>
 								<b class="settingsicon">Related Document Link: </b><a
-									href="<%=details.get("related_doc_link").getAsString() %>"><%=details.get("related_doc_link").getAsString() %>
+									href="<%=details.get("related_doc_link").getAsString()%>"><%=details.get("related_doc_link").getAsString()%>
 								</a>
 							</p>
 							<p>
 								<b class="settingsicon">Description: </b>
-								<%=details.get("description").getAsString() %>
+								<%=details.get("description").getAsString()%>
 							</p>
 
-							<b class="settingsicon">Overall Ratings: </b><%=details.get("overall_rating").getAsString() %>
+							<b class="settingsicon">Overall Ratings: </b><%=details.get("overall_rating").getAsString()%>
 
 							<form id="ratingsForm">
 								<div class="stars">
-									<% if ((details.get("overall_rating").getAsFloat()) == 5 && details.get("overall_rating").getAsFloat() >= 4.5) { %>
+									<%
+										if ((details.get("overall_rating").getAsFloat()) == 5
+													&& details.get("overall_rating").getAsFloat() >= 4.5) {
+									%>
 									<input type="radio" name="star" class="star-1" id="star-1" />
 									<label class="star-1" for="star-1">1</label> <input
 										type="radio" name="star" class="star-2" id="star-2" /> <label
@@ -162,7 +173,10 @@
 										class="star-4" for="star-4">4</label> <input type="radio"
 										name="star" class="star-5" id="star-5" checked /> <label
 										class="star-5" for="star-5">5</label> <span></span>
-									<% } else if (details.get("overall_rating").getAsFloat() < 4.5 && details.get("overall_rating").getAsFloat() >= 3.5) { %>
+									<%
+										} else if (details.get("overall_rating").getAsFloat() < 4.5
+													&& details.get("overall_rating").getAsFloat() >= 3.5) {
+									%>
 									<input type="radio" name="star" class="star-1" id="star-1" />
 									<label class="star-1" for="star-1">1</label> <input
 										type="radio" name="star" class="star-2" id="star-2" /> <label
@@ -173,7 +187,10 @@
 										class="star-4" for="star-4">4</label> <input type="radio"
 										name="star" class="star-5" id="star-5" /> <label
 										class="star-5" for="star-5">5</label> <span></span>
-									<% } else if (details.get("overall_rating").getAsFloat() < 3.5 && details.get("overall_rating").getAsFloat() >= 2.5) { %>
+									<%
+										} else if (details.get("overall_rating").getAsFloat() < 3.5
+													&& details.get("overall_rating").getAsFloat() >= 2.5) {
+									%>
 									<input type="radio" name="star" class="star-1" id="star-1" />
 									<label class="star-1" for="star-1">1</label> <input
 										type="radio" name="star" class="star-2" id="star-2" /> <label
@@ -184,7 +201,10 @@
 										class="star-4" for="star-4">4</label> <input type="radio"
 										name="star" class="star-5" id="star-5" /> <label
 										class="star-5" for="star-5">5</label> <span></span>
-									<% } else if (details.get("overall_rating").getAsFloat() < 2.5 && details.get("overall_rating").getAsFloat() >= 1.5) { %>
+									<%
+										} else if (details.get("overall_rating").getAsFloat() < 2.5
+													&& details.get("overall_rating").getAsFloat() >= 1.5) {
+									%>
 									<input type="radio" name="star" class="star-1" id="star-1" />
 									<label class="star-1" for="star-1">1</label> <input
 										type="radio" name="star" class="star-2" id="star-2" checked />
@@ -195,7 +215,10 @@
 										class="star-4" for="star-4">4</label> <input type="radio"
 										name="star" class="star-5" id="star-5" /> <label
 										class="star-5" for="star-5">5</label> <span></span>
-									<% } else if (details.get("overall_rating").getAsFloat() < 1.5 && details.get("overall_rating").getAsFloat() >= 0.5) { %>
+									<%
+										} else if (details.get("overall_rating").getAsFloat() < 1.5
+													&& details.get("overall_rating").getAsFloat() >= 0.5) {
+									%>
 									<input type="radio" name="star" class="star-1" id="star-1"
 										checked /> <label class="star-1" for="star-1">1</label> <input
 										type="radio" name="star" class="star-2" id="star-2" /> <label
@@ -206,7 +229,9 @@
 										class="star-4" for="star-4">4</label> <input type="radio"
 										name="star" class="star-5" id="star-5" /> <label
 										class="star-5" for="star-5">5</label> <span></span>
-									<% } else if (details.get("overall_rating").getAsFloat() < 0.5) { %>
+									<%
+										} else if (details.get("overall_rating").getAsFloat() < 0.5) {
+									%>
 									<input type="radio" name="star" class="star-1" id="star-1"
 										checked /> <label class="star-1" for="star-1">1</label> <input
 										type="radio" name="star" class="star-2" id="star-2" /> <label
@@ -217,19 +242,23 @@
 										class="star-4" for="star-4">4</label> <input type="radio"
 										name="star" class="star-5" id="star-5" /> <label
 										class="star-5" for="star-5">5</label> <span></span>
-									<% } %>
+									<%
+										}
+									%>
 								</div>
 
 							</form>
 
-							<% } else { %>
+							<%
+								} else {
+							%>
 							<p>Search by Course Id or Course Name to get all the details,
 								Ratings, Latest Comments and Description</p>
 
-							<br>
-							<br>
-							<br>
-							<% } %>
+							<br> <br> <br>
+							<%
+								}
+							%>
 
 
 						</div>
@@ -245,7 +274,7 @@
 				<div class="blogwrap">
 
 					<div class="blogcommenttitle">
-						<h3>2 Comments</h3>
+						<h3>Comments</h3>
 					</div>
 					<span class="box-arrow"></span>
 
@@ -254,199 +283,274 @@
 				<!-- Start Blog Comments -->
 				<div class="blogcomment">
 
+
+					<%
+						if (request.getAttribute("course_comments") != null) {
+					%>
+					<%
+						List<JsonObject> comments = (List<JsonObject>) request.getAttribute("course_comments");
+					%>
+					<%
+						System.out.println("size : " + comments.size());
+					%>
+					<%
+						for (int i = 0; i < comments.size(); i++) {
+								JsonObject temp = comments.get(i);
+								JsonObject comment = (JsonObject) temp.get("value");
+					%>
 					<div class="blogwcommentwrap">
-
 						<div class="commenttitle">
-
 							<p>
-								<span class="avatarname">John Doe</span> <span
-									class="avatardate">On: <span class="avatardateorange">March
-										15th 2010</span></span><span class="avatarreply"><a href="#"
-									title="reply">Reply</a></span>
+								<span class="avatarname"><%=comment.get("user_name")%></span> <span
+									class="avatardate">On: <span class="avatardateorange"><%=comment.get("date")%></span></span>
+								<span class="avatarreply"><a href="#" title="reply">Ratings
+										<%=comment.get("user_rating")%></a></span>
 							</p>
 
 						</div>
-
 						<div class="commentuser">
 							<img src="images/avatar.jpg" alt="John Doe">
 						</div>
 
 						<div class="commenttext">
-							${map }
-							<p>Great blog, interesting to read and very helpful, lets
-								hope i am top of google soon!!!!</p>
-							<p>Thanks!!!</p>
+
+
+							<p><%=comment.get("comment")%></p>
 
 						</div>
 
 						<span class="box-arrow"></span>
 
 					</div>
+
+					<%
+						}
+					%>
+					<%
+						} else {
+					%>
+					<%
+						}
+					%>
 
 				</div>
 				<!-- End Blog Comments -->
-				<!-- Start Blog Comment Reply -->
-				<div class="blogcomment">
-
-					<div class="blogcommentreply">
-
-						<div class="blogwcommentwrap">
-
-							<div class="commenttitle">
-
-								<p>
-									<span class="avatarname">Admin</span> <span class="avatardate">On:
-										<span class="avatardateorange">March 15th 2010</span>
-									</span><span class="avatarreply"><a href="#" title="reply">Reply</a></span>
-								</p>
-
-							</div>
-
-							<div class="commentuserreply">
-								<img src="images/avatar-reply.jpg" alt="John Doe">
-							</div>
-
-							<div class="commenttextreply">
-
-								<p>Thanks, im glad this post helped you and hope you get to
-									number 1 also!!</p>
-
-							</div>
-
-							<span class="box-arrow"></span>
-
-						</div>
-
-					</div>
-
-				</div>
-				<!-- End Blog Comment Reply -->
-				<!-- Start Comment Form -->
-				<div class="blogcomment">
-
-					<div class="blogwcommentwrap2">
-
-						<div class="blogcommentform">
-
-							<form action="#" method="post" enctype="multipart/form-data"
-								name="comment">
-
-								<fieldset>
-
-									<textarea name="comment" cols="5" rows="5"></textarea>
-
-								</fieldset>
-
-								<fieldset class="commentbutton_fieldset">
-
-									<input name="Submit" type="submit" value="Submit"
-										class="commentbutton">
-
-								</fieldset>
-
-							</form>
-
-						</div>
-
-						<span class="box-arrow"></span>
-
-					</div>
-
-				</div>
-				<!-- End Comment Form -->
-
 			</div>
 			<!-- End Left Section -->
 
 			<!-- Start Right Section -->
-			<div class="rightsection">
+        <div class="rightsection">
+        
+        	<!-- Start Blog Widget -->
+            <div class="blogwidgetstart">
+            	<!-- Start Advertising Widget -->
+            	<div class="widgettitle"><h4>Advertising</h4></div>
+                
+                <div class="widgetbody">
+                
+                	<div class="blogadvertising">
+                    
+                    <a href="#"><img src="images/advertising/themeadvertising.jpg"  alt="Themeforest"></a>
+                    <a href="#"><img src="images/advertising/audioadvertising.jpg" alt="Audiojungle"></a>
+                    <a href="#"><img src="images/advertising/graphicadvertising.jpg" alt="Grahpicrive"></a>
+                    <a href="#"><img src="images/advertising/tutorialadvertising.jpg" alt="Tutsplus"></a>
+                    
+                    </div>
+                
+              </div>
+              <!-- End Advertising Widget -->
+              <span class="box-arrow"></span>
+            
+            </div>
+            <!-- End Blog Widget -->
+            
+        	<!-- Start Blog Widget -->
+            <div class="blogwidget">
+            	<!-- Start Categories Widget -->
+            	<div class="widgettitle"><h4>Blog Categories</h4></div>
+                
+                <div class="widgetbody">
+                
+                	<div class="blogcategories">
+                    
+                    	<ul>
+                        	<li><a href="#" title="All Blogs">All Blogs</a></li>
+                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
+                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
+                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
+                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
+                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
+                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
+                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
+                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
+                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
+                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
+                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
+                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>                            
+                        </ul>
+                    
+                    </div>
+                
+              </div>
+              <!-- End Categories Widget -->
+              <span class="box-arrow"></span>
+            
+            </div>
+            <!-- End Blog Widget -->
+            
+        	<!-- Start Blog Widget -->
+            <div class="blogwidget">
+            	<!-- Start Categories Widget -->
+            	<div class="widgettitle"><h4>Top 5 Blog Posts</h4></div>
+                
+                <div class="widgetbody">
+                
+                	<div class="blogcategories">
+                    
+                    	<ul>
+                        	<li><a href="#" title="All Blogs">Maecenas non ipsum nunc</a></li>
+                            <li><a href="#" title="All Blogs">Lorem ipsum dolor </a></li>
+                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
+                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
+                            <li><a href="#" title="All Blogs">Maecenas non ipsum nunc</a></li>                        
+                        </ul>
+                    
+                    </div>
+                
+              </div>
+              <!-- End Categories Widget -->
+              <span class="box-arrow"></span>
+            
+            </div>
+            <!-- End Blog Widget -->
+        
+        </div>
+        <!-- End Right Section -->
+    			
+			<!-- Start Full Width -->
+				<div class="boxes-full">
 
-				<!-- Start Blog Widget -->
-				<div class="blogwidgetstart">
-					<!-- Start Advertising Widget -->
+					<div class="contacttitle">
 
-
-
-					<!-- Start Blog Widget -->
-					<div class="blogwidget">
-						<!-- Start Categories Widget -->
-						<div class="widgettitle">
-							<h4>Blog Categories</h4>
-						</div>
-
-						<div class="widgetbody">
-
-							<div class="blogcategories">
-
-								<ul>
-									<li><a href="#" title="All Blogs">All Blogs</a></li>
-									<li><a href="#" title="All Blogs">Lorem ipsum dolor
-											sit</a></li>
-									<li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
-									<li><a href="#" title="All Blogs">Lorem ipsum dolor
-											sit</a></li>
-									<li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
-									<li><a href="#" title="All Blogs">Lorem ipsum dolor
-											sit</a></li>
-									<li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
-									<li><a href="#" title="All Blogs">Lorem ipsum dolor
-											sit</a></li>
-									<li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
-									<li><a href="#" title="All Blogs">Lorem ipsum dolor
-											sit</a></li>
-									<li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
-									<li><a href="#" title="All Blogs">Lorem ipsum dolor
-											sit</a></li>
-									<li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
-								</ul>
-
-							</div>
-
-						</div>
-						<!-- End Categories Widget -->
-						<span class="box-arrow"></span>
+						<h2>Comment</h2>
 
 					</div>
-					<!-- End Blog Widget -->
 
-					<!-- Start Blog Widget -->
-					<div class="blogwidget">
-						<!-- Start Categories Widget -->
-						<div class="widgettitle">
-							<h4>Top 5 Blog Posts</h4>
-						</div>
+					<div class="boxes-padding fullpadding">
 
-						<div class="widgetbody">
+						<div id="contactwarning"></div>
+						<div id="contactajax"></div>
 
-							<div class="blogcategories">
+						<form:form action="${pageContext.request.contextPath}/insert_comment" method="post" modelAttribute="comment_detail">
 
-								<ul>
-									<li><a href="#" title="All Blogs">Maecenas non ipsum
-											nunc</a></li>
-									<li><a href="#" title="All Blogs">Lorem ipsum dolor </a></li>
-									<li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
-									<li><a href="#" title="All Blogs">Lorem ipsum dolor
-											sit</a></li>
-									<li><a href="#" title="All Blogs">Maecenas non ipsum
-											nunc</a></li>
-								</ul>
+							<div class="contacttextboxes">
+
+								<div align="left" style="color: black">	<b>Full Name* :</b></div>
+								<form:input path="commenter_name" id="name" name="name"	type="text" class="contacttextform" />
+
+								<div align="left" style="color: black"><b>Email* :</b></div>
+								<form:input path="commenter_email" id="name" name="email" type="text" class="contacttextform" />
+								
+								<div align="left" style="color: black"><b>You Are? :</b></div>
+								
+								<form:radiobuttons path="type_of_user" items="${user_type}" onclick="showhidediv(this);" style="xcolor :black;"/>
+								<%-- <form:select path="rating" name="rating" style="width: 355px;">
+									<c:forEach items="${user_type}" var="item">
+										<option value="${item}" style="font-family:arial">${item}</option>
+									</c:forEach>
+								</form:select> --%>
+								
+
+								<div id="one" class="CF" style="display:none;">
+								<div class="accordionwrap">
+                        
+		                            <div class="accordiontitle"><a href="#">Enrolled Students</a></div>
+		                            <div class="accordioncontent">
+									
+									<div align="left" style="color: black">	<b>How do you rate the content of the Course relevent to Industry?</b></div>
+									<form:radiobuttons path="content_rating" items="${stars}" />
+									
+									<div align="left" style="color: black">	<b>How far does the Course help you in future endevours?</b></div>
+									<form:radiobuttons path="technology_rating" items="${stars}" />
+									
+									<div align="left" style="color: black">	<b>Your Overall Experience! Would you recommend this course to other?</b></div>
+									<form:radiobuttons path="overall_rating" items="${stars}" />
+									
+									</div>
+								</div>
+									
+								</div>
+								<div id="two" style="display:none;" class="CF" >
+								<div class="accordionwrap">
+                        
+		                            <div class="accordiontitle"><a href="#">Industrialist</a></div>
+		                            <div class="accordioncontent">
+									
+									<div align="left" style="color: black">	<b>Does the course structure match your company requirements?</b></div>
+									<form:radiobuttons path="content_rating" items="${stars}" />
+									
+									<div align="left" style="color: black">	<b>How do you rate the overall future of this technology?</b></div>
+									<form:radiobuttons path="technology_rating" items="${stars}" />
+									
+									<div align="left" style="color: black">	<b>Overall Ratings!</b></div>
+									<form:radiobuttons path="overall_rating" items="${stars}" />
+									
+									</div>
+								</div>
+								</div>
+								<div id="three" style="display:none;" class="CF" >
+								<div class="accordionwrap">
+                        
+		                            <div class="accordiontitle"><a href="#">Unenrolled</a></div>
+		                            <div class="accordioncontent">
+									
+									<div align="left" style="color: black">	<b>How do you find the content of the course interesting?</b></div>
+									<form:radiobuttons path="content_rating" items="${stars}" />
+									
+									<div align="left" style="color: black">	<b>Does the technology help gain jobs?</b></div>
+									<form:radiobuttons path="technology_rating" items="${stars}" />
+									
+									<div align="left" style="color: black">	<b>Overall Ratings!</b></div>
+									<form:radiobuttons path="overall_rating" items="${stars}" />
+									
+									</div>
+								</div>
+								</div>
+							
+								<br>
+								<br>
+								<br><br>
+								<br> <font color="red">Asterisk (*) marked fields are mandatory.</font>
+								<fieldset>
+									<br>
+								</fieldset>
+								<fieldset>
+									<input name="Submit" type="submit" class="contactformbutton" value="Submit">
+								</fieldset>
+								
 
 							</div>
+							<div class="contacttextarea">
+								
+                    			<div align="left"> <b>Comments* :</b></div> <form:textarea path="comment" name="comment" id="comment" cols="5" rows="5" class="contacttextarea" />
+                    
+								<br>
 
-						</div>
-						<!-- End Categories Widget -->
-						<span class="box-arrow"></span>
+							</div>
+							
+								
+
+						</form:form>
 
 					</div>
-					<!-- End Blog Widget -->
+
+					<span class="box-arrow"></span>
 
 				</div>
-				<!-- End Right Section -->
-
-			</div>
-			<!-- End Main Body Wrap -->
-
+				<!-- End Full Width -->
 		</div>
+				<!-- End Main Body Wrap -->
+		
 	</div>
 	<!-- Start Footer -->
 	<div id="footer">

@@ -1,4 +1,4 @@
-  package com.ratemycourse.services;
+package com.ratemycourse.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +22,7 @@ import com.google.gson.JsonObject;
 import com.ratemycourse.model.User;
 import com.ratemycourse.model.Rss;
 import com.ratemycourse.model.Course;
+import com.ratemycourse.model.Comment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,72 +53,70 @@ public class UserServiceImpl implements UserService {
 	public void insertData(User user) {
 
 		String sql = "INSERT INTO user "
-			    + "(first_name,last_name, email, password, state) VALUES (?, ?, ?,?,?)";
+				+ "(first_name,last_name, email, password, state) VALUES (?, ?, ?,?,?)";
 
-			  System.out.println("Values : "+user.getLastName());
-			 
-			JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		System.out.println("Values : "+user.getLastName());
 
-			  jdbcTemplate.update(
-			    sql,
-			    new Object[] {user.getFirstName(), user.getLastName(),
-			        user.getEmail(), user.getPassword(),user.getState() });
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+
+		jdbcTemplate.update(
+				sql,
+				new Object[] {user.getFirstName(), user.getLastName(),
+						user.getEmail(), user.getPassword(),user.getState() });
 
 
 	}
 	@Override
-	 public boolean fetchData(User user) {
-		 String email=user.getEmail();
-		 String password=user.getPassword();
-		 
-		 JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+	public boolean fetchData(User user) {
+		String email=user.getEmail();
+		String password=user.getPassword();
 
-			String username="";
-			String pass="";	 
-		 
-	 String sql = "select email, password from user where email = '"+email+"' and password='"+password+"'";
-		  List results=jdbcTemplate.queryForList(sql);
-		  for (Object result : results) {
-			  System.out.println(result);
-	          HashMap map = (HashMap) result;
-			
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+
+		String username="";
+		String pass="";	 
+
+		String sql = "select email, password from user where email = '"+email+"' and password='"+password+"'";
+		List results=jdbcTemplate.queryForList(sql);
+		for (Object result : results) {
+			System.out.println(result);
+			HashMap map = (HashMap) result;
+
 			/*Map <String,Object> results = 
 			        JdbcTemplate.queryForMap(
 			        "SELECT email, password FROM user WHERE email = ? AND password = ? "
 			        ,user.getEmail(), user.getPassword());*/
-			
-	          /*email=(String)result.get("email");
+
+			/*email=(String)result.get("email");
 	          password=(String)result.get("password");*/
-	        System.out.println("Email " +email);
-	          System.out.println ("password " +password);
-	          for (Object key : map.keySet()) {
-	        	  map.get(1);
-	        	  
-	        	  
-	        	  if(key.equals("email")){
-	        		  username=(String)map.get(key);
-	        	  }
-	        	  else{
-	        		  pass=(String)map.get(key);
-	        	  }
-	              System.out.print(key + " = " + map.get(key) + "; ");
-	          }
-		      }
-	          
+			System.out.println("Email " +email);
+			System.out.println ("password " +password);
+			for (Object key : map.keySet()) {
+				map.get(1);
 
-		 		
-		 		if((email.equals(username)) && (password.equals(pass))){
-		 			System.out.println("Apply Login");
-		 			return true;
-		 		} else {
-		 			
-		 		
-		 		System.out.println("Do not apply login");
-		 		return false;
-		  }
+
+				if(key.equals("email")){
+					username=(String)map.get(key);
+				}
+				else{
+					pass=(String)map.get(key);
+				}
+				System.out.print(key + " = " + map.get(key) + "; ");
+			}
+		}
+
+
+
+		if((email.equals(username)) && (password.equals(pass))){
+			System.out.println("Apply Login");
+			return true;
+		} else {
+
+
+			System.out.println("Do not apply login");
+			return false;
+		}
 	}
-
-	
 
 	@Override
 	public List<String> RSSList() {
@@ -386,12 +385,12 @@ public class UserServiceImpl implements UserService {
 		try {
 			/*
 			 * Corresponding sample CouchDB query
-			 * http://127.0.0.1:5984/demo/_design/views/_view/by_top_rated?descending=true&limit=10
+			 * http://127.0.0.1:5984/monish/_design/views/_view/by_top_rated?descending=true&limit=10
 			 */
 			courseList = dbClient.view("views/by_top_rated")
 					.descending(true)
 					.limit(count)
-					
+
 					.query(JsonObject.class);
 			if (courseList.isEmpty()) {
 				JsonObject error = new JsonObject();
@@ -403,64 +402,92 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 		}
 		return courseList;
-}
-
-
-
-/* (non-Javadoc)
- * @see com.ratemycourse.services.UserService#getIndOrientedCourse(int)
- */
-@Override
-public List<JsonObject> getIndOrientedCourse(int count) {
-	List<JsonObject> courseList = null;
-	try {
-		/*
-		 * Corresponding sample CouchDB query
-		 * http://127.0.0.1:5984/demo/_design/views/_view/by_top_ind_user_rated?descending=true&limit=10
-		 */
-		courseList = dbClient.view("views/by_top_ind_user_rated")
-				.descending(true)
-				.limit(count)
-				.query(JsonObject.class);
-		if (courseList.isEmpty()) {
-			JsonObject error = new JsonObject();
-			error.addProperty("error_type", "data_missing");
-			error.addProperty("error_message", "Course data missing");
-			courseList.add(error);
-		}
-	} catch (Exception e) {
-		e.printStackTrace();
 	}
-	return courseList;
-}
 
-/* (non-Javadoc)
- * @see com.ratemycourse.services.UserService#getMostFollowedCourse(int)
- */
-@Override
-public List<JsonObject> getMostFollowedCourse(int count) {
-	List<JsonObject> courseList = null;
-	try {
-		/*
-		 * Corresponding sample CouchDB query
-		 * http://127.0.0.1:5984/demo/_design/views/_view/by_most_no_of_comments?descending=true&limit=10
-		 */
-		courseList = dbClient.view("views/by_most_no_of_comments")
-				.descending(true)
-				.limit(count)
-				.query(JsonObject.class);
-		if (courseList.isEmpty()) {
-			JsonObject error = new JsonObject();
-			error.addProperty("error_type", "data_missing");
-			error.addProperty("error_message", "Course data missing");
-			courseList.add(error);
+
+
+	/* (non-Javadoc)
+	 * @see com.ratemycourse.services.UserService#getIndOrientedCourse(int)
+	 */
+	@Override
+	public List<JsonObject> getIndOrientedCourse(int count) {
+		List<JsonObject> courseList = null;
+		try {
+			/*
+			 * Corresponding sample CouchDB query
+			 * http://127.0.0.1:5984/demo/_design/views/_view/by_top_ind_user_rated?descending=true&limit=10
+			 */
+			courseList = dbClient.view("views/by_top_ind_user_rated")
+					.descending(true)
+					.limit(count)
+					.query(JsonObject.class);
+			if (courseList.isEmpty()) {
+				JsonObject error = new JsonObject();
+				error.addProperty("error_type", "data_missing");
+				error.addProperty("error_message", "Course data missing");
+				courseList.add(error);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-	} catch (Exception e) {
-		e.printStackTrace();
+		return courseList;
 	}
-	return courseList;
-}
 
 
+	/* (non-Javadoc)
+	 * @see com.ratemycourse.services.UserService#getMostFollowedCourse(int)
+	 */
+	@Override
+	public List<JsonObject> getMostFollowedCourse(int count) {
+		List<JsonObject> courseList = null;
+		try {
+			/*
+			 * Corresponding sample CouchDB query
+			 * http://127.0.0.1:5984/demo/_design/views/_view/by_most_no_of_comments?descending=true&limit=10
+			 */
+			courseList = dbClient.view("views/by_most_no_of_comments")
+					.descending(true)
+					.limit(count)
+					.query(JsonObject.class);
+			if (courseList.isEmpty()) {
+				JsonObject error = new JsonObject();
+				error.addProperty("error_type", "data_missing");
+				error.addProperty("error_message", "Course data missing");
+				courseList.add(error);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return courseList;
+	}
+
+	@Override
+	public String insertcomment(Comment comment_detail) {
+
+		//.setHost("aiyarankith.cloudbees.cloudant.com")
+		//.setUsername("aiyarankith.cloudbees")
+		//.setPassword("bs5854fh4I3nnGYJQ5e58FML");
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("_id", (comment_detail.getcommenter_name()).toLowerCase());
+
+		map.put("docfield", comment_detail);
+		System.out.println("Find Result");
+		String result ="Course Entered Successfully";
+
+		try {
+			dbClient.save(map);
+
+
+		} catch (DocumentConflictException e){
+
+			e.printStackTrace();
+			result = "Course Already Exists";
+		}
+		return result;
+
+	}
+
 }
+
 
