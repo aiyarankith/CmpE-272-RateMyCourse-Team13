@@ -15,9 +15,9 @@
 	<!-- End Socialarea -->
 	
 	<!-- Start Logo area -->
-	<div id="logo">
+	<!-- <div id="logo">
 	  <a href="/themes/response/" title="Response">Welcome Guest</a>
-	</div>
+	</div> -->
 	<!-- End Logo area -->
         
 </div>

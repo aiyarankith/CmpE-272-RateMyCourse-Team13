@@ -78,24 +78,20 @@
 
 					<div class="blogtitle">
 						<h3>
-							<a href="blog-post.html" title="5 ways to get top of google">login
-</a>
+							<a href="blog-post.html" title="5 ways to get top of google"><div align="left" style="color:orange"><b>Admin Login</b></div></a>
 						</h3>
 					</div>
 
 					<div class="blogbody">
 						<div class="blogtext">
 
-							<form:form method="post" id="loginForm"
-								action="${pageContext.request.contextPath}/fetchdata"
-								modelAttribute="user">
+							<form:form method="post" id="loginForm" action="${pageContext.request.contextPath}/fetchdata" modelAttribute="user">
 								<p>
-									<%--                         User ID: <form:input path="userId" /><br><br><br> --%>
 									
-									<div class="required"><label>Email :</label><form:input path="email" placeholder="Email" id="email" /> </div><br>
-									<div class="required"><label> Password :</label><form:input path="password" placeholder="password" class="password" id="password" /></div><br>
+									<div align="left" style="color:black"><div class="required"><label><b>Email :</b></div></label><form:input class="contacttextform" path="email" placeholder="Email" id="email" /> </div><br>
+									<div align="left" style="color:black"><div class="required"><label><b>Password :</b></div> </label><form:input class="contacttextform" path="password" placeholder="password" id="password" /></div><br>
 									
-									<input type="submit" id="submitButton" value="Login" />
+									<input type="submit" class="contactformbutton" id="submitButton" value="Login" />
 								</p>
 							</form:form>
 
@@ -105,6 +101,9 @@
 
 
 					
+			</div>
+			</div>
+			</div>
 			
 		<!-- End Main Body Wrap -->
 

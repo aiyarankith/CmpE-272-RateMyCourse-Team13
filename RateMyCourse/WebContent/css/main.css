@@ -45,10 +45,10 @@
 
 #search-form { margin:70px 0 100px 170px; width:650px; overflow:hidden; }
 #search-page-border { border:1px solid #dbdbdb; border-radius:4px; padding:7px; float:left; }
-.search-terms { font-size:20px; border:none; }
+.search-terms { font-size:18px; border:none; }
 #search-which { margin:0 10px; padding-left:8px; border-left:1px solid #dbdbdb; }
 #search-which, select option { font-size:20px; }
-#search-submit { padding:12px 30px; margin-left:20px; font-size:20px; float:left; color:#333333; background:#cccccc; border:none; border-radius: 3px; }
+#search-submit { padding:12px 30px; margin-left:20px; font-size:18px; float:left; color:#333333; background:#cccccc; border:none; border-radius: 3px; }
 .accessibly-hidden {left: -999em;position: absolute;} - See more at: http://labstrikes.blogspot.com/2012/11/css-search-box.html#sthash.bCP5w5LE.dpuf
 
 
@@ -108,7 +108,7 @@
     border: 0;
     padding: 0;
     cursor: pointer;
-    height: 40px;
+    height: 10px;
     width: 110px;
     font: bold 15px/40px 'lucida sans', 'trebuchet MS', 'Tahoma';
     color: #fff;

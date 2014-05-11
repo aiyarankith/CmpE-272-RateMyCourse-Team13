@@ -538,5 +538,5 @@ public class UserServiceImpl implements UserService {
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
- 	}	
+ 	}
 }

@@ -59,101 +59,40 @@
 
 	<div id="main">
 		<!-- Start H1 Title -->
-		<div class="titlesnormal">
-
-			<h1>Registration Page</h1>
-
-			<span></span>
-
-		</div>
+		
 		<!-- End H1 Title -->
 		<!-- Start Main Body Wrap -->
 		<div id="main-wrap">
-
-			<!-- Start Left Section -->
-			<div class="leftsection">
-
-				<!-- Start Blog Post -->
-				<div class="blogwrapstart">
-
-					<div class="blogtitle">
-						<h3>
-							<a href="blog-post.html" title="5 ways to get top of google">Admin-Registration</a>
-						</h3>
-					</div>
-
-					<div class="blogbody">
-						<div class="contacttextarea">
-
-							<form:form method="post" id="RegistrationForm"
+<div class="boxes-full">
+        
+        	<div class="boxes-padding fullpadding">
+            	
+                <!-- Start None Split Section -->
+            	<div class="split2">
+                
+                	<h2>Administrator Registration</h2>
+                    <hr />
+                    <form:form method="post" id="RegistrationForm"
 								action="${pageContext.request.contextPath}/insert"
 								modelAttribute="user">
 								<p>
 								
-									<%--                         User ID: <form:input path="userId" /><br><br><br> --%>
-									<div class="required"><label>First Name :</label><form:input path="firstName" placeholder="Firstname" id="fname" /></div> <br>	
-					                <div class="required"><label>Last Name  :</label><form:input path="lastName" placeholder="Lastname" id="lname" /></div><br>
-									<div class="required"><label>Email      :</label><form:input path="email" placeholder="email" id="email"/></div> <br>
-									<div class="required"><label>State      :</label><form:input path="state" placeholder="state" id="state" /></div><br> 
-									<div class="required"><label>Password   :</label><form:input path="password" placeholder="password" class="password" id="password" type="password" /></div><br>
-									<div align="center"><input type="submit" id="SubmitButton" value="Register"  />	</div>							
+									<div class="required"><label>First Name :</label><form:input class="contacttextform" path="firstName" placeholder="Firstname" id="fname" /></div> <br>	
+					                <div class="required"><label>Last Name  :</label><form:input class="contacttextform" path="lastName" placeholder="Lastname" id="lname" /></div><br>
+									<div class="required"><label>Email      :</label><form:input class="contacttextform" path="email" placeholder="email" id="email"/></div> <br>
+									<div class="required"><label>State      :</label><form:input class="contacttextform" path="state" placeholder="state" id="state" /></div><br> 
+									<div class="required"><label>Password   :</label><form:input class="contacttextform" path="password" placeholder="password"  id="password" type="password" /></div><br>
+									<input type="submit" class="contactformbutton" id="SubmitButton" value="Register"  />							
 							</form:form>
-
-						</div>
-						<!-- End Blog Text -->
-					</div>
-
-					<span class="box-arrow"></span>
-
-				</div>
-				<!-- End Blog Post -->
-
-				<!-- Start Blog Post -->
-			<!--  	<div class="blogwrap">
-
-					<div class="blogcommenttitle">
-						<h3>2 Comments</h3>
-					</div>
-					<span class="box-arrow"></span>
-
-				</div> -->
-				
-				
-				
-		
-				<!-- End Blog Widget -->
-
-				<!-- Start Blog Widget -->
-				<div class="blogwidget">
-					<!-- Start Categories Widget -->
-					<div class="widgettitle">
-						<h4>Top 5 Blog Posts</h4>
-					</div>
-
-					<div class="widgetbody">
-
-						<div class="blogcategories">
-
-							<ul>
-								<li><a href="#" title="All Blogs">About</a></li>
-								<li><a href="#" title="All Blogs">Most Rated Course</a></li>
-								<li><a href="#" title="All Blogs">Most Followed Course </a></li>
-								<li><a href="#" title="All Blogs">Industry Oriented Course</a></li>
-								<li><a href="#" title="All Blogs">Top Courses by College</a></li>
-							</ul>
-
-						</div>
-
-					</div>
-					<!-- End Categories Widget -->
-					<span class="box-arrow"></span>
-
-				</div>
-				<!-- End Blog Widget -->
-
-			</div>
-			<!-- End Right Section -->
-
+                </div>
+            	<!-- End None Split Section -->
+            	<div class="split2">
+                
+                	
+                </div>
+            	</div>
+            	</div>
+			<!-- Start Left Section -->
 		</div>
 		<!-- End Main Body Wrap -->
 

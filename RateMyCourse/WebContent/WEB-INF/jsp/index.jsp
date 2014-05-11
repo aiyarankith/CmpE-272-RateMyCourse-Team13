@@ -73,9 +73,72 @@
 <body>
 <div id="header">
 <%@include file="includes/menu.jsp" %>
-<div id="header_small">
+
+<div class="clear"></div>
+<%@include file="includes/social.jsp" %>
+<div id="header_small" style="width:800px; margin:0 auto;">
        
-	<form action="${pageContext.request.contextPath}/search" method="post" name="searchForm">
+	
+	
+	</div>
+</div>
+
+
+<div id="main">
+
+
+    <!-- Start Slider Wrapping -->
+    <div id="sliderwrap">
+		
+        <!-- Start Slider -->
+        <div id="slider" class="nivoSlider">
+            <img src="images/slider-banners/slider01.jpg" alt=""/>
+            <img src="images/slider-banners/slider02.jpg" alt=""/>
+            <img src="images/slider-banners/slider03.jpg" alt=""/>
+        </div>
+        <!-- End Slider -->
+        
+        <!-- Start Slider HTML Captions -->
+        <div id="htmlcaption" class="nivo-html-caption">
+            <strong>This</strong> is an example of a <em>HTML</em> caption with <a href="#">a link</a>.
+        </div>
+        <!-- End Slider HTML Captions -->
+    
+    </div>
+    <!-- End Slider Wrapping -->
+
+    
+    <!-- Start H1 Title -->
+    <div class="titles">
+    
+    	<h1>Welcome to Rate My Course Website ${message }</h1>
+        
+        <span></span>
+    
+    </div>
+    <!-- End H1 Title -->
+    <!-- Start Main Body Wrap -->
+    <div id="main-wrap">
+    <div class="boxes-full">
+    	<div class="boxes-padding fullpadding">
+        	<div class="split3">
+                
+                    <h3>Rate My Course</h3>
+                    <hr />
+                    <p>&diams; Search for the Courses by Name</p>
+                    <p>&diams; Search for the Courses by Course ID</p>
+                    <p>&diams; Search for the Courses by Content</p>
+                    
+                
+                </div>
+                
+                <div class="split23">
+                
+                    <h3>Search For the Courses</h3><hr />
+                    <br>
+                    <h4>&#9733; Rate &#9733; Comment &#9733; Browse </h4>
+                    <br>
+                    <form action="${pageContext.request.contextPath}/search" method="post" name="searchForm">
 		<span id="search-page-border">
 		 <select class="search-terms" name="searchCategory" id="searchCategory" style="width: auto" data-selected="CNAME">
 		 	<option value="CNAME">Course Name</option>
@@ -88,44 +151,9 @@
 		</span>
 		<input type="submit" name="search-submit" id="search-submit" value="Search" />
 	</form>
-</div>
-<div class="clear"></div>
-
-</div>
-
-
-<div id="main">
-
-    <!-- Start Slider Wrapping -->
-    <div id="sliderwrap">
-		
-        <!-- Start Slider -->
-        <div id="slider" class="nivoSlider">
-            <img src="images/slider-banners/slider01.jpg" alt=""/>
-            <img src="images/slider-banners/slider02.jpg" alt=""/>
-            <img src="images/slider-banners/slider03.jpg" alt=""/>
+                </div>
         </div>
-        <!-- End Slider -->
-        <!-- Start Slider HTML Captions -->
-        <div id="htmlcaption" class="nivo-html-caption">
-            <strong>This</strong> is an example of a <em>HTML</em> caption with <a href="#">a link</a>.
-        </div>
-        <!-- End Slider HTML Captions -->
-    
     </div>
-    <!-- End Slider Wrapping -->
-    <!-- Start H1 Title -->
-    <div class="titles">
-    
-    	<h1>Welcome to Rate My Course Website ${message }</h1>
-        
-        <span></span>
-    
-    </div>
-    <!-- End H1 Title -->
-    <!-- Start Main Body Wrap -->
-    <div id="main-wrap">
-    
     	<!-- Start Featured Boxes -->
         <div class="boxes-third boxes-first">
         
@@ -186,31 +214,41 @@
     
     	<div class="footerwrap">
     		<!-- Start Latest Tweets -->
-            <div id="latest-tweets">
-                <div id="twittertitle">Latest Tweets</div>
-                <div id="twitterbody">
-                
-                </div>
-            </div>
-            <!-- End Latest Tweets -->
+				<div id="useful_links">
+					<div id="usefultitle">Navigation</div>
+					<div id="usefulbody">
+
+						<ul>
+
+							<li><a href="index">Home </a></li>
+							<li><a href="about">About</a></li>
+							<li><a href="most_rated_course">Most Rated Course</a></li>
+							<li><a href="most_followed_course">Most Followed Course</a></li>
+							<li><a href="industry_oriented_course">Industry Oriented Course</a></li>
+							<li><a href="top_courses_colleges">Top Courses By College</a></li>
+						</ul>
+
+					</div>
+				</div>
+				
+				<!-- End Latest Tweets -->
     		<!-- Start Useful Links -->
-            <div id="useful_links">
-                <div id="usefultitle">Navigate</div>
-                <div id="usefulbody">
-               		<ul>
-                    
-                    	<li><a href="about" title="">About</a></li>
-                        <li><a href="most_rated_course" title="">Most Rated Course</a></li>
-                        <li><a href="most_followed_course" title="">Most Followed Course</a></li>
-                        <li><a href="industry_oriented_course" title="">Industry Oriented Course</a></li>
-                        <li><a href="top_courses_colleges" title="">Top Courses by College</a></li>
-                                         
-                    </ul>
-                	
-                
-                </div>
-            </div>
-            <!-- End Useful Links -->
+				<div id="useful_links">
+					<div id="usefultitle">Help And Support</div>
+					<div id="usefulbody">
+
+						<ul>
+
+							<li><a href="user_ticket">Contact Us</a></li>
+							<li><a href="about">About</a></li>
+							<li><a href="#">What is Rss?</a></li>
+							<li><a href="#">FAQ</a></li>
+
+						</ul>
+
+					</div>
+				</div>
+				<!-- End Useful Links -->
     		<!-- Start Testimonials -->
             <div id="latest-testimonial">
                 <div id="testimonialtitle">Latest RSS Feeds</div>

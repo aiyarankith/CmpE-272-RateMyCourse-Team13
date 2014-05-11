@@ -7,7 +7,7 @@
         	<div id="navigation_wrap">
 
                 <!-- Start contact info area -->
-                <div id="conteactinfo"><strong>Welcome Guest </strong></div>
+                <div id="conteactinfo"><strong>Rate My Course</strong></div>
                 <!-- End contact info area -->
                 <!-- Start navigation -->
                 <div id="navi">

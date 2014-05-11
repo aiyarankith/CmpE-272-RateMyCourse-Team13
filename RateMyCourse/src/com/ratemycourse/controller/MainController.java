@@ -55,11 +55,11 @@ public class MainController {
 
 		return "login";
 	}
-	   //Valid-Admin
+	//Valid-Admin
 	@RequestMapping(value = "/welcomeadmin", method = RequestMethod.GET)
 	public String welcome_page(@ModelAttribute User user) {
-	
-	return "welcome";
+
+		return "welcome";
 	}
 
 	//Registration Button 
@@ -88,7 +88,6 @@ public class MainController {
 
 		return "redirect:index";
 	}
-
 	//CouchDB Insert Course Page (Admin)
 	@RequestMapping(value="/add_course", method = RequestMethod.GET)
 	public String addcourse(@ModelAttribute("details") Course details) {
