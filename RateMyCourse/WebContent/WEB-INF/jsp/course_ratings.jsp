@@ -9,6 +9,7 @@
 <%@page import="org.json.simple.*"%>
 <%@page import="org.json.simple.parser.JSONParser"%>
 <%@page import="com.google.gson.JsonObject"%>
+<%@page import="com.google.gson.JsonArray"%>
 
 
 <html>
@@ -112,24 +113,15 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
         
         	<div class="boxes-padding fullpadding">
             	
-                <!-- Start one 3rd and two 3rd Split Section -->
-                <div class="split3">
-                
-                    <h3>Prerequisits</h3>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus.</p>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
-                
-                </div>
-                
-                
                 <div class="split23">
                 	<% 	String course_id = null;
 						String course_name = null;
+						JsonObject details = null;
+						System.out.println("out");
 						if (request.getAttribute("course_details") != null) {
+							System.out.println("in");
 					%>
-					<% 	JsonObject details = (JsonObject) request.getAttribute("course_details");
+					<% 	details = (JsonObject) request.getAttribute("course_details");
 						course_id = details.get("c_id").getAsString();
 						course_name = details.get("name").getAsString();
 					%>
@@ -610,11 +602,6 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
 									href="<%=details.get("related_doc_link").getAsString()%>"><%=details.get("related_doc_link").getAsString()%>
 								</a>
 							</p>
-														
-
-							
-
-							
 							<%
 								} else {
 							%>
@@ -625,10 +612,39 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
 							<%
 								}
 							%>
-
-
                 </div>
-                
+                <!-- Start one 3rd and two 3rd Split Section -->
+                <div class="split3">
+                    <h3>Prerequisites Stuff</h3>
+                    <hr/>
+                     <h5>Prerequisites for this course...</h5>
+                     <% if(details != null) { %>
+                     <ul><li>
+                     <a href="${pageContext.request.contextPath}/get_course?courseId=<%=details.get("prereq").getAsString()%>" ><%=details.get("prereq").getAsString()%></a>
+                     </li></ul>
+                     <% } else {%>
+                      <p> Nothing </p>
+                     <% } %>
+                     <hr/>
+                     <h5>And this course is prerequisite for...</h5>
+                     <% List<JsonObject> list = (List<JsonObject>) request.getAttribute("course_prereq4");
+						if (list != null && list.size() > 0) { %>
+                    <ul>
+              		 	 <%  Iterator<JsonObject> courseItr = list.iterator();
+							while (courseItr.hasNext()) {
+								JsonArray course = courseItr.next().get("value").getAsJsonArray();
+								String id = course.get(0).getAsString();
+						%>
+                    	<li>
+                    		<a href="${pageContext.request.contextPath}/get_course?courseId=<%=id%>" ><%=id%></a>
+                    	</li>
+                	<% } %>
+                    </ul>
+                     <% } else { %>
+                     <p> Nothing </p>
+                     <% } %>
+                    <hr/>
+                </div>
                 <!-- End one 3rd and two 3rd Split Section -->
                 <div class="clear"></div>
                 <hr />

@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -19,15 +18,12 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
 import javax.sql.DataSource;
-
-
-
 
 //CouchDB Imports
 import org.lightcouch.CouchDbClient;
 import org.lightcouch.DocumentConflictException;
+import org.lightcouch.NoDocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -196,18 +192,24 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public JsonObject getCourse(String cId) {
-
-		JsonObject json = null;
+		JsonObject courseDetails = null;
 		try {
-			json = dbClient.find(JsonObject.class, cId);
-			System.out.println("JSON at GET:: "+json);
-
-		} catch (Exception e){
-
-			e.printStackTrace();
+			List<JsonObject> courseList = null;
+			//sample view: http://127.0.0.1:5984/demo/_design/views/_view/by_course_id?key=""
+			courseList = dbClient.view("views/by_course_id")
+					.key(cId.trim().toLowerCase())
+					.query(JsonObject.class);
+			System.out.println("get course  courseList:"+courseList);
+			if (courseList.isEmpty()) {
+				return null;
+			}
+			courseDetails = courseList.listIterator().next().getAsJsonObject();
+		} catch (NoDocumentException noDocEx) {
+			noDocEx.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
-		return json; 		
-
+		return courseDetails.get("value").getAsJsonObject(); 		
 	}
 
 
@@ -460,7 +462,9 @@ public class UserServiceImpl implements UserService {
 		return courseList;
 	}
 
-	@Override
+
+
+@Override
 	public String insertcomment(Comment comment_detail) {
 
 		//Calculate the date
@@ -468,14 +472,26 @@ public class UserServiceImpl implements UserService {
 		Date dates = new Date();
 		String date = dateFormat.format(dates);
 			
-		//Calculate Average
-		float total_ratings = (Float.valueOf(comment_detail.getcontent_rating()) + Float.valueOf(comment_detail.gettechnology_rating()) + Float.valueOf(comment_detail.getoverall_rating()))/15;
-		System.out.println("course ID:" +total_ratings);
+		//Calculate user rating based on user type.
+		String userType = comment_detail.gettype_of_user();
+		double total_ratings = 0.00;
+		total_ratings = (Float.valueOf(comment_detail.getcontent_rating()) + Float.valueOf(comment_detail.gettechnology_rating()) + Float.valueOf(comment_detail.getoverall_rating()))/15;
+		if ("Industrialist".equals(userType)) {
+			comment_detail.settype_of_user("IND");
+			total_ratings = total_ratings * 1;
+		} else if ("Enrolled Students".equals(userType)) {
+			comment_detail.settype_of_user("EST");
+			total_ratings = total_ratings * 0.9;
+		} else {
+			comment_detail.settype_of_user("UEST");
+			total_ratings = total_ratings * 0.6;
+		}
+		System.out.println("user_ratings:" +total_ratings);
 
 		String message = null;
 		JsonObject doc_RatingAndComments = new JsonObject();
 		doc_RatingAndComments.addProperty("unique_key", "add email comf id here");
-		doc_RatingAndComments.addProperty("is_verified", "false");
+		doc_RatingAndComments.addProperty("is_verified", false);
 		doc_RatingAndComments.addProperty("type", comment_detail.gettype_of_user());
 		doc_RatingAndComments.addProperty("user_rating", total_ratings);
 		doc_RatingAndComments.addProperty("comment", comment_detail.getcomment());
@@ -539,4 +555,22 @@ public class UserServiceImpl implements UserService {
 			throw new RuntimeException(e);
 		}
  	}
+
+
+@Override
+	public List<JsonObject> getCoursesWithPrereqAs(String courseId) {
+		List<JsonObject> courseList = null;
+		try {
+			//sample view: http://127.0.0.1:5984/demo/_design/views/_view/by_course_id?key=""
+			courseList = dbClient.view("views/is_prereq_for")
+					.key(courseId.trim().toLowerCase())
+					.query(JsonObject.class);
+			System.out.println("4:"+courseList.toString());
+		} catch (NoDocumentException noDocEx) {
+			noDocEx.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return courseList; 		
+	}
 }

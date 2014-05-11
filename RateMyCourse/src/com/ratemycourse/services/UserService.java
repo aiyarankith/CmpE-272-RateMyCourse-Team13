@@ -94,4 +94,10 @@ public interface UserService {
 	 * @return confirmation or conflict message.
 	 */
 	public String insertcomment(Comment comment_detail);
+	/**
+	 * To get list of courses for which a particular course is being a prerequisite or dependent course.
+	 * @param courseId
+	 * @return course list
+	 */
+	public List<JsonObject> getCoursesWithPrereqAs(final String courseId);
 }

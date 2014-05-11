@@ -30,8 +30,6 @@ public class SearchServiceImpl implements SearchService {
 		String byCourseName = "CNAME";
 		String byCourseId = "CID";
 		String byCourseDesc = "CDESC";
-		String level_full = "FULL";
-		String level_partial = "STARTS_WITH";
 		List<JsonObject> courseList = null;
 		try {
 			if (byCourseName.equals(category)) {
