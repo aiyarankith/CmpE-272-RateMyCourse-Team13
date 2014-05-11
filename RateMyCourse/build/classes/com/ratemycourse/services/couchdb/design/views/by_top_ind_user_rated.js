@@ -1,0 +1,1 @@
+function(doc) { if (doc.is_course === 'Yes') { emit(doc.ind_user_rating, doc.name) }}

@@ -55,6 +55,12 @@ public class MainController {
 
 		return "login";
 	}
+	   //Valid-Admin
+	@RequestMapping(value = "/welcomeadmin", method = RequestMethod.GET)
+	public String welcome_page(@ModelAttribute User user) {
+	
+	return "welcome";
+	}
 
 	//Registration Button 
 	@RequestMapping("/insert")
@@ -67,14 +73,20 @@ public class MainController {
 
 	//login page for admin
 	@RequestMapping("/fetchdata")
-	public String fetchData(@ModelAttribute User user) {
+	public String fetchData(@ModelAttribute User user, HttpServletRequest request, final RedirectAttributes redirectedattributes) {
 		System.out.println("Data At fetch:: "+user);
+		String invalid_login_message;
+		String first_name = userService.fetchData(user);
+		if(first_name != null){
+			request.getSession().setAttribute("first_name", first_name);
+			return "welcomeadmin";
+		}
+		else if (first_name.equals("Invalid Login")){
+			invalid_login_message = "Invalid Login";
+			redirectedattributes.addFlashAttribute("invalid_login_message",invalid_login_message);
+		}
 
-		boolean check= userService.fetchData(user);
-		if(check==true)
-			return "redirect:index";
-		else
-			return "login";
+		return "redirect:index";
 	}
 
 	//CouchDB Insert Course Page (Admin)

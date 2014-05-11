@@ -1,0 +1,1 @@
+function(doc) { if (doc.is_course === 'Yes') emit(doc.c_id.toLowerCase(),doc)}

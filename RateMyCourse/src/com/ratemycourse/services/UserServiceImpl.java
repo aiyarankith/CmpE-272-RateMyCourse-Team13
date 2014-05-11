@@ -10,6 +10,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import javax.sql.DataSource;
 
 
@@ -60,7 +70,7 @@ public class UserServiceImpl implements UserService {
 
 	}
 	@Override
-	public boolean fetchData(User user) {
+	public String fetchData(User user) {
 		String email=user.getEmail();
 		String password=user.getPassword();
 
@@ -68,8 +78,9 @@ public class UserServiceImpl implements UserService {
 
 		String username="";
 		String pass="";	 
+		String f_name="";
 
-		String sql = "select email, password from user where email = '"+email+"' and password='"+password+"'";
+		String sql = "select email, password, first_name from user where email = '"+email+"' and password='"+password+"'";
 		List results=jdbcTemplate.queryForList(sql);
 		for (Object result : results) {
 			System.out.println(result);
@@ -91,10 +102,14 @@ public class UserServiceImpl implements UserService {
 				if(key.equals("email")){
 					username=(String)map.get(key);
 				}
-				else{
+				else if (key.equals("password")){
 					pass=(String)map.get(key);
 				}
+				else if (key.equals("first_name")){
+				f_name = (String)map.get(key);
+				}
 				System.out.print(key + " = " + map.get(key) + "; ");
+				System.out.println ("first  " +f_name);
 			}
 		}
 
@@ -102,12 +117,12 @@ public class UserServiceImpl implements UserService {
 
 		if((email.equals(username)) && (password.equals(pass))){
 			System.out.println("Apply Login");
-			return true;
+			return f_name;
 		} else {
 
 
 			System.out.println("Do not apply login");
-			return false;
+			 return "Invalid Login";
 		}
 	}
 
@@ -475,10 +490,53 @@ public class UserServiceImpl implements UserService {
 		try {
 			dbClient.save(doc_RatingAndComments);
 			message = "Comment Added! Please verify your email id in order to confirm comments";
+			UserServiceImpl.sendemail(comment_detail.getcommenter_email());
 		} catch (DocumentConflictException e) {
 			e.printStackTrace();
 		}
 		return message;
 
 	}
+	public static void sendemail(String email) {
+	 	System.out.println(email);
+	 	//System.out.println(message);
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.socketFactory.port", "465");
+		props.put("mail.smtp.socketFactory.class",
+				"javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", "465");
+ 
+		Session session = Session.getDefaultInstance(props,
+			new javax.mail.Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication("cse08427.sbit@gmail.com","sumoniks90!");
+				}
+			});
+
+		try {
+			//String text="/WEB-INF/jsp/welcomeuser.jsp";
+			long i = (long) (1000000000000L +Math.random()*10000000000000L);
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("cse08427.sbit@gmail.com"));
+//			 message.addRecipient(Message.RecipientType.TO,
+//                     new InternetAddress("nidhi.ardent@gmail.com"));
+			message.setRecipients(Message.RecipientType.TO,
+					InternetAddress.parse(email));
+			
+			message.setSubject("Testing Subject");
+			message.setText("http://localhost:8080/RateMyCourse/welcomeuser/" +i);
+			//message.setText("Hi Admin" + email);
+			//message.setText("</a>");
+	
+
+			Transport.send(message);
+
+			System.out.println("Done");
+
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
+ 	}	
 }
