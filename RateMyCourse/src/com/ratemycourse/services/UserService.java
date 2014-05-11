@@ -2,10 +2,9 @@ package com.ratemycourse.services;
 
 import java.util.List;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.ratemycourse.model.Comment;
-import com.ratemycourse.model.Course;
-import com.ratemycourse.model.User;
+import com.ratemycourse.model.*;
 
 public interface UserService {
 

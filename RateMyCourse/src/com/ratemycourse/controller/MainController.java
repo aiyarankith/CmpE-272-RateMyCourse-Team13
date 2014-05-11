@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.ratemycourse.model.Comment;
-import com.ratemycourse.model.Course;
 import com.ratemycourse.model.User;
+import com.ratemycourse.model.Rss;
 import com.ratemycourse.services.SearchService;
 import com.ratemycourse.services.UserService;
+import com.ratemycourse.model.Course;
+import com.ratemycourse.model.Comment;
 
 
 @Controller
@@ -35,47 +35,47 @@ public class MainController {
 	@Autowired
 	SearchService searchService;
 	//Index Page
-		@RequestMapping(value = "/index", method = RequestMethod.GET)
-		public ModelAndView getUserLIst() {
-			List<String> RSSList = userService.RSSList();
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public ModelAndView getUserLIst() {
+		List<String> RSSList = userService.RSSList();
 
-			return new ModelAndView("index", "RSSList", RSSList);
-		}
+		return new ModelAndView("index", "RSSList", RSSList);
+	}
 
-		//Registration Page
-		@RequestMapping(value = "/registration", method = RequestMethod.GET)
-		public String registration_page(@ModelAttribute User user) {
+	//Registration Page
+	@RequestMapping(value = "/registration", method = RequestMethod.GET)
+	public String registration_page(@ModelAttribute User user) {
 
-			return "registration";
-		}
+		return "registration";
+	}
 
-		//login page
-		@RequestMapping(value = "/login", method = RequestMethod.GET)
-		public String login_page(@ModelAttribute User user) {
-			
-			return "login";
-		}
+	//login page
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login_page(@ModelAttribute User user) {
 
-		//Registration Button 
-		@RequestMapping("/insert")
-		public String insertData(@ModelAttribute("user") User user) {
-			System.out.println("Data At Controller:: "+user);
-			if (user != null)
-				userService.insertData(user);
+		return "login";
+	}
+
+	//Registration Button 
+	@RequestMapping("/insert")
+	public String insertData(@ModelAttribute("user") User user) {
+		System.out.println("Data At Controller:: "+user);
+		if (user != null)
+			userService.insertData(user);
+		return "redirect:index";
+	}
+
+	//login page for admin
+	@RequestMapping("/fetchdata")
+	public String fetchData(@ModelAttribute User user) {
+		System.out.println("Data At fetch:: "+user);
+
+		boolean check= userService.fetchData(user);
+		if(check==true)
 			return "redirect:index";
-		}
-		
-		//login page for admin
-		@RequestMapping("/fetchdata")
-		public String fetchData(@ModelAttribute User user) {
-			System.out.println("Data At fetch:: "+user);
-		 
-		  boolean check= userService.fetchData(user);
-		  if(check==true)
-		 return "redirect:index";
-		  else
-			  return "login";
-		}
+		else
+			return "login";
+	}
 
 	//CouchDB Insert Course Page (Admin)
 	@RequestMapping(value="/add_course", method = RequestMethod.GET)
@@ -125,14 +125,16 @@ public class MainController {
 		return "top_courses_colleges";
 	}
 
+
 	//Insert Comments
 	@RequestMapping("/insert_comment")
-	public String insert_comment(@ModelAttribute("course_id") Course course_id, @ModelAttribute("comment_detail") Comment comment_detail, final RedirectAttributes redirectedattributes, HttpServletRequest req) {
+	public String insert_comment(@RequestParam String course_id, @ModelAttribute("comment_detail") Comment comment_detail, final RedirectAttributes redirectedattributes, HttpServletRequest req) {
 		System.out.println("Course At Controller:: " +comment_detail);
 		String message;
 		if (comment_detail != null) {
 			message = new String (userService.insertcomment(comment_detail));
 			redirectedattributes.addFlashAttribute("message",message);
+			System.out.println("Message at insert comment :"+message);
 		}
 
 		/**
@@ -141,20 +143,20 @@ public class MainController {
 
 		ArrayList <String> user_type = new ArrayList<String> (); 
 		user_type.add("Enrolled Student");
+		user_type.add("Unenrolled Student");
 		user_type.add("Industrialist");
-		user_type.add("Unenrolled");
 
 		ArrayList <String> stars = new ArrayList<String> (); 
-		stars.add("1 Star");
-		stars.add("2 Star");
-		stars.add("3 Star");
-		stars.add("4 Star");
-		stars.add("5 Star");
+		stars.add("1");
+		stars.add("2");
+		stars.add("3");
+		stars.add("4");
+		stars.add("5");
 
 		req.setAttribute("user_type", user_type);
 		req.setAttribute("stars", stars);
 
-		return "redirect:course_ratings";
+		return "redirect:index";
 	}
 
 	//Course Page Action to Search
@@ -162,6 +164,7 @@ public class MainController {
 	public ModelAndView get_course(@RequestParam String courseId, @ModelAttribute("comment_detail") Comment comment_detail, HttpServletRequest req) {
 		JsonObject course_details = userService.getCourse(courseId);
 		List<JsonObject> course_comments = userService.getCourseComments(courseId);
+
 
 		System.out.println("COurse Comments :" +course_comments);
 		req.setAttribute("course_comments",course_comments);
@@ -172,15 +175,15 @@ public class MainController {
 
 		ArrayList <String> user_type = new ArrayList<String> (); 
 		user_type.add("Enrolled Student");
+		user_type.add("Unenrolled Student");
 		user_type.add("Industrialist");
-		user_type.add("Unenrolled");
 
 		ArrayList <String> stars = new ArrayList<String> (); 
-		stars.add("1 Star");
-		stars.add("2 Star");
-		stars.add("3 Star");
-		stars.add("4 Star");
-		stars.add("5 Star");
+		stars.add("1");
+		stars.add("2");
+		stars.add("3");
+		stars.add("4");
+		stars.add("5");
 
 		req.setAttribute("user_type", user_type);
 		req.setAttribute("stars", stars);

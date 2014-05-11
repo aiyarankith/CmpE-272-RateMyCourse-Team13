@@ -55,7 +55,7 @@
 	}
 	//// End Simple Sliders ////
 </script>
-<script language="JavaScript" type="text/javascript">
+<script type="text/javascript">
 function showhidediv(rad){
 var rads=document.getElementsByName(rad.name);
 document.getElementById('one').style.display=(rads[0].checked)?'block':'none' ;
@@ -122,11 +122,15 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
 						<!-- Start Blog Text -->
 						<div class="blogtext">
 							<%
+								String course_id = null;
+							String course_name = null;
 								if (request.getAttribute("course_details") != null) {
 							%>
 							<%
 								JsonObject details = (JsonObject) request
 											.getAttribute("course_details");
+							course_id = details.get("c_id").getAsString();
+							course_name = details.get("name").getAsString();
 							%>
 							<p>
 								<b class="settingsicon">Name:</b>
@@ -292,6 +296,7 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
 					<%
 						List<JsonObject> comments = (List<JsonObject>) request.getAttribute("course_comments");
 					%>
+					
 					<%
 						System.out.println("size : " + comments.size());
 					%>
@@ -300,6 +305,7 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
 								JsonObject temp = comments.get(i);
 								JsonObject comment = (JsonObject) temp.get("value");
 					%>
+					
 					<div class="blogwcommentwrap">
 						<div class="commenttitle">
 							<p>
@@ -324,16 +330,11 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
 						<span class="box-arrow"></span>
 
 					</div>
-
-					<%
-						}
-					%>
-					<%
-						} else {
-					%>
-					<%
-						}
-					%>
+					
+					<% } %>
+					<% } else { %>
+					<p> There are no comments to display</p>
+					<%	}%>
 
 				</div>
 				<!-- End Blog Comments -->
@@ -444,17 +445,17 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
 						<div id="contactajax"></div>
 
 						<form:form action="${pageContext.request.contextPath}/insert_comment" method="post" modelAttribute="comment_detail">
-
-							<div class="contacttextboxes">
-
-								<div align="left" style="color: black">	<b>Full Name* :</b></div>
+							<div class="contacttextarea">
+								<form:input type="hidden" path="course_id" id="course_id" name="course_id" value="<%=course_id %>" class="contacttextform" />
+								<form:input type="hidden" path="course_name" id="course_id" name="course_name" value="<%=course_name %>" class="contacttextform" />
+								
+                    			<div align="left" style="color: black">	<b>Full Name* :</b></div>
 								<form:input path="commenter_name" id="name" name="name"	type="text" class="contacttextform" />
 
 								<div align="left" style="color: black"><b>Email* :</b></div>
 								<form:input path="commenter_email" id="name" name="email" type="text" class="contacttextform" />
-								
+								<br>
 								<div align="left" style="color: black"><b>You Are? :</b></div>
-								
 								<form:radiobuttons path="type_of_user" items="${user_type}" onclick="showhidediv(this);" style="xcolor :black;"/>
 								<%-- <form:select path="rating" name="rating" style="width: 355px;">
 									<c:forEach items="${user_type}" var="item">
@@ -463,7 +464,7 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
 								</form:select> --%>
 								
 
-								<div id="one" class="CF" style="display:none;">
+								<div id="one" class="CF" >
 								<div class="accordionwrap">
                         
 		                            <div class="accordiontitle"><a href="#">Enrolled Students</a></div>
@@ -485,6 +486,24 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
 								<div id="two" style="display:none;" class="CF" >
 								<div class="accordionwrap">
                         
+		                            <div class="accordiontitle"><a href="#">Unenrolled Student</a></div>
+		                            <div class="accordioncontent">
+									
+									<div align="left" style="color: black">	<b>How do you find the content of the course interesting?</b></div>
+									<form:radiobuttons path="content_rating" items="${stars}" />
+									
+									<div align="left" style="color: black">	<b>Does the technology help gain jobs?</b></div>
+									<form:radiobuttons path="technology_rating" items="${stars}" />
+									
+									<div align="left" style="color: black">	<b>Overall Ratings!</b></div>
+									<form:radiobuttons path="overall_rating" items="${stars}" />
+									
+									</div>
+								</div>
+								</div>
+								<div id="three" style="display:none;" class="CF" >
+								<div class="accordionwrap">
+                        
 		                            <div class="accordiontitle"><a href="#">Industrialist</a></div>
 		                            <div class="accordioncontent">
 									
@@ -500,28 +519,11 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
 									</div>
 								</div>
 								</div>
-								<div id="three" style="display:none;" class="CF" >
-								<div class="accordionwrap">
-                        
-		                            <div class="accordiontitle"><a href="#">Unenrolled</a></div>
-		                            <div class="accordioncontent">
-									
-									<div align="left" style="color: black">	<b>How do you find the content of the course interesting?</b></div>
-									<form:radiobuttons path="content_rating" items="${stars}" />
-									
-									<div align="left" style="color: black">	<b>Does the technology help gain jobs?</b></div>
-									<form:radiobuttons path="technology_rating" items="${stars}" />
-									
-									<div align="left" style="color: black">	<b>Overall Ratings!</b></div>
-									<form:radiobuttons path="overall_rating" items="${stars}" />
-									
-									</div>
-								</div>
-								</div>
+								
+								<br><br><br>
+							         <div align="left"> <b>Comments* :</b></div> <form:textarea path="comment" name="comment" id="comment" cols="3" rows="5" class="contacttextform" />
 							
-								<br>
-								<br>
-								<br><br>
+								
 								<br> <font color="red">Asterisk (*) marked fields are mandatory.</font>
 								<fieldset>
 									<br>
@@ -529,19 +531,37 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
 								<fieldset>
 									<input name="Submit" type="submit" class="contactformbutton" value="Submit">
 								</fieldset>
-								
-
 							</div>
-							<div class="contacttextarea">
-								
-                    			<div align="left"> <b>Comments* :</b></div> <form:textarea path="comment" name="comment" id="comment" cols="5" rows="5" class="contacttextarea" />
-                    
-								<br>
-
+							<div class="contacttextboxes">
+							<h3>Accordian Section</h3>
+                        
+                        <!-- Start Accordian -->
+                        <div class="accordionwrap">
+                        
+                            <div class="accordiontitle"><a href="#">Accordian Title 1</a></div>
+                            <div class="accordioncontent">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
+                            </div>
+                        
+                            <div class="accordiontitle"><a href="#">Accordian Title 2</a></div>
+                            <div class="accordioncontent">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
+                            </div>
+                        
+                            <div class="accordiontitle"><a href="#">Accordian Title 3</a></div>
+                            <div class="accordioncontent">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
+                            </div>
+                            <div class="accordiontitle"><a href="#">Accordian Title 4</a></div>
+                            <div class="accordioncontent">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
+                            </div>
+                        
+                        </div>
+                        <!-- End Accordian -->
+                
 							</div>
-							
-								
-
+					
 						</form:form>
 
 					</div>

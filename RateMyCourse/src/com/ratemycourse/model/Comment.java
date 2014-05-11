@@ -8,13 +8,14 @@ public class Comment {
 	private String content_rating;
 	private String technology_rating;
 	private String overall_rating;
-
+	private String course_id;
+	private String course_name;
 
 	//Course Commenter Name
 	public String getcommenter_name() {
 		return commenter_name;
 	}
-	public void setcommenter_commenter_email(String commenter_name) {
+	public void setcommenter_name(String commenter_name) {
 		this.commenter_name = commenter_name;
 	}
 
@@ -66,7 +67,21 @@ public class Comment {
 		this.overall_rating = overall_rating;
 	}
 
+	//Course ID
+	public String getcourse_id() {
+		return course_id;
+	}
+	public void setcourse_id(String course_id) {
+		this.course_id = course_id;
+	}
 
+	//Course name
+	public String getcourse_name() {
+		return course_name;
+	}
+	public void setcourse_name(String course_name) {
+		this.course_name = course_name;
+	}
 
 
 }

@@ -1,13 +1,19 @@
 package com.ratemycourse.services;
 
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
+
+
+
 
 //CouchDB Imports
 import org.lightcouch.CouchDbClient;
@@ -442,26 +448,37 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String insertcomment(Comment comment_detail) {
 
-		//.setHost("aiyarankith.cloudbees.cloudant.com")
-		//.setUsername("aiyarankith.cloudbees")
-		//.setPassword("bs5854fh4I3nnGYJQ5e58FML");
+		//Calculate the date
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date dates = new Date();
+		String date = dateFormat.format(dates);
+			
+		//Calculate Average
+		float total_ratings = (Float.valueOf(comment_detail.getcontent_rating()) + Float.valueOf(comment_detail.gettechnology_rating()) + Float.valueOf(comment_detail.getoverall_rating()))/15;
+		System.out.println("course ID:" +total_ratings);
 
-		Map<String, Object> map = new HashMap<>();
-		map.put("_id", (comment_detail.getcommenter_name()).toLowerCase());
-
-		map.put("docfield", comment_detail);
-		System.out.println("Find Result");
-		String result ="Course Entered Successfully";
+		String message = null;
+		JsonObject doc_RatingAndComments = new JsonObject();
+		doc_RatingAndComments.addProperty("unique_key", "add email comf id here");
+		doc_RatingAndComments.addProperty("is_verified", "false");
+		doc_RatingAndComments.addProperty("type", comment_detail.gettype_of_user());
+		doc_RatingAndComments.addProperty("user_rating", total_ratings);
+		doc_RatingAndComments.addProperty("comment", comment_detail.getcomment());
+		doc_RatingAndComments.addProperty("c_id", comment_detail.getcourse_id());
+		doc_RatingAndComments.addProperty("c_name", comment_detail.getcourse_name());
+		doc_RatingAndComments.addProperty("user_name", comment_detail.getcommenter_name());
+		doc_RatingAndComments.addProperty("email", comment_detail.getcommenter_email());
+		doc_RatingAndComments.addProperty("date", date);
+		
+		System.out.println("Complete :"+doc_RatingAndComments);
 
 		try {
-			dbClient.save(map);
-
-
-		} catch (DocumentConflictException e){
-
+			dbClient.save(doc_RatingAndComments);
+			message = "Comment Added! Please verify your email id in order to confirm comments";
+		} catch (DocumentConflictException e) {
 			e.printStackTrace();
-			result = "Course Already Exists";
 		}
-		return result;
+		return message;
+
 	}
 }

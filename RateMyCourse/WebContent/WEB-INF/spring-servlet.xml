@@ -31,6 +31,7 @@
 	<!-- declare beans -->
 	<bean id="userService" class="com.ratemycourse.services.UserServiceImpl" />
 	<bean id="searchService" class="com.ratemycourse.services.SearchServiceImpl" />
+
 	<!-- declare datasource bean -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">

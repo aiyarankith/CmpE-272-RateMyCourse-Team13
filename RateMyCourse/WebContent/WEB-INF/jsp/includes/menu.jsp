@@ -22,12 +22,7 @@
                                 <li><a href="industry_oriented_course" title="Response Icons &amp; Lists">Industry Oriented Course</a></li>
                                 <li><a href="top_courses_colleges" title="Response Notifications">Top Courses By Colleges</a></li>
                             </ul>
-                        </li>
-                        <li><a href="course_ratings" title="Course Ratings">Course Ratings</a>
-                        	
-                        </li>
-                        
-                        <li><a href="add_course">Course</a>
+                            <li><a href="add_course">Course</a>
                         	<ul>
                         		<li><a href="add_course" title="Response Buttons">Add Course</a></li>
                             	<li><a href="edit_course" title="Response Buttons">Edit Course</a></li>
