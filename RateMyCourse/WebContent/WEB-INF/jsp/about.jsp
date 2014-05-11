@@ -2,19 +2,19 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Response Columns Area</title>
+<title>About Rate My Course</title>
 <meta name="description" content="Response Premium Html Responsive Template - Column Section" />
 <meta name="keywords" content="Responsive Html, Responsive Template, Response, Free Icons, List Section" />
 <link rel="shortcut icon" href="http://www.derby-web-design-agency.co.uk/themes/response/images/favicon.png" /> 
 <link rel="bookmark icon" href="http://www.derby-web-design-agency.co.uk/themes/response/images/favicon.png" /> 
 <link href="css/main.css" rel="stylesheet" type="text/css">
-<meta name="apple-mobile-web-app-capable" content="yes" /> 
-<meta name="apple-mobile-web-app-status-bar-style" content="grey" /> 
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" /> 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery.nivo.slider.js"></script>
-<script src="js/twitter.js"></script>    
-<script src="js/custom.js"></script>   
+ <meta name="apple-mobile-web-app-capable" content="yes" />  
+ <meta name="apple-mobile-web-app-status-bar-style" content="grey" />  
+ <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />  
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
+ <script type="text/javascript" src="js/jquery.nivo.slider.js"></script> 
+ <script src="js/twitter.js"></script>     
+ <script src="js/custom.js"></script>  
 <script>
 	//// Start Simple Sliders ////
 	$(function() {
@@ -42,14 +42,14 @@
 <%@include file="includes/menu.jsp" %>
 <div class="clear"></div>
         <!-- Start Social & Logo area -->
-<%@include file="includes/social.jsp" %>     
+    
 </div>
 
 <div id="main">
     <!-- Start H1 Title -->
     <div class="titlesnormal">
     
-    	<h1>Response Columns Area</h1>
+    	<h1>About Rate My Course</h1>
         
         <span></span>
     
@@ -66,149 +66,52 @@
                 <!-- Start None Split Section -->
             	<div class="splitnone">
                 
-                	<h3>Full Width Column</h3>
+                	<h3>About</h3>
                     
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
-                
-                </div>
-            	<!-- End None Split Section -->
-                <div class="clear"></div>
-                <hr />
-                <!-- Start 2 Half Split Section -->
-                <div class="split2">
-                
-                    <h3>Half Width Column</h3>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus.</p>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
-                
-                </div>
-                
-                <div class="split2">
-                
-                    <h3>Half Width Column</h3>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus.</p>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
-                    
-                </div>
-                <!-- End 2 Half Split Section -->
-                <div class="clear"></div>
-                <hr />
-                <!-- Start Third Split Section -->
-            	<div class="split3">
-                
-                    <h3>3rd Width Column</h3>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus.</p>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
+                    <p>Rate My Course 
 
-                </div>
-                
-            	<div class="split3">
-                
-                    <h3>3rd Width Column</h3>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus.</p>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
+Rate My Course is a web application which collects user reviews about the courses offered <br>
+at the California State University colleges. The users can be students enrolled in these<br> 
+colleges and also people from industry.
 
-                </div>
-                
-            	<div class="split3">
-                
-                    <h3>3rd Width Column</h3>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus.</p>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
+</br>
+Data from the following CSU colleges have been collected:-<br>
+  1.San Jose State University <br>
+  2.California State University, Long Beach <br>
+  3.California State University, East Bay<br>
+  4.Fresno State<br>
+  5.California State University, Sacramento<br>
+  </br>
+ The users can easily rate and comment on the courses. This website can be used by anyone whether 
+ they are enrolled in the course or not and also by people from the Industry. 
+ It gives privileges to users to rate the courses and also give comments .
+ The weightage of the rating will be dependent on the user i.e. the rating of an Industrialist will 
+ be of maximum value followed by that of enrolled student and then unenrolled student. This will effect 
+ the overall rating of the course.
+ This helps in accurate assessment of the course in terms of Industry point of view and from syllabus
+ point of view.
 
-                </div>
-            	<!-- End Third Split Section -->
-                <div class="clear"></div>
-                <hr />
-                <!-- Start one 3rd and two 3rd Split Section -->
-                <div class="split3">
-                
-                    <h3>3rd Width Column</h3>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus.</p>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
-                
-                </div>
-                
-                <div class="split23">
-                
-                    <h3>Two 3rd's Width Column</h3>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus.</p>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
-                
-                </div>
-                <!-- End one 3rd and two 3rd Split Section -->
-                <div class="clear"></div>
-                <hr />
-                <!-- Start Quater Split Section -->
-            	<div class="split4">
-                
-                    <h3>Quater Width Column</h3>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus.</p>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
+The users also have the option of submitting a ticket in case he wants to add his comments about a course 
+or request to add a missing course. The feedback form can be submitted and the email is sent directly
+to the admin.
+ 
+We have also implemented graphs to summarize the information in an easy to read manner. <br>
 
-                </div>
-                
-                <div class="split4">
-                
-                    <h3>Quater Width Column</h3>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus.</p>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
 
-                </div>
-                
-                <div class="split4">
-                
-                    <h3>Two 3rd Width Column</h3>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus.</p>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
+  </p>
+      </div>
+      </div>
+      </div>
+       <!-- Start Footer --> 
 
-                </div>
-                
-                <div class="split4">
-                
-                    <h3>Quater Width Column</h3>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus.</p>
-                    
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
-
-                </div>
-                <!-- End Quater Split Section -->
-
-            </div>
-
-            <span class="box-arrow"></span>
-        
-        </div>
-        <!-- End Latest Project titles -->
-    
-    </div>
-    <!-- End Main Body Wrap -->
+	<!-- End Footer Top -->
+    <div class="clear"></div>
+	<!-- Start Footer Bottom -->
+    <%@include file="includes/footer_bottom.jsp" %>
+	<!-- End Footer Bottom -->
 
 </div>
-<%@include file="includes/footer.jsp"%>
+<!-- End Footer -->
 <!-- Start Scroll To Top Div -->
 <div id="scrolltab"></div>
 <!-- End Scroll To Top Div -->
