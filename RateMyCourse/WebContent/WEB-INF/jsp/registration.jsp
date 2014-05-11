@@ -158,12 +158,7 @@
 		<!-- End Main Body Wrap -->
 
 	</div>
-	<!-- Start Footer Bottom -->
-    <%@include file="includes/footer_bottom.jsp" %>
-	<!-- End Footer Bottom -->
-
-
-<!-- End Footer -->
+<%@include file="includes/footer.jsp"%>
 <!-- Start Scroll To Top Div -->
 <div id="scrolltab"></div>
 <!-- End Scroll To Top Div -->

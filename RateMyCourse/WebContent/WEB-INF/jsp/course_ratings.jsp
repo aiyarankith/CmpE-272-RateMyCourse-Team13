@@ -100,7 +100,7 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
 		<!-- Start H1 Title -->
 		<div class="titlesnormal">
 
-			<h1>Course Ratings</h1>
+			<h1>Course Details</h1>
 
 			<span></span>
 
@@ -108,61 +108,69 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
 		<!-- End H1 Title -->
 		<!-- Start Main Body Wrap -->
 		<div id="main-wrap">
-
-			<!-- Start Left Section -->
-			<div class="leftsection">
-
-				<!-- Start Blog Post -->
-				<div class="blogwrapstart">
-					<div class="blogtitle">
-						<h3>Course Details</h3>
-					</div>
-
-					<div class="blogbody">
-						<!-- Start Blog Text -->
-						<div class="blogtext">
-							<%
-								String course_id = null;
-							String course_name = null;
-								if (request.getAttribute("course_details") != null) {
-							%>
-							<%
-								JsonObject details = (JsonObject) request
-											.getAttribute("course_details");
-							course_id = details.get("c_id").getAsString();
-							course_name = details.get("name").getAsString();
-							%>
+		<div class="boxes-full">
+        
+        	<div class="boxes-padding fullpadding">
+            	
+                <!-- Start one 3rd and two 3rd Split Section -->
+                <div class="split3">
+                
+                    <h3>Prerequisits</h3>
+                    
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus.</p>
+                    
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
+                
+                </div>
+                
+                
+                <div class="split23">
+                	<% 	String course_id = null;
+						String course_name = null;
+						if (request.getAttribute("course_details") != null) {
+					%>
+					<% 	JsonObject details = (JsonObject) request.getAttribute("course_details");
+						course_id = details.get("c_id").getAsString();
+						course_name = details.get("name").getAsString();
+					%>
+                    <h2><%=details.get("name").getAsString()%></h2>
+                    <hr />
+                    
 							<p>
-								<b class="settingsicon">Name:</b>
-								<%=details.get("name").getAsString()%>
 								<b class="settingsicon">Course ID:</b>
 								<%=details.get("c_id").getAsString()%>
 
 							</p>
 							<p>
 								<b class="settingsicon">Department: </b><%=details.get("dept").getAsString()%>
+							</p>
+							<p>
 								<b class="settingsicon">University: </b><%=details.get("university").getAsString()%>
 							</p>
 							<p>
 								<b class="settingsicon">Professor: </b><%=details.get("professor").getAsString()%>
 							</p>
 							<p>
-								<b class="settingsicon"> Demo Video Link: </b><a
-									href="<%=details.get("demo_video_link").getAsString()%>"><%=details.get("demo_video_link").getAsString()%>
-								</a>
-							</p>
-							<p>
-								<b class="settingsicon">Related Document Link: </b><a
-									href="<%=details.get("related_doc_link").getAsString()%>"><%=details.get("related_doc_link").getAsString()%>
-								</a>
-							</p>
-							<p>
 								<b class="settingsicon">Description: </b>
 								<%=details.get("description").getAsString()%>
 							</p>
-
-							<b class="settingsicon">Overall Ratings: </b><%=details.get("overall_rating").getAsString()%>
-
+							
+							<table>
+							<tr>
+							<td>
+							<b class="tagicon">Overall Ratings: </b>
+							</td>
+							<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td>
+														
+							<td>
 							<form id="ratingsForm">
 								<div class="stars">
 									<%
@@ -254,7 +262,359 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
 								</div>
 
 							</form>
+							
+							</td>
+							</tr>
+							
+							
+							</table>							
+							<hr />
+							<table>
+								<tr> 
+								<td><b class="settingsicon">Industrialists Ratings: </b>
+								</td>
+								<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+								<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+								<td>
+								<form id="ratingsForm">
+							
+								<div class="stars">
+									<%
+										if ((details.get("ind_user_rating").getAsFloat()) == 5
+													&& details.get("ind_user_rating").getAsFloat() >= 4.5) {
+									%>
+									<input type="radio" name="star" class="star-1" id="star-1" />
+									<label class="star-1" for="star-1">1</label> <input
+										type="radio" name="star" class="star-2" id="star-2" /> <label
+										class="star-2" for="star-2">2</label> <input type="radio"
+										name="star" class="star-3" id="star-3" /> <label
+										class="star-3" for="star-3">3</label> <input type="radio"
+										name="star" class="star-4" id="star-4" /> <label
+										class="star-4" for="star-4">4</label> <input type="radio"
+										name="star" class="star-5" id="star-5" checked /> <label
+										class="star-5" for="star-5">5</label> <span></span>
+									<%
+										} else if (details.get("ind_user_rating").getAsFloat() < 4.5
+													&& details.get("ind_user_rating").getAsFloat() >= 3.5) {
+									%>
+									<input type="radio" name="star" class="star-1" id="star-1" />
+									<label class="star-1" for="star-1">1</label> <input
+										type="radio" name="star" class="star-2" id="star-2" /> <label
+										class="star-2" for="star-2">2</label> <input type="radio"
+										name="star" class="star-3" id="star-3" /> <label
+										class="star-3" for="star-3">3</label> <input type="radio"
+										name="star" class="star-4" id="star-4" checked /> <label
+										class="star-4" for="star-4">4</label> <input type="radio"
+										name="star" class="star-5" id="star-5" /> <label
+										class="star-5" for="star-5">5</label> <span></span>
+									<%
+										} else if (details.get("ind_user_rating").getAsFloat() < 3.5
+													&& details.get("ind_user_rating").getAsFloat() >= 2.5) {
+									%>
+									<input type="radio" name="star" class="star-1" id="star-1" />
+									<label class="star-1" for="star-1">1</label> <input
+										type="radio" name="star" class="star-2" id="star-2" /> <label
+										class="star-2" for="star-2">2</label> <input type="radio"
+										name="star" class="star-3" id="star-3" checked /> <label
+										class="star-3" for="star-3">3</label> <input type="radio"
+										name="star" class="star-4" id="star-4" /> <label
+										class="star-4" for="star-4">4</label> <input type="radio"
+										name="star" class="star-5" id="star-5" /> <label
+										class="star-5" for="star-5">5</label> <span></span>
+									<%
+										} else if (details.get("ind_user_rating").getAsFloat() < 2.5
+													&& details.get("ind_user_rating").getAsFloat() >= 1.5) {
+									%>
+									<input type="radio" name="star" class="star-1" id="star-1" />
+									<label class="star-1" for="star-1">1</label> <input
+										type="radio" name="star" class="star-2" id="star-2" checked />
+									<label class="star-2" for="star-2">2</label> <input
+										type="radio" name="star" class="star-3" id="star-3" /> <label
+										class="star-3" for="star-3">3</label> <input type="radio"
+										name="star" class="star-4" id="star-4" /> <label
+										class="star-4" for="star-4">4</label> <input type="radio"
+										name="star" class="star-5" id="star-5" /> <label
+										class="star-5" for="star-5">5</label> <span></span>
+									<%
+										} else if (details.get("ind_user_rating").getAsFloat() < 1.5
+													&& details.get("ind_user_rating").getAsFloat() >= 0.5) {
+									%>
+									<input type="radio" name="star" class="star-1" id="star-1"
+										checked /> <label class="star-1" for="star-1">1</label> <input
+										type="radio" name="star" class="star-2" id="star-2" /> <label
+										class="star-2" for="star-2">2</label> <input type="radio"
+										name="star" class="star-3" id="star-3" /> <label
+										class="star-3" for="star-3">3</label> <input type="radio"
+										name="star" class="star-4" id="star-4" /> <label
+										class="star-4" for="star-4">4</label> <input type="radio"
+										name="star" class="star-5" id="star-5" /> <label
+										class="star-5" for="star-5">5</label> <span></span>
+									<%
+										} else if (details.get("ind_user_rating").getAsFloat() < 0.5) {
+									%>
+									<input type="radio" name="star" class="star-1" id="star-1"
+										checked /> <label class="star-1" for="star-1">1</label> <input
+										type="radio" name="star" class="star-2" id="star-2" /> <label
+										class="star-2" for="star-2">2</label> <input type="radio"
+										name="star" class="star-3" id="star-3" /> <label
+										class="star-3" for="star-3">3</label> <input type="radio"
+										name="star" class="star-4" id="star-4" /> <label
+										class="star-4" for="star-4">4</label> <input type="radio"
+										name="star" class="star-5" id="star-5" /> <label
+										class="star-5" for="star-5">5</label> <span></span>
+									<%
+										}
+									%>
+								</div>
 
+							</form>
+								
+								</td>
+								</tr>
+							</table>
+							<hr />
+														
+							<table>							
+								<tr>
+								<td>
+								<b class="settingsicon">Enrolled Students Ratings: </b>
+								</td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+								
+								<td>
+								<form id="ratingsForm">
+								<div class="stars">
+									<%
+										if ((details.get("est_user_rating").getAsFloat()) == 5
+													&& details.get("est_user_rating").getAsFloat() >= 4.5) {
+									%>
+									<input type="radio" name="star" class="star-1" id="star-1" />
+									<label class="star-1" for="star-1">1</label> <input
+										type="radio" name="star" class="star-2" id="star-2" /> <label
+										class="star-2" for="star-2">2</label> <input type="radio"
+										name="star" class="star-3" id="star-3" /> <label
+										class="star-3" for="star-3">3</label> <input type="radio"
+										name="star" class="star-4" id="star-4" /> <label
+										class="star-4" for="star-4">4</label> <input type="radio"
+										name="star" class="star-5" id="star-5" checked /> <label
+										class="star-5" for="star-5">5</label> <span></span>
+									<%
+										} else if (details.get("est_user_rating").getAsFloat() < 4.5
+													&& details.get("est_user_rating").getAsFloat() >= 3.5) {
+									%>
+									<input type="radio" name="star" class="star-1" id="star-1" />
+									<label class="star-1" for="star-1">1</label> <input
+										type="radio" name="star" class="star-2" id="star-2" /> <label
+										class="star-2" for="star-2">2</label> <input type="radio"
+										name="star" class="star-3" id="star-3" /> <label
+										class="star-3" for="star-3">3</label> <input type="radio"
+										name="star" class="star-4" id="star-4" checked /> <label
+										class="star-4" for="star-4">4</label> <input type="radio"
+										name="star" class="star-5" id="star-5" /> <label
+										class="star-5" for="star-5">5</label> <span></span>
+									<%
+										} else if (details.get("est_user_rating").getAsFloat() < 3.5
+													&& details.get("est_user_rating").getAsFloat() >= 2.5) {
+									%>
+									<input type="radio" name="star" class="star-1" id="star-1" />
+									<label class="star-1" for="star-1">1</label> <input
+										type="radio" name="star" class="star-2" id="star-2" /> <label
+										class="star-2" for="star-2">2</label> <input type="radio"
+										name="star" class="star-3" id="star-3" checked /> <label
+										class="star-3" for="star-3">3</label> <input type="radio"
+										name="star" class="star-4" id="star-4" /> <label
+										class="star-4" for="star-4">4</label> <input type="radio"
+										name="star" class="star-5" id="star-5" /> <label
+										class="star-5" for="star-5">5</label> <span></span>
+									<%
+										} else if (details.get("est_user_rating").getAsFloat() < 2.5
+													&& details.get("est_user_rating").getAsFloat() >= 1.5) {
+									%>
+									<input type="radio" name="star" class="star-1" id="star-1" />
+									<label class="star-1" for="star-1">1</label> <input
+										type="radio" name="star" class="star-2" id="star-2" checked />
+									<label class="star-2" for="star-2">2</label> <input
+										type="radio" name="star" class="star-3" id="star-3" /> <label
+										class="star-3" for="star-3">3</label> <input type="radio"
+										name="star" class="star-4" id="star-4" /> <label
+										class="star-4" for="star-4">4</label> <input type="radio"
+										name="star" class="star-5" id="star-5" /> <label
+										class="star-5" for="star-5">5</label> <span></span>
+									<%
+										} else if (details.get("est_user_rating").getAsFloat() < 1.5
+													&& details.get("est_user_rating").getAsFloat() >= 0.5) {
+									%>
+									<input type="radio" name="star" class="star-1" id="star-1"
+										checked /> <label class="star-1" for="star-1">1</label> <input
+										type="radio" name="star" class="star-2" id="star-2" /> <label
+										class="star-2" for="star-2">2</label> <input type="radio"
+										name="star" class="star-3" id="star-3" /> <label
+										class="star-3" for="star-3">3</label> <input type="radio"
+										name="star" class="star-4" id="star-4" /> <label
+										class="star-4" for="star-4">4</label> <input type="radio"
+										name="star" class="star-5" id="star-5" /> <label
+										class="star-5" for="star-5">5</label> <span></span>
+									<%
+										} else if (details.get("est_user_rating").getAsFloat() < 0.5) {
+									%>
+									<input type="radio" name="star" class="star-1" id="star-1"
+										checked /> <label class="star-1" for="star-1">1</label> <input
+										type="radio" name="star" class="star-2" id="star-2" /> <label
+										class="star-2" for="star-2">2</label> <input type="radio"
+										name="star" class="star-3" id="star-3" /> <label
+										class="star-3" for="star-3">3</label> <input type="radio"
+										name="star" class="star-4" id="star-4" /> <label
+										class="star-4" for="star-4">4</label> <input type="radio"
+										name="star" class="star-5" id="star-5" /> <label
+										class="star-5" for="star-5">5</label> <span></span>
+									<%
+										}
+									%>
+								</div>
+
+							</form>
+								
+								</td>
+								</tr>
+							
+							</table>
+							<hr />
+							
+							<table>
+								<tr>
+								<td>
+								<b class="settingsicon">Unenrolled Students Ratings: </b>
+								</td>
+								<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+														<td></td><td></td><td></td><td></td>
+								<td>
+								<form id="ratingsForm">
+								<div class="stars">
+									<%
+										if ((details.get("uest_user_rating").getAsFloat()) == 5
+													&& details.get("uest_user_rating").getAsFloat() >= 4.5) {
+									%>
+									<input type="radio" name="star" class="star-1" id="star-1" />
+									<label class="star-1" for="star-1">1</label> <input
+										type="radio" name="star" class="star-2" id="star-2" /> <label
+										class="star-2" for="star-2">2</label> <input type="radio"
+										name="star" class="star-3" id="star-3" /> <label
+										class="star-3" for="star-3">3</label> <input type="radio"
+										name="star" class="star-4" id="star-4" /> <label
+										class="star-4" for="star-4">4</label> <input type="radio"
+										name="star" class="star-5" id="star-5" checked /> <label
+										class="star-5" for="star-5">5</label> <span></span>
+									<%
+										} else if (details.get("uest_user_rating").getAsFloat() < 4.5
+													&& details.get("uest_user_rating").getAsFloat() >= 3.5) {
+									%>
+									<input type="radio" name="star" class="star-1" id="star-1" />
+									<label class="star-1" for="star-1">1</label> <input
+										type="radio" name="star" class="star-2" id="star-2" /> <label
+										class="star-2" for="star-2">2</label> <input type="radio"
+										name="star" class="star-3" id="star-3" /> <label
+										class="star-3" for="star-3">3</label> <input type="radio"
+										name="star" class="star-4" id="star-4" checked /> <label
+										class="star-4" for="star-4">4</label> <input type="radio"
+										name="star" class="star-5" id="star-5" /> <label
+										class="star-5" for="star-5">5</label> <span></span>
+									<%
+										} else if (details.get("uest_user_rating").getAsFloat() < 3.5
+													&& details.get("uest_user_rating").getAsFloat() >= 2.5) {
+									%>
+									<input type="radio" name="star" class="star-1" id="star-1" />
+									<label class="star-1" for="star-1">1</label> <input
+										type="radio" name="star" class="star-2" id="star-2" /> <label
+										class="star-2" for="star-2">2</label> <input type="radio"
+										name="star" class="star-3" id="star-3" checked /> <label
+										class="star-3" for="star-3">3</label> <input type="radio"
+										name="star" class="star-4" id="star-4" /> <label
+										class="star-4" for="star-4">4</label> <input type="radio"
+										name="star" class="star-5" id="star-5" /> <label
+										class="star-5" for="star-5">5</label> <span></span>
+									<%
+										} else if (details.get("uest_user_rating").getAsFloat() < 2.5
+													&& details.get("uest_user_rating").getAsFloat() >= 1.5) {
+									%>
+									<input type="radio" name="star" class="star-1" id="star-1" />
+									<label class="star-1" for="star-1">1</label> <input
+										type="radio" name="star" class="star-2" id="star-2" checked />
+									<label class="star-2" for="star-2">2</label> <input
+										type="radio" name="star" class="star-3" id="star-3" /> <label
+										class="star-3" for="star-3">3</label> <input type="radio"
+										name="star" class="star-4" id="star-4" /> <label
+										class="star-4" for="star-4">4</label> <input type="radio"
+										name="star" class="star-5" id="star-5" /> <label
+										class="star-5" for="star-5">5</label> <span></span>
+									<%
+										} else if (details.get("uest_user_rating").getAsFloat() < 1.5
+													&& details.get("uest_user_rating").getAsFloat() >= 0.5) {
+									%>
+									<input type="radio" name="star" class="star-1" id="star-1"
+										checked /> <label class="star-1" for="star-1">1</label> <input
+										type="radio" name="star" class="star-2" id="star-2" /> <label
+										class="star-2" for="star-2">2</label> <input type="radio"
+										name="star" class="star-3" id="star-3" /> <label
+										class="star-3" for="star-3">3</label> <input type="radio"
+										name="star" class="star-4" id="star-4" /> <label
+										class="star-4" for="star-4">4</label> <input type="radio"
+										name="star" class="star-5" id="star-5" /> <label
+										class="star-5" for="star-5">5</label> <span></span>
+									<%
+										} else if (details.get("uest_user_rating").getAsFloat() < 0.5) {
+									%>
+									<input type="radio" name="star" class="star-1" id="star-1"
+										checked /> <label class="star-1" for="star-1">1</label> <input
+										type="radio" name="star" class="star-2" id="star-2" /> <label
+										class="star-2" for="star-2">2</label> <input type="radio"
+										name="star" class="star-3" id="star-3" /> <label
+										class="star-3" for="star-3">3</label> <input type="radio"
+										name="star" class="star-4" id="star-4" /> <label
+										class="star-4" for="star-4">4</label> <input type="radio"
+										name="star" class="star-5" id="star-5" /> <label
+										class="star-5" for="star-5">5</label> <span></span>
+									<%
+										}
+									%>
+								</div>
+
+							</form>
+								
+								</td>
+								</tr>
+							</table>
+							
+							<hr />
+														
+								<p>
+								<b class="settingsicon"> Demo Video Link: </b><a
+									href="<%=details.get("demo_video_link").getAsString()%>"><%=details.get("demo_video_link").getAsString()%>
+								</a>
+							</p>
+							<p>
+								<b class="settingsicon">Related Document Link: </b><a
+									href="<%=details.get("related_doc_link").getAsString()%>"><%=details.get("related_doc_link").getAsString()%>
+								</a>
+							</p>
+														
+
+							
+
+							
 							<%
 								} else {
 							%>
@@ -267,12 +627,22 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
 							%>
 
 
-						</div>
-						<!-- End Blog Text -->
-					</div>
+                </div>
+                
+                <!-- End one 3rd and two 3rd Split Section -->
+                <div class="clear"></div>
+                <hr />
 
-					<span class="box-arrow"></span>
+</div>
+</div>
 
+
+
+			<!-- Start Left Section -->
+			<div class="leftsection">
+
+				<!-- Start Blog Post -->
+				<div class="blogwrapstart">
 				</div>
 				<!-- End Blog Post -->
 
@@ -346,23 +716,6 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
         
         	<!-- Start Blog Widget -->
             <div class="blogwidgetstart">
-            	<!-- Start Advertising Widget -->
-            	<div class="widgettitle"><h4>Advertising</h4></div>
-                
-                <div class="widgetbody">
-                
-                	<div class="blogadvertising">
-                    
-                    <a href="#"><img src="images/advertising/themeadvertising.jpg"  alt="Themeforest"></a>
-                    <a href="#"><img src="images/advertising/audioadvertising.jpg" alt="Audiojungle"></a>
-                    <a href="#"><img src="images/advertising/graphicadvertising.jpg" alt="Grahpicrive"></a>
-                    <a href="#"><img src="images/advertising/tutorialadvertising.jpg" alt="Tutsplus"></a>
-                    
-                    </div>
-                
-              </div>
-              <!-- End Advertising Widget -->
-              <span class="box-arrow"></span>
             
             </div>
             <!-- End Blog Widget -->
@@ -574,104 +927,7 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
 				<!-- End Main Body Wrap -->
 		
 	</div>
-	<!-- Start Footer -->
-	<div id="footer">
-		<!-- Start Footer Top -->
-		<div id="footertop">
-
-			<div class="footerwrap">
-				<!-- Start Latest Tweets -->
-				<div id="latest-tweets">
-					<div id="twittertitle">Latest Tweets</div>
-					<div id="twitterbody"></div>
-				</div>
-				<!-- End Latest Tweets -->
-				<!-- Start Useful Links -->
-				<div id="useful_links">
-					<div id="usefultitle">Latest Tweets</div>
-					<div id="usefulbody">
-
-						<ul>
-
-							<li><a href="#" title="">Lorem ipsum dolor sit </a></li>
-							<li><a href="#" title="">Maecenas non ipsum nunc</a></li>
-							<li><a href="#" title="">Lorem ipsum dolor </a></li>
-							<li><a href="#" title="">Maecenas non ipsum </a></li>
-							<li><a href="#" title="">Lorem ipsum dolor sit </a></li>
-							<li><a href="#" title="">Maecenas non ipsum nunc</a></li>
-							<li><a href="#" title="">Lorem ipsum dolor </a></li>
-							<li><a href="#" title="">Maecenas non ipsum </a></li>
-							<li><a href="#" title="">Lorem ipsum dolor sit </a></li>
-							<li><a href="#" title="">Maecenas non ipsum nunc</a></li>
-
-						</ul>
-
-					</div>
-				</div>
-				<!-- End Useful Links -->
-				<!-- Start Testimonials -->
-				<div id="latest-testimonial">
-					<div id="testimonialtitle">Latest Testimonials</div>
-					<div id="testimonialbody">
-						<!-- Starting simple slider -->
-						<div id="simpleslider">
-							<!-- Slide 1 -->
-							<div class="current">
-								<h6>Title 1</h6>
-								<p>Lorem ipsum dolor sit amet, consectetur elit. Maecenas
-									non ipsum nunc, nec sagittis tellus. Lorem ipsum dolor sit
-									amet, consectetur elit. Maecenas non ipsum nunc</p>
-							</div>
-							<!-- End Slide 1 -->
-							<!-- Slide 2 -->
-							<div>
-								<h6>iusdhfisd sdf</h6>
-								<p>Lorem ipsum dolor sit amet, consectetur elit. Maecenas
-									non ipsum nunc, nec sagittis tellus. Lorem ipsum dolor sit
-									amet, consectetur elit. Maecenas non ipsum nunc</p>
-							</div>
-							<!-- End Slide 2 -->
-							<!-- Slide 3 -->
-							<div>
-								<h6>eco sodalirity ltd</h6>
-								<p>Lorem ipsum dolor sit amet, consectetur elit. Maecenas
-									non ipsum nunc, nec sagittis tellus. Lorem ipsum dolor sit
-									amet, consectetur elit. Maecenas non ipsum nunc</p>
-							</div>
-							<!-- End Slide 3 -->
-							<!-- Slide 4 -->
-							<div>
-								<h6>asd</h6>
-								<p>Lorem ipsum dolor sit amet, consectetur elit. Maecenas
-									non ipsum nunc, nec sagittis tellus. Lorem ipsum dolor sit
-									amet, consectetur elit. Maecenas non ipsum nunc</p>
-							</div>
-							<!-- End Slide 4 -->
-							<!-- Slide 5 -->
-							<div>
-								<h6>ec234234234</h6>
-								<p>Lorem ipsum dolor sit amet, consectetur elit. Maecenas
-									non ipsum nunc, nec sagittis tellus. Lorem ipsum dolor sit
-									amet, consectetur elit. Maecenas non ipsum nunc</p>
-							</div>
-							<!-- End Slide 5 -->
-						</div>
-						<!-- Ending simple slider -->
-						<div class="speachlower"></div>
-					</div>
-				</div>
-				<!-- End Latest Testimonials -->
-			</div>
-
-		</div>
-		<!-- End Footer Top -->
-		<div class="clear"></div>
-		<!-- Start Footer Bottom -->
-		<%@include file="includes/footer_bottom.jsp"%>
-		<!-- End Footer Bottom -->
-
-	</div>
-	<!-- End Footer -->
+			<%@include file="includes/footer.jsp"%>
 	<!-- Start Scroll To Top Div -->
 	<div id="scrolltab"></div>
 	<!-- End Scroll To Top Div -->
