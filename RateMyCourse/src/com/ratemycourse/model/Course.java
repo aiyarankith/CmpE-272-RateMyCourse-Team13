@@ -11,7 +11,7 @@ public class Course {
 	private String email;
 	private String university;
 	private String professor;
-	private String is_course;
+	private String prereq;
 	private String course_id;
 
 
@@ -93,6 +93,14 @@ public class Course {
 	} 
 	public String getcourse_id() {
 		return course_id;
+	}
+
+	//Pre-req
+	public void setprereq(String prereq) {
+		this.prereq = prereq;
+	} 
+	public String getprereq() {
+		return prereq;
 	}
 
 

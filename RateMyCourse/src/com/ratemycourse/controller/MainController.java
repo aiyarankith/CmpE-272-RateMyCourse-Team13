@@ -73,20 +73,20 @@ public class MainController {
 		return "redirect:index";
 	}
 	//User ticket
-			@RequestMapping("/user_ticket")
-			public String user_ticket_page(@ModelAttribute Ticket ticket) {
-				
-				return "user_ticket";
-			}
+	@RequestMapping("/user_ticket")
+	public String user_ticket_page(@ModelAttribute Ticket ticket) {
 
-			//Insert Ticket
-			@RequestMapping("/insertdata")
-			public String getTicket(@ModelAttribute Ticket ticket) {
-				System.out.println("Data At Controller:: "+ticket);
-				if (ticket != null)
-					userService.getTicket(ticket);
-				return "redirect:index";
-			}
+		return "user_ticket";
+	}
+
+	//Insert Ticket
+	@RequestMapping("/insertdata")
+	public String getTicket(@ModelAttribute Ticket ticket) {
+		System.out.println("Data At Controller:: "+ticket);
+		if (ticket != null)
+			userService.getTicket(ticket);
+		return "redirect:index";
+	}
 	//login page for admin
 	@RequestMapping("/fetchdata")
 	public String fetchData(@ModelAttribute("details") Course details, @ModelAttribute User user, HttpSession session, final RedirectAttributes redirectedattributes) {

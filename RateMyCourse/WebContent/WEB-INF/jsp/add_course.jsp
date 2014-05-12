@@ -15,12 +15,9 @@
 <link rel="shortcut icon" href="http://www.derby-web-design-agency.co.uk/themes/response/images/favicon.png" /> 
 <link rel="bookmark icon" href="http://www.derby-web-design-agency.co.uk/themes/response/images/favicon.png" /> 
 <link href="<c:url value="css/main.css" />" rel="stylesheet" type="text/css">
-<script src="<c:url value="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" />"></script>
 <script type="text/javascript" src="<c:url value="js/jquery.nivo.slider.js" />"></script>
-<script type="text/javascript" src="<c:url value="http://maps.google.com/maps/api/js?sensor=true" />"></script>
 <script src="<c:url value="js/twitter.js" />"></script>    
 <script src="<c:url value="js/custom.js" />"></script>
-<script src="<c:url value="js/google.map.js" />"></script>   
 <script>
 //// Start Simple Sliders ////
 $(function() {
@@ -107,7 +104,10 @@ $(document).ready(function() {
 	  
 	  );
 //// End Contact Form ////
-
+	//Timeout for Alert Messages
+	setTimeout(function() {
+  $("#message").remove();
+}, 5000);
  });
 </script> 
 </head>
@@ -153,8 +153,10 @@ $(document).ready(function() {
             <form:form action="${pageContext.request.contextPath}/insert_course" method="post" name="ajaxcontactform" id="ajaxcontactform" modelAttribute="details">
             
             	<div class="contacttextarea">
-                
-                		 <b> ${message} </b> 
+                <c:if test = "${message !=null}" >
+    	        <p class="warningalert" id="message"><span>${message}</span></p>
+    			</c:if>
+                		  
                     	<div align="left"> <b>Description* :</b></div> <form:textarea path="description" name="description" id="description" cols="5" rows="5" class="contacttextarea" />
                     
 					<fieldset>
@@ -186,10 +188,12 @@ $(document).ready(function() {
 				
 	                <div align="left" style="color:black"> <b>Professor Name :</b></div><form:input path="professor" id="professor" name="professor" type="text" class="contacttextform" />
 					
+					<div align="left" style="color:black"> <b>Prerequisite :</b></div><form:input path="prereq" id="prereq" name="prereq" type="text" class="contacttextform" />
 					
+					<br>
 					<font color="red">Asterisk (*) marked fields are mandatory.</font>
                     <fieldset>
-					<br>
+			
 					</fieldset>
                 	<fieldset>
                     	<input name="send" type="submit" class="contactformbutton" value="Send">

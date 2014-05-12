@@ -40,6 +40,8 @@
 	
 	}
 	//// End Simple Sliders //// 
+	
+	//Timeout for Alert Messages
 	setTimeout(function() {
   $("#message").remove();
 }, 5000);

@@ -39,12 +39,15 @@
                         <li><a href="<c:url value="registration" />">Create an account</a></li>
                     	<% } else { %>
                     	<% } %>
-                    	
+                    	<li><a href="user_ticket" title="Respons'se Portfolio">Contact Us</a>
                     	<% if(session.getAttribute("first_name") != null) { %>
                     	<li><a href="admin_logout" title="Respons'se Portfolio">Logout</a>
                     	<% } else { %>
                     	<li><a href="login" title="Respons'se Portfolio">Login</a>
                     	<% } %>
+                    	
+                    	
+                    	
                     </ul>
                 
                 </div>

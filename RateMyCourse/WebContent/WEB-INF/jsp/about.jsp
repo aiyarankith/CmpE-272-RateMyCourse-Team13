@@ -102,18 +102,11 @@ We have also implemented graphs to summarize the information in an easy to read 
       </div>
       </div>
       </div>
-       <!-- Start Footer --> 
-
-	<!-- End Footer Top -->
-    <div class="clear"></div>
-	<!-- Start Footer Bottom -->
-    <%@include file="includes/footer_bottom.jsp" %>
-	<!-- End Footer Bottom -->
-
-</div>
-<!-- End Footer -->
-<!-- Start Scroll To Top Div -->
-<div id="scrolltab"></div>
-<!-- End Scroll To Top Div -->
+      </div></div>
+	<!-- Start Footer -->
+	<%@include file="includes/footer.jsp"%>	<!-- End Footer -->
+	<!-- Start Scroll To Top Div -->
+	<div id="scrolltab"></div>
+	<!-- End Scroll To Top Div -->
 </body>
 </html>

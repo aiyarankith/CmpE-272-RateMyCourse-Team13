@@ -20,9 +20,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.sql.DataSource;
 
-
-
-
 //CouchDB Imports
 import org.lightcouch.CouchDbClient;
 import org.lightcouch.DocumentConflictException;
@@ -69,6 +66,7 @@ public class UserServiceImpl implements UserService {
 
 
 	}
+
 	@Override
 	public void getTicket(Ticket ticket) {
 
@@ -83,13 +81,13 @@ public class UserServiceImpl implements UserService {
 				sql,
 				new Object[] {ticket.getCategory(), ticket.getEmail(),
 						ticket.getMessage() });
-		  UserServiceImpl.sendEmail(ticket.getEmail());
+		UserServiceImpl.sendEmail(ticket.getEmail());
 
 
 	}
 	public static void sendEmail (String email) {
-	 	System.out.println(email);
-	 	//System.out.println(message);
+		System.out.println(email);
+		//System.out.println(message);
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.socketFactory.port", "465");
@@ -97,29 +95,29 @@ public class UserServiceImpl implements UserService {
 				"javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.port", "465");
- 
+
 		Session session = Session.getDefaultInstance(props,
-			new javax.mail.Authenticator() {
-				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication("cse08427.sbit@gmail.com","sumoniks90!");
-				}
-			});
+				new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication("cse08427.sbit@gmail.com","sumoniks90!");
+			}
+		});
 
 		try {
 			//String text="/WEB-INF/jsp/welcomeuser.jsp";
 			//long i = (long) (1000000000000L +Math.random()*10000000000000L);
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("cse08427.sbit@gmail.com"));
-			 message.addRecipient(Message.RecipientType.TO,
-                     new InternetAddress("nidhi.ardent@gmail.com"));
+			message.addRecipient(Message.RecipientType.TO,
+					new InternetAddress("nidhi.ardent@gmail.com"));
 			message.addRecipients(Message.RecipientType.TO,
 					InternetAddress.parse(email));
-			
+
 			message.setSubject("Testing Subject");
 			//message.setText("http://localhost:8080/RateMyCourse/welcomeuser/" +i);
 			message.setText("Hi Admin" + email);	
 			//message.setText("</a>");
-	
+
 
 			Transport.send(message);
 
@@ -129,6 +127,8 @@ public class UserServiceImpl implements UserService {
 			throw new RuntimeException(e);
 		}
 	}
+
+
 	@Override
 	public String fetchData(User user) {
 		String email=user.getEmail();
@@ -158,7 +158,7 @@ public class UserServiceImpl implements UserService {
 					pass=(String)map.get(key);
 				}
 				else if (key.equals("first_name")){
-				f_name = (String)map.get(key);
+					f_name = (String)map.get(key);
 				}
 				System.out.print(key + " = " + map.get(key) + "; ");
 				System.out.println ("first  " +f_name);
@@ -172,7 +172,7 @@ public class UserServiceImpl implements UserService {
 			return f_name;
 		} else {
 			System.out.println("Do not apply login");
-			 return f_name;
+			return f_name;
 		}
 	}
 
@@ -224,22 +224,59 @@ public class UserServiceImpl implements UserService {
 		//.setUsername("aiyarankith.cloudbees")
 		//.setPassword("bs5854fh4I3nnGYJQ5e58FML");
 
-		Map<String, Object> map = new HashMap<>();
-		map.put("_id", (details.getc_id()).toLowerCase());
+		String result = null;
+		JsonObject add_course = new JsonObject();
+		add_course.addProperty("_id", details.getc_id());
+		add_course.addProperty("is_course", "Yes");
+		add_course.addProperty("c_id", details.getc_id());
+		add_course.addProperty("name", details.getname());
+		add_course.addProperty("description", details.getdescription());
+		add_course.addProperty("dept", details.getdept());
+		add_course.addProperty("university", details.getuniversity());
 
-		map.put("docfield", details);
-		System.out.println("Find Result");
-		String result ="Course Entered Successfully";
+		if(details.getprofessor() != null){
+			add_course.addProperty("professor", details.getprofessor());
+		} else {
+			add_course.addProperty("professor", "");
+		}
+
+		if(details.getrelated_doc_link() != null){
+			add_course.addProperty("related_doc_link", details.getrelated_doc_link());
+		} else {
+			add_course.addProperty("related_doc_link", "");
+		}
+
+		if(details.getdemo_video_link() != null){
+			add_course.addProperty("demo_video_link", details.getdemo_video_link());
+		} else {
+			add_course.addProperty("demo_video_link", "");
+		}
+		add_course.addProperty("overall_rating", 0);
+		add_course.addProperty("overall_count", 0);
+		add_course.addProperty("ind_user_rating", 0);
+		add_course.addProperty("overall_count", 0);
+		add_course.addProperty("est_user_rating", 0);
+		add_course.addProperty("est_user_count", 0);
+		add_course.addProperty("uest_user_rating", 0);
+		add_course.addProperty("uest_user_count", 0);
+
+		if(details.getprereq() != null){
+			add_course.addProperty("prereq", details.getprereq());
+		} else {
+			add_course.addProperty("prereq", "");
+		}
+
+
+		System.out.println("Complete :"+add_course);
 
 		try {
-			dbClient.save(map);
-
-
-		} catch (DocumentConflictException e){
-
+			dbClient.save(add_course);
+			result ="Course Entered Successfully";
+		} catch (DocumentConflictException e) {
 			e.printStackTrace();
 			result = "Course Already Exists";
 		}
+
 		return result;
 
 	}
@@ -518,14 +555,14 @@ public class UserServiceImpl implements UserService {
 
 
 
-@Override
+	@Override
 	public String insertcomment(Comment comment_detail) {
 
 		//Calculate the date
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date dates = new Date();
 		String date = dateFormat.format(dates);
-			
+
 		//Calculate user rating based on user type.
 		String userType = comment_detail.gettype_of_user();
 		double total_ratings = 0.00;
@@ -554,7 +591,7 @@ public class UserServiceImpl implements UserService {
 		doc_RatingAndComments.addProperty("user_name", comment_detail.getcommenter_name());
 		doc_RatingAndComments.addProperty("email", comment_detail.getcommenter_email());
 		doc_RatingAndComments.addProperty("date", date);
-		
+
 		System.out.println("Complete :"+doc_RatingAndComments);
 
 		try {
@@ -568,8 +605,8 @@ public class UserServiceImpl implements UserService {
 
 	}
 	public static void sendemail(String email) {
-	 	System.out.println(email);
-	 	//System.out.println(message);
+		System.out.println(email);
+		//System.out.println(message);
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.socketFactory.port", "465");
@@ -577,29 +614,29 @@ public class UserServiceImpl implements UserService {
 				"javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.port", "465");
- 
+
 		Session session = Session.getDefaultInstance(props,
-			new javax.mail.Authenticator() {
-				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication("cse08427.sbit@gmail.com","sumoniks90!");
-				}
-			});
+				new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication("cse08427.sbit@gmail.com","sumoniks90!");
+			}
+		});
 
 		try {
 			//String text="/WEB-INF/jsp/welcomeuser.jsp";
 			long i = (long) (1000000000000L +Math.random()*10000000000000L);
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("cse08427.sbit@gmail.com"));
-//			 message.addRecipient(Message.RecipientType.TO,
-//                     new InternetAddress("nidhi.ardent@gmail.com"));
+			//			 message.addRecipient(Message.RecipientType.TO,
+			//                     new InternetAddress("nidhi.ardent@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO,
 					InternetAddress.parse(email));
-			
+
 			message.setSubject("Testing Subject");
 			message.setText("http://localhost:8080/RateMyCourse/welcomeuser/" +i);
 			//message.setText("Hi Admin" + email);
 			//message.setText("</a>");
-	
+
 
 			Transport.send(message);
 
@@ -608,10 +645,10 @@ public class UserServiceImpl implements UserService {
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
- 	}
+	}
 
 
-@Override
+	@Override
 	public List<JsonObject> getCoursesWithPrereqAs(String courseId) {
 		List<JsonObject> courseList = null;
 		try {
