@@ -410,58 +410,60 @@ public class UserServiceImpl implements UserService {
 	}
 
 @Override
-	public String insertcomment(Comment comment_detail) {
-
-		//Calculate the date
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date dates = new Date();
-		String date = dateFormat.format(dates);
-			
-		//Calculate user rating based on user type.
-		String userType = comment_detail.gettype_of_user();
-		double total_ratings = 0.00;
-		total_ratings = (Float.valueOf(comment_detail.getcontent_rating()) + Float.valueOf(comment_detail.gettechnology_rating()) + Float.valueOf(comment_detail.getoverall_rating()))/15;
-		System.out.println("userType:"+userType);
-		if ("Industrialist".equals(userType)) {
-			comment_detail.settype_of_user("IND");
-			total_ratings = total_ratings * 1;
-		} else if ("Enrolled Student".equals(userType)) {
-			comment_detail.settype_of_user("EST");
-			total_ratings = total_ratings * 0.9;
-		} else {
-			comment_detail.settype_of_user("UEST");
-			total_ratings = total_ratings * 0.6;
-		}
-		System.out.println("user_ratings:" +total_ratings);
-
-		String message = null;
-		JsonObject doc_RatingAndComments = new JsonObject();
-		doc_RatingAndComments.addProperty("is_verified", false);
-		doc_RatingAndComments.addProperty("type", comment_detail.gettype_of_user());
-		doc_RatingAndComments.addProperty("user_rating", total_ratings);
-		doc_RatingAndComments.addProperty("comment", comment_detail.getcomment());
-		doc_RatingAndComments.addProperty("c_id", comment_detail.getcourse_id());
-		doc_RatingAndComments.addProperty("c_name", comment_detail.getcourse_name());
-		doc_RatingAndComments.addProperty("user_name", comment_detail.getcommenter_name());
-		doc_RatingAndComments.addProperty("email", comment_detail.getcommenter_email());
-		doc_RatingAndComments.addProperty("date", date);
+	public String insertcomment(Comment comment_detail) {		//Calculate the date
+	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	Date dates = new Date();
+	String date = dateFormat.format(dates);
 		
-		System.out.println("Complete :"+doc_RatingAndComments);
-
-		try {
-			long mailKey = RatingVerificationServiceImpl.sendemail(comment_detail.getcommenter_email());
-			if (mailKey != -1) {
-				doc_RatingAndComments.addProperty("unique_key", ""+ mailKey +"");
-				dbClient.save(doc_RatingAndComments);
-				message = "Comment Added! Please verify your email id in order to confirm comments";
-			} else {
-				message = "Sorry, Unable to accept your comments.";
-			}
-		} catch (DocumentConflictException e) {
-			e.printStackTrace();
-		}
-		return message;
+	//Calculate user rating based on user type.
+	String userType = comment_detail.gettype_of_user();
+	double total_ratings = 0.00;
+	total_ratings = (Float.valueOf(comment_detail.getcontent_rating()) + Float.valueOf(comment_detail.gettechnology_rating()) + Float.valueOf(comment_detail.getoverall_rating()))/15;
+	System.out.println("userType:"+userType);
+	if ("Industrialist".equals(userType)) {
+		comment_detail.settype_of_user("IND");
+		total_ratings = total_ratings * 1;
+	} else if ("Enrolled Student".equals(userType)) {
+		comment_detail.settype_of_user("EST");
+		total_ratings = total_ratings * 0.9;
+	} else {
+		comment_detail.settype_of_user("UEST");
+		total_ratings = total_ratings * 0.6;
 	}
+	System.out.println("user_ratings:" +total_ratings);
+
+	String message = null;
+	JsonObject doc_RatingAndComments = new JsonObject();
+	doc_RatingAndComments.addProperty("type", comment_detail.gettype_of_user());
+	doc_RatingAndComments.addProperty("user_rating", total_ratings);
+	doc_RatingAndComments.addProperty("comment", comment_detail.getcomment());
+	doc_RatingAndComments.addProperty("c_id", comment_detail.getcourse_id());
+	doc_RatingAndComments.addProperty("c_name", comment_detail.getcourse_name());
+	doc_RatingAndComments.addProperty("user_name", comment_detail.getcommenter_name());
+	doc_RatingAndComments.addProperty("email", comment_detail.getcommenter_email());
+	doc_RatingAndComments.addProperty("date", date);
+	
+	System.out.println("Complete :"+doc_RatingAndComments);
+
+	try {
+		long mailKey = RatingVerificationServiceImpl.sendemail(comment_detail.getcommenter_email());
+		if (mailKey != -1) {
+			if (mailKey == 0) {
+				doc_RatingAndComments.addProperty("is_verified", true);
+			} else {
+				doc_RatingAndComments.addProperty("is_verified", false);
+				doc_RatingAndComments.addProperty("unique_key", ""+ mailKey +"");
+			}
+			dbClient.save(doc_RatingAndComments);
+			message = "Comment Added! Please verify your email id in order to confirm comments";
+		} else {
+			message = "Sorry, Unable to accept your comments.";
+		}
+	} catch (DocumentConflictException e) {
+		e.printStackTrace();
+	}
+	return message;
+}
 @Override
 public List<List<JsonObject>> getTopRatedPerUniv(String univname) {
 	List<JsonObject> courseList = null;
