@@ -40,7 +40,11 @@
 	
 	}
 	//// End Simple Sliders //// 
+	setTimeout(function() {
+  $("#message").remove();
+}, 5000);
 </script> 
+
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function(){
     $("a[rel^='prettyPhoto']").prettyPhoto();
@@ -111,7 +115,7 @@
     <!-- Start H1 Title -->
     <div class="titles">
     
-    	<h1>Welcome to Rate My Course Website ${message }</h1>
+    	<h1>Welcome to Rate My Course Website</h1>
         
         <span></span>
     
@@ -121,6 +125,12 @@
     <div id="main-wrap">
     <div class="boxes-full">
     	<div class="boxes-padding fullpadding">
+    	   	<c:if test = "${confirmation_message !=null}" >
+    	        <p class="greenalert" id="message"><span>${confirmation_message}</span></p>
+    		</c:if>
+    		<c:if test = "${unauth_access !=null}" >
+    	        <p class="rejectionalert" id="message"><span>${unauth_access}</span></p>
+    		</c:if>
         	<div class="split3">
                 
                     <h3>Rate My Course</h3>

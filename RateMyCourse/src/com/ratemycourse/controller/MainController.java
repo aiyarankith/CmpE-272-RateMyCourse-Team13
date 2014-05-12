@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -73,25 +74,38 @@ public class MainController {
 
 	//login page for admin
 	@RequestMapping("/fetchdata")
-	public String fetchData(@ModelAttribute User user, HttpServletRequest request, final RedirectAttributes redirectedattributes) {
+	public String fetchData(@ModelAttribute("details") Course details, @ModelAttribute User user, HttpSession session, final RedirectAttributes redirectedattributes) {
 		System.out.println("Data At fetch:: "+user);
 		String invalid_login_message;
 		String first_name = userService.fetchData(user);
+
 		if(first_name != null){
-			request.getSession().setAttribute("first_name", first_name);
-			return "welcomeadmin";
+			session.setAttribute("first_name", first_name);
+			return "redirect:index";
 		}
-		else if (first_name.equals("Invalid Login")){
+		if (session.getAttribute("first_name") == null){
 			invalid_login_message = "Invalid Login";
 			redirectedattributes.addFlashAttribute("invalid_login_message",invalid_login_message);
 		}
 
+		return "redirect:login";
+	}
+	//Admin Logout
+	@RequestMapping(value = "/admin_logout")
+	public String admin_logout(HttpSession session) {
+		session.invalidate();
 		return "redirect:index";
 	}
+
 	//CouchDB Insert Course Page (Admin)
 	@RequestMapping(value="/add_course", method = RequestMethod.GET)
-	public String addcourse(@ModelAttribute("details") Course details) {
-		return "add_course";
+	public String addcourse(@ModelAttribute("details") Course details, HttpSession session, final RedirectAttributes redirectedattributes) {
+		if(session.getAttribute("first_name") != null){
+			return "add_course";
+		} else {
+			redirectedattributes.addFlashAttribute("unauth_access","Please Login as Admin in order to Access this page");
+			return "redirect:index";
+		}
 	}
 
 	//CouchDB Insert Course (Admin)
@@ -141,12 +155,18 @@ public class MainController {
 	@RequestMapping("/insert_comment")
 	public String insert_comment(@RequestParam String course_id, @ModelAttribute("comment_detail") Comment comment_detail, final RedirectAttributes redirectedattributes, HttpServletRequest req) {
 		System.out.println("Course At Controller:: " +comment_detail);
-		String message;
+		String message = null;
 		if (comment_detail != null) {
 			message = new String (userService.insertcomment(comment_detail));
 			redirectedattributes.addFlashAttribute("message",message);
 			System.out.println("Message at insert comment :"+message);
 		}
+		if(message != null){
+			//req.setAttribute("confirmation_message", message);
+			redirectedattributes.addFlashAttribute("confirmation_message",message);
+
+		}
+		System.out.println("confirmation_message :"+message);
 
 		/**
 		 * Ratings from the user
@@ -171,39 +191,39 @@ public class MainController {
 	}
 
 	//Course Page Action to Search
-		@RequestMapping(value="/get_course", method = RequestMethod.GET)
-		public ModelAndView get_course(@RequestParam String courseId, @ModelAttribute("comment_detail") Comment comment_detail, HttpServletRequest req) {
-			List<JsonObject> course_comments = null;
-			List<JsonObject> prereqForCourseList = null;
-			JsonObject course_details = userService.getCourse(courseId);
-			System.out.println("course_details:"+course_details);
-			if (course_details != null) {
-				course_comments = userService.getCourseComments(courseId);
-			}
-			if (course_comments != null) {
-				prereqForCourseList = userService.getCoursesWithPrereqAs(courseId);
-			}
-			System.out.println("COurse Comments :" +course_comments);
-			req.setAttribute("course_comments", course_comments != null && course_comments.isEmpty() ? null : course_comments);
-			req.setAttribute("course_prereq4",prereqForCourseList);
-			/**
-			 * Ratings from the user
-			 */
+	@RequestMapping(value="/get_course", method = RequestMethod.GET)
+	public ModelAndView get_course(@RequestParam String courseId, @ModelAttribute("comment_detail") Comment comment_detail, HttpServletRequest req) {
+		List<JsonObject> course_comments = null;
+		List<JsonObject> prereqForCourseList = null;
+		JsonObject course_details = userService.getCourse(courseId);
+		System.out.println("course_details:"+course_details);
+		if (course_details != null) {
+			course_comments = userService.getCourseComments(courseId);
+		}
+		if (course_comments != null) {
+			prereqForCourseList = userService.getCoursesWithPrereqAs(courseId);
+		}
+		System.out.println("COurse Comments :" +course_comments);
+		req.setAttribute("course_comments", course_comments != null && course_comments.isEmpty() ? null : course_comments);
+		req.setAttribute("course_prereq4",prereqForCourseList);
+		/**
+		 * Ratings from the user
+		 */
 
-			ArrayList <String> user_type = new ArrayList<String> (); 
-			user_type.add("Enrolled Student");
-			user_type.add("Unenrolled Student");
-			user_type.add("Industrialist");
+		ArrayList <String> user_type = new ArrayList<String> (); 
+		user_type.add("Enrolled Student");
+		user_type.add("Unenrolled Student");
+		user_type.add("Industrialist");
 
-			ArrayList <String> stars = new ArrayList<String> (); 
-			stars.add("1");
-			stars.add("2");
-			stars.add("3");
-			stars.add("4");
-			stars.add("5");
+		ArrayList <String> stars = new ArrayList<String> (); 
+		stars.add("1");
+		stars.add("2");
+		stars.add("3");
+		stars.add("4");
+		stars.add("5");
 
-			req.setAttribute("user_type", user_type);
-			req.setAttribute("stars", stars);
+		req.setAttribute("user_type", user_type);
+		req.setAttribute("stars", stars);
 
 		return new ModelAndView("course_ratings", "course_details", course_details);
 	}
@@ -274,4 +294,5 @@ public class MainController {
 		return "search";
 		//return new ModelAndView("search", "courseList", courseList);
 	}
+
 }

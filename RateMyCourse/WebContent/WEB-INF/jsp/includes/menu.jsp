@@ -22,17 +22,29 @@
                                 <li><a href="industry_oriented_course" title="Response Icons &amp; Lists">Industry Oriented Course</a></li>
                                 <li><a href="top_courses_colleges" title="Response Notifications">Top Courses By Colleges</a></li>
                             </ul>
+                            <% if(session.getAttribute("first_name") != null) { %>
                             <li><a href="add_course">Course</a>
                         	<ul>
                         		<li><a href="add_course" title="Response Buttons">Add Course</a></li>
                             	<li><a href="edit_course" title="Response Buttons">Edit Course</a></li>
                             </ul>
                         </li>
+                        <% } else { %>
+                        <% } %>
                         <li><a href="about" title="Respons'se Portfolio">About</a>
+                       
+                      	 <% if(session.getAttribute("first_name") != null) { %>
                         	
                         </li>
                         <li><a href="<c:url value="registration" />">Create an account</a></li>
-                    
+                    	<% } else { %>
+                    	<% } %>
+                    	
+                    	<% if(session.getAttribute("first_name") != null) { %>
+                    	<li><a href="admin_logout" title="Respons'se Portfolio">Logout</a>
+                    	<% } else { %>
+                    	<li><a href="login" title="Respons'se Portfolio">Login</a>
+                    	<% } %>
                     </ul>
                 
                 </div>

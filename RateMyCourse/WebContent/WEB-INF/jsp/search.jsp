@@ -55,6 +55,18 @@
 	//// End Simple Sliders ////
 </script>
 <script>
+       $(document).ready(function(){
+          document.getElementById("searchValue").value = localStorage.getItem("value");
+          document.getElementById("searchCategory").value = localStorage.getItem("category");
+       });
+</script>
+<script>
+       $(window).on('beforeunload', function() {
+          localStorage.setItem("value",document.getElementById("searchValue").value);
+          localStorage.setItem("category",document.getElementById("searchCategory").value);
+      });
+</script>
+<script>
 	var json = JSON.parse(course_details);
 	var name = json["name"];
 </script>

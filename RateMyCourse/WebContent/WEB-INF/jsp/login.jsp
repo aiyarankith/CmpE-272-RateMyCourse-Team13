@@ -69,7 +69,9 @@
 		<!-- End H1 Title -->
 		<!-- Start Main Body Wrap -->
 		<div id="main-wrap">
-
+		<c:if test = "${invalid_login_message !=null}" >
+    	        <p class="warningalert" id="message"><span>${invalid_login_message}</span></p>
+    		</c:if>
 			<!-- Start Left Section -->
 			<div class="leftsection">
 

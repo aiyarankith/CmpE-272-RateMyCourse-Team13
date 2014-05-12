@@ -123,9 +123,10 @@ $(document).ready(function() {
 <div id="main">
     <!-- Start H1 Title -->
     <div class="titlesnormal">
-    
-    	<h1>Add Up Courses You Know or Enrolled</h1>
-        
+    	<% if (session.getAttribute("first_name") != null ){ %>
+    	<h1>Welcome <%= session.getAttribute("first_name") %></h1>
+    	<% } else {  %>
+    	<% } %>
         <span></span>
     
     </div>

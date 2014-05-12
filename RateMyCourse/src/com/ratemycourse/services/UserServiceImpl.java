@@ -69,12 +69,11 @@ public class UserServiceImpl implements UserService {
 	public String fetchData(User user) {
 		String email=user.getEmail();
 		String password=user.getPassword();
-
+		String f_name = null;
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
 		String username="";
 		String pass="";	 
-		String f_name="";
 
 		String sql = "select email, password, first_name from user where email = '"+email+"' and password='"+password+"'";
 		List results=jdbcTemplate.queryForList(sql);
@@ -82,13 +81,6 @@ public class UserServiceImpl implements UserService {
 			System.out.println(result);
 			HashMap map = (HashMap) result;
 
-			/*Map <String,Object> results = 
-			        JdbcTemplate.queryForMap(
-			        "SELECT email, password FROM user WHERE email = ? AND password = ? "
-			        ,user.getEmail(), user.getPassword());*/
-
-			/*email=(String)result.get("email");
-	          password=(String)result.get("password");*/
 			System.out.println("Email " +email);
 			System.out.println ("password " +password);
 			for (Object key : map.keySet()) {
@@ -115,10 +107,8 @@ public class UserServiceImpl implements UserService {
 			System.out.println("Apply Login");
 			return f_name;
 		} else {
-
-
 			System.out.println("Do not apply login");
-			 return "Invalid Login";
+			 return f_name;
 		}
 	}
 
@@ -505,7 +495,7 @@ public class UserServiceImpl implements UserService {
 
 		try {
 			dbClient.save(doc_RatingAndComments);
-			message = "Comment Added! Please verify your email id in order to confirm comments";
+			message = "Comment Added! Please verify your email in order to confirm comments";
 			UserServiceImpl.sendemail(comment_detail.getcommenter_email());
 		} catch (DocumentConflictException e) {
 			e.printStackTrace();
