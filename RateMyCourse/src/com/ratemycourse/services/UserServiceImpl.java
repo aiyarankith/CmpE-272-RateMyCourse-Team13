@@ -82,11 +82,11 @@ public class UserServiceImpl implements UserService {
 				sql,
 				new Object[] {ticket.getCategory(), ticket.getEmail(),
 						ticket.getMessage() });
-		UserServiceImpl.sendEmail(ticket.getEmail());
+		UserServiceImpl.sendEmail(ticket.getEmail(), ticket.getCategory(), ticket.getMessage());
 
 
 	}
-	public static void sendEmail (String email) {
+	public static void sendEmail (String email, String category, String msg) {
 		System.out.println(email);
 		//System.out.println(message);
 		Properties props = new Properties();
@@ -114,10 +114,9 @@ public class UserServiceImpl implements UserService {
 			message.addRecipients(Message.RecipientType.TO,
 					InternetAddress.parse(email));
 
-			message.setSubject("Testing Subject");
+			message.setSubject(category);
 			//message.setText("http://localhost:8080/RateMyCourse/welcomeuser/" +i);
-			message.setText("Hi Admin" + email);	
-			//message.setText("</a>");
+			message.setText("Welcome Guest, Your "+category+" request has been received. We'll get back to you soon. \n Message: " +msg+ "\n Have a nice day. \n\n Regards,\nAdmin");			//message.setText("</a>");
 
 
 			Transport.send(message);
