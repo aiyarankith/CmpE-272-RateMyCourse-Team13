@@ -139,7 +139,7 @@ public class MainController {
 	}
 	//Most Rated Course Page
 	@RequestMapping(value="/most_rated_course", method = RequestMethod.GET)
-	public ModelAndView most_rated_course(@RequestParam(value = "numOfCourses", defaultValue = "10") int count) {
+	public ModelAndView most_rated_course(@RequestParam(value = "numOfCourses", defaultValue = "20") int count) {
 		List<JsonObject> courseList = userService.getNTopRtdCourse(count);
 		return new ModelAndView("most_rated_course", "courseList", courseList);
 	}
@@ -149,7 +149,7 @@ public class MainController {
 
 	//Most Followed Course Page
 	@RequestMapping(value="/most_followed_course", method = RequestMethod.GET)
-	public ModelAndView most_followed_course(@RequestParam(value="numOfCourses", defaultValue="10") int count) {
+	public ModelAndView most_followed_course(@RequestParam(value="numOfCourses", defaultValue="20") int count) {
 
 		List<JsonObject> courseList= userService.getMostFollowedCourse(count);
 		return new ModelAndView ("most_followed_course","courseList",courseList);
@@ -157,7 +157,7 @@ public class MainController {
 
 	//Most Industry Course Page
 	@RequestMapping(value="/industry_oriented_course", method = RequestMethod.GET)
-	public ModelAndView industry_oriented_course(@RequestParam(value = "numOfCourses", defaultValue = "10") int count) {
+	public ModelAndView industry_oriented_course(@RequestParam(value = "numOfCourses", defaultValue = "20") int count) {
 		List<JsonObject> courseList = userService.getIndOrientedCourse(count);
 		return new ModelAndView("industry_oriented_course", "courseList", courseList);
 	}
@@ -169,8 +169,11 @@ public class MainController {
 	    req.setAttribute("univ",univname);
 	    System.out.println(univname);
 		return new ModelAndView("top_courses_colleges","courseList",courseList);
-	  // return "portfolio-2-column";
+	  
 	}
+	
+	
+	
 
 
 	//Insert Comments

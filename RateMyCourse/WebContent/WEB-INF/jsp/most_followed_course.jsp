@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Top 10 Most Followed Courses</title>
+<title>Top 20 Most Followed Courses</title>
 <style type="text/css">
 #chartDiv {
 	width		: 90%;

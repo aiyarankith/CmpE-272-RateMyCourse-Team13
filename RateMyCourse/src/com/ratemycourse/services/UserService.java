@@ -70,6 +70,9 @@ public interface UserService {
 	 * @return top course per university per department
 	 */
 	public List<List<JsonObject>> getTopRatedPerUniv(String univname);
+	
+	
+	
 	/**
 	 * To Insert Comment, User Function.
 	 * @param commenter_name

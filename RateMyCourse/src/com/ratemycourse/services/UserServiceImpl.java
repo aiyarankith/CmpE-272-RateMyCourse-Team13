@@ -518,6 +518,8 @@ public List<List<JsonObject>> getTopRatedPerUniv(String univname) {
 	}
 	return courseUnivList;
 }
+
+
 	@Override
 	public List<JsonObject> getCoursesWithPrereqAs(String courseId) {
 		List<JsonObject> courseList = null;
