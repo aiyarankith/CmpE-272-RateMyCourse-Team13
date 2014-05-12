@@ -162,10 +162,14 @@ public class MainController {
 		return new ModelAndView("industry_oriented_course", "courseList", courseList);
 	}
 
-	//Top Courses College wise Page
+	///Top Courses College wise Page
 	@RequestMapping(value="/top_courses_colleges", method = RequestMethod.GET)
-	public String top_courses_colleges() {
-		return "top_courses_colleges";
+	public ModelAndView top_courses_colleges(@RequestParam String univname, HttpServletRequest req) {
+	   List<List<JsonObject>> courseList=userService.getTopRatedPerUniv(univname); 
+	    req.setAttribute("univ",univname);
+	    System.out.println(univname);
+		return new ModelAndView("top_courses_colleges","courseList",courseList);
+	  // return "portfolio-2-column";
 	}
 
 
@@ -223,6 +227,7 @@ public class MainController {
 		}
 		System.out.println("COurse Comments :" +course_comments);
 		req.setAttribute("course_comments", course_comments != null && course_comments.isEmpty() ? null : course_comments);
+		System.out.println("prereqForCourseList");
 		req.setAttribute("course_prereq4",prereqForCourseList);
 		/**
 		 * Ratings from the user

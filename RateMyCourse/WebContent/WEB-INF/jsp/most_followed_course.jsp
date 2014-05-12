@@ -43,7 +43,9 @@ System.out.println("helloooo"); %>
  while(itr.hasNext()){
 	 name=(JsonObject)itr.next();
 	 
-	name.add("coursename", name.get("value"));
+	 name.add("coursename", name.get("value").getAsJsonArray().get(0));
+	name.add("dept", name.get("value").getAsJsonArray().get(1));
+	name.add("uni", name.get("value").getAsJsonArray().get(2));
 	//System.out.println(name);
 }
 System.out.println(details);
@@ -57,10 +59,7 @@ var chart;
 // var data=[{"id": "EE 234", "key":5, "value": "intro"}, {"id": "CE235", "key": 4, "value":"gsdhfaj"}];
 var data= <%=details %>
 
-function handleClick(event)
-{
-	alert("under construction");
-}
+
 
 
 AmCharts.ready(function() {
@@ -76,12 +75,6 @@ AmCharts.ready(function() {
     chart.color="#AD3E28";
     chart.handDrawn=true;
     
-    
-  
-    chart.addListener("clickGraphItem", handleClick);
-    
-
-    
     var categoryAxis = chart.categoryAxis;
     categoryAxis.labelRotation = 60;
     categoryAxis.gridPosition = "start";
@@ -89,7 +82,7 @@ AmCharts.ready(function() {
     
     var graph = new AmCharts.AmGraph();
     graph.valueField = "key";
-    graph.balloonText = "[[coursename]]: [[value]]";
+    graph.balloonText = "[[coursename]]: [[dept]]:[[uni]]:[[value]]";
     graph.type = "column";
     graph.lineAlpha = 0;
     graph.fillAlphas = 0.8;

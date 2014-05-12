@@ -4,11 +4,11 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -19,7 +19,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.sql.DataSource;
-import javax.mail.SendFailedException;
 
 //CouchDB Imports
 import org.lightcouch.CouchDbClient;
@@ -463,7 +462,60 @@ public class UserServiceImpl implements UserService {
 		}
 		return message;
 	}
-
+@Override
+public List<List<JsonObject>> getTopRatedPerUniv(String univname) {
+	List<JsonObject> courseList = null;
+	List<JsonObject> deptList=null;
+	List<List<JsonObject>> courseUnivList=new ArrayList<List<JsonObject>>();
+	String dept=null;
+	try {
+		/*
+		 * Corresponding sample CouchDB query
+		 * http://127.0.0.1:5984/demo/_design/views/_view/by_top_rated_per_univ?startkey=%5B%22san%20jose%20state%20university%22%2C%22general+engineering%22%2C%7B%7D%5D&endkey=%5B%22san+jose+state+university%22%2C%22Computer+engineering%22%5D&descending=true
+		 */
+	
+		
+		List<String> endval=Arrays.asList(new String[] {univname,"z"});
+		System.out.println(endval);
+		List<String> startval=Arrays.asList(new String[] {univname}); 
+		deptList= dbClient.view("views/get_dept_for_college")
+				.startKey(startval)
+				.endKey(endval)
+				.group(true)
+				.query(JsonObject.class);
+		
+		System.out.println(deptList);
+		for(int i=0;i<deptList.size();i++){
+			dept=deptList.get(i).get("key").getAsJsonArray().get(1).getAsString().toLowerCase();
+			List<String> start=Arrays.asList(new String[] {univname,dept,"a"}); 
+			List<String> end=Arrays.asList(new String[] {univname,dept}); 
+			//System.out.println(start);
+			//System.out.println(end);
+			System.out.println(dept);
+			if(!dept.trim().equals("")){
+				
+			courseList= dbClient.view("views/by_top_rated_per_univ")
+				.descending(true)
+				.startKey(start) 
+				.endKey(end)
+				.limit(10)
+				.query(JsonObject.class);
+			courseUnivList.add(courseList);
+			//System.out.println(courseList);
+			System.out.println(courseUnivList);
+		}
+		}
+		if (courseList.isEmpty()) {
+			JsonObject error = new JsonObject();
+			error.addProperty("error_type", "data_missing");
+			error.addProperty("error_message", "Course data missing");
+			courseList.add(error);
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	return courseUnivList;
+}
 	@Override
 	public List<JsonObject> getCoursesWithPrereqAs(String courseId) {
 		List<JsonObject> courseList = null;

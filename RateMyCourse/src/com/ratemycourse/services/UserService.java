@@ -65,6 +65,11 @@ public interface UserService {
 	 */
 	public List<JsonObject> getMostFollowedCourse(final int count);
 
+/**
+	 * To get top course per university per department
+	 * @return top course per university per department
+	 */
+	public List<List<JsonObject>> getTopRatedPerUniv(String univname);
 	/**
 	 * To Insert Comment, User Function.
 	 * @param commenter_name
