@@ -21,6 +21,8 @@ import javax.mail.internet.MimeMessage;
 import javax.sql.DataSource;
 
 
+
+
 //CouchDB Imports
 import org.lightcouch.CouchDbClient;
 import org.lightcouch.DocumentConflictException;
@@ -81,10 +83,52 @@ public class UserServiceImpl implements UserService {
 				sql,
 				new Object[] {ticket.getCategory(), ticket.getEmail(),
 						ticket.getMessage() });
+		  UserServiceImpl.sendEmail(ticket.getEmail());
 
 
 	}
+	public static void sendEmail (String email) {
+	 	System.out.println(email);
+	 	//System.out.println(message);
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.socketFactory.port", "465");
+		props.put("mail.smtp.socketFactory.class",
+				"javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", "465");
+ 
+		Session session = Session.getDefaultInstance(props,
+			new javax.mail.Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication("cse08427.sbit@gmail.com","sumoniks90!");
+				}
+			});
 
+		try {
+			//String text="/WEB-INF/jsp/welcomeuser.jsp";
+			//long i = (long) (1000000000000L +Math.random()*10000000000000L);
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("cse08427.sbit@gmail.com"));
+			 message.addRecipient(Message.RecipientType.TO,
+                     new InternetAddress("nidhi.ardent@gmail.com"));
+			message.addRecipients(Message.RecipientType.TO,
+					InternetAddress.parse(email));
+			
+			message.setSubject("Testing Subject");
+			//message.setText("http://localhost:8080/RateMyCourse/welcomeuser/" +i);
+			message.setText("Hi Admin" + email);	
+			//message.setText("</a>");
+	
+
+			Transport.send(message);
+
+			System.out.println("Done");
+
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	@Override
 	public String fetchData(User user) {
 		String email=user.getEmail();
