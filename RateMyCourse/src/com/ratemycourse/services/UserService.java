@@ -10,6 +10,8 @@ public interface UserService {
 
 	public void insertData(User user);
 	public String fetchData(User user);
+	public void getTicket(Ticket ticket);
+
 
 	/**
 	 * To Retrive RSS Feeds from any sourse.

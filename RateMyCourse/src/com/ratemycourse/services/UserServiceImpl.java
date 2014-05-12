@@ -20,6 +20,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.sql.DataSource;
 
+
 //CouchDB Imports
 import org.lightcouch.CouchDbClient;
 import org.lightcouch.DocumentConflictException;
@@ -31,6 +32,7 @@ import com.google.gson.JsonObject;
 import com.ratemycourse.model.Comment;
 import com.ratemycourse.model.Course;
 import com.ratemycourse.model.Rss;
+import com.ratemycourse.model.Ticket;
 import com.ratemycourse.model.User;
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
@@ -65,6 +67,24 @@ public class UserServiceImpl implements UserService {
 
 
 	}
+	@Override
+	public void getTicket(Ticket ticket) {
+
+		String sql = "INSERT INTO ticket "
+				+ "(category,email,message) VALUES (?, ?, ?)";
+
+		System.out.println("Values : "+ticket);
+
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+
+		jdbcTemplate.update(
+				sql,
+				new Object[] {ticket.getCategory(), ticket.getEmail(),
+						ticket.getMessage() });
+
+
+	}
+
 	@Override
 	public String fetchData(User user) {
 		String email=user.getEmail();
