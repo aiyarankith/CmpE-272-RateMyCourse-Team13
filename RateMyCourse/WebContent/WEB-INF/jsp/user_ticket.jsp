@@ -68,7 +68,7 @@
         	<!-- Start Blog Post -->
         	<div class="blogwrapstart">
             
-            	<div class="blogtitle"><h3><a href="blog-post.html" title="5 ways to get top of google">Enter your personal details.</a></h3></div>
+            	<div class="blogtitle"><h3><a href="blog-post.html" title="5 ways to get top of google">Details</a></h3></div>
                 
                 <div class="blogbody">
                 	<div class="blogtext">
@@ -77,23 +77,12 @@
                     	
                     	<div class="required">
                     
-                    <div align ="left"> <b>Category</b> </div><form:select path="category" id="category" ><option value="Feedback">Feedback</option><option value="Complaint">Complaint</option><option value="AddCourse">Add Course</option><option value="EditCourse">Edit Course</option></form:select> 
-                    	<div align="left"> <b>Email :</b></div> <form:input path="email" name="email"  cols="20" rows="20" />
-                        <div align="left"> <b>Message :</b></div> <form:textarea path="message" name="message" id="message" cols="35" rows="5" />
+                    <div align ="left"> <b>Category</b> </div><form:select  path="category" id="category" ><option value="Feedback">Feedback</option><option value="Complaint">Complaint</option><option value="AddCourse">Add Course</option><option value="EditCourse">Edit Course</option></form:select> 
+                    	<br><br><div align="left"> <b>Email :</b></div> <form:input class="contacttextform" path="email" name="email"  cols="20" rows="20" />
+                       <br><br><div align="left"> <b>Message :</b></div> <form:textarea class="contacttextform" path="message" name="message" id="message" cols="35" rows="5" />
 		 
-		 
-
-						
-						
-						
-                
-                		 
-                    	
-                    
-					
-						
-						
-						<input type="submit" value ="Submit"/>
+		 </div>
+					<input type="submit" value ="Submit" class="contactformbutton"/>
 						
 					</form:form>	
 					

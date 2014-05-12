@@ -20,8 +20,7 @@
                             	<li><a href="${pageContext.request.contextPath}/most_rated_course" title="Response Buttons">Most Rated Course</a></li>
                                 <li><a href="${pageContext.request.contextPath}/most_followed_course" title="Response Columns">Most Followed Course</a></li>
                                 <li><a href="${pageContext.request.contextPath}/industry_oriented_course" title="Response Icons &amp; Lists">Industry Oriented Course</a></li>
-                                <li><a href="${pageContext.request.contextPath}/top_courses_colleges" title="Response Notifications">Top Courses By Colleges</a></li>
-                                <li><a href="${pageContext.request.contextPath}/top_courses_univ" title="Response Notifications">Top Courses By Colleges</a>
+                                <li><a href="top_courses_colleges?univname=san jose state university" title="Response Notifications">Top Courses By Colleges</a>
                                  <ul>
                                 	<li><a href="top_courses_colleges?univname=san jose state university">San Jose State University</a></li>
                                 	<li><a href="top_courses_colleges?univname=california state university,long beach">California State University,Long Beach</a></li>

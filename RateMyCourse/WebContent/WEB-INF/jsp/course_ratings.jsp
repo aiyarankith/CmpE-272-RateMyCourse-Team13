@@ -739,26 +739,25 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
         	<!-- Start Blog Widget -->
             <div class="blogwidget">
             	<!-- Start Categories Widget -->
-            	<div class="widgettitle"><h4>Blog Categories</h4></div>
+            	<div class="widgettitle"><h4>Facts</h4></div>
                 
                 <div class="widgetbody">
                 
                 	<div class="blogcategories">
                     
                     	<ul>
-                        	<li><a href="#" title="All Blogs">All Blogs</a></li>
-                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
-                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
-                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
-                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
-                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
-                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
-                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
-                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
-                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
-                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
-                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
-                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>                            
+                        	<li>Get the latest RSS Feeds from craiglist</li>
+                            <li>Search for top followed courses</li>
+                            <li>Search for you favourite course</li>
+                            <li>Get to know whats hot</li>
+                            <li>Find top rated course by industrial expert</li>
+                            <li>Read comments from others</li>
+                            <li>Add comments and ratings</li>
+                            <li>Send your complains</li>
+                            <li>Post feedbacks</li>
+                            <li>Demand for the course you wish on the list</li>
+                            <li>Content wise searching</li>
+                            <li>Get to know About Us</li>
                         </ul>
                     
                     </div>
@@ -770,31 +769,7 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
             </div>
             <!-- End Blog Widget -->
             
-        	<!-- Start Blog Widget -->
-            <div class="blogwidget">
-            	<!-- Start Categories Widget -->
-            	<div class="widgettitle"><h4>Top 5 Blog Posts</h4></div>
-                
-                <div class="widgetbody">
-                
-                	<div class="blogcategories">
-                    
-                    	<ul>
-                        	<li><a href="#" title="All Blogs">Maecenas non ipsum nunc</a></li>
-                            <li><a href="#" title="All Blogs">Lorem ipsum dolor </a></li>
-                            <li><a href="#" title="All Blogs">Maecenas non ipsum </a></li>
-                            <li><a href="#" title="All Blogs">Lorem ipsum dolor sit</a></li>
-                            <li><a href="#" title="All Blogs">Maecenas non ipsum nunc</a></li>                        
-                        </ul>
-                    
-                    </div>
-                
-              </div>
-              <!-- End Categories Widget -->
-              <span class="box-arrow"></span>
-            
-            </div>
-            <!-- End Blog Widget -->
+       
         
         </div>
         <!-- End Right Section -->
@@ -902,28 +877,32 @@ document.getElementById('three').style.display=(rads[2].checked)?'block':'none' 
 								</fieldset>
 							</div>
 							<div class="contacttextboxes">
-							<h3>Accordian Section</h3>
+							<h3>Information</h3>
                         
                         <!-- Start Accordian -->
                         <div class="accordionwrap">
                         
-                            <div class="accordiontitle"><a href="#">Accordian Title 1</a></div>
+                            <div class="accordiontitle"><a href="#">San Jose State University</a></div>
                             <div class="accordioncontent">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
+                                <p>San Jose State University (often abbreviated San Jose State or SJSU) is a comprehensive public university located in San Jose, California, United States. It is the founding school of the 23 campus California State University (CSU) system, and holds the distinction of being the oldest public institution of higher education on the West Coast of the United States.</p>
                             </div>
                         
-                            <div class="accordiontitle"><a href="#">Accordian Title 2</a></div>
+                            <div class="accordiontitle"><a href="#">California State University, Long Beach</a></div>
                             <div class="accordioncontent">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
+                                <p>California State University, Long Beach (also known as Cal State Long Beach, Long Beach State, CSULB, LBSU, or The Beach) is the second largest campus of the 23 school California State University system (CSU) and one of the largest universities in the state of California by enrollment, its student body numbering 36,279 for the Fall 2012 semester. At 5,148 students, the university enrolls one of the largest graduate student populations across the CSU and in the state of California alone. The university is located in the Los Altos neighborhood of Long Beach at the southeastern coastal tip of Los Angeles County, less than one mile from the border with Orange County</p>
                             </div>
                         
-                            <div class="accordiontitle"><a href="#">Accordian Title 3</a></div>
+                            <div class="accordiontitle"><a href="#">California State University, East Bay</a></div>
                             <div class="accordioncontent">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
+                                <p>California State University, East Bay (commonly referred to as Cal State East Bay, CSU East Bay and CSUEB) is a public university located in the eastern region of the San Francisco Bay Area. The university, as part of the 23-campus California State University system, offers 136 undergraduate and 60 post-baccalaureate areas of study.</p>
                             </div>
-                            <div class="accordiontitle"><a href="#">Accordian Title 4</a></div>
+                            <div class="accordiontitle"><a href="#">California State University, Fresno</a></div>
                             <div class="accordioncontent">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla a sapien diam, bibendum tincidunt purus. Morbi feugiat, augue in luctus lobortis, purus ipsum scelerisque metus, vitae posuere mi turpis tristique neque. Morbi at purus urna, sit amet rutrum lectus. Nullam cursus purus vel velit interdum nec laoreet dolor interdum.</p>
+                                <p>California State University, Fresno is a public comprehensive university and part of the 23 campus California State University system</p>
+                            </div>
+                            <div class="accordiontitle"><a href="#">California State University, Sacramento</a></div>
+                            <div class="accordioncontent">
+                                <p>California State University, Sacramento (Sacramento State, informally Sac State), founded in 1947 as Sacramento State College, is a public comprehensive university in the city of Sacramento, the capital city of the U.S. state of California, and is the eleventh oldest school in the 23 campus California State University system. </p>
                             </div>
                         
                         </div>

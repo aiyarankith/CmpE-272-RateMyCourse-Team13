@@ -15,8 +15,10 @@
 <link rel="shortcut icon" href="http://www.derby-web-design-agency.co.uk/themes/response/images/favicon.png" /> 
 <link rel="bookmark icon" href="http://www.derby-web-design-agency.co.uk/themes/response/images/favicon.png" /> 
 <link href="<c:url value="css/main.css" />" rel="stylesheet" type="text/css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript" src="<c:url value="js/jquery.nivo.slider.js" />"></script>
-<script src="<c:url value="js/twitter.js" />"></script>    
+<script src="<c:url value="js/jquery.prettyPhoto.js" />" type="text/javascript"></script>
+<script src="<c:url value="js/twitter.js" />" /></script>    
 <script src="<c:url value="js/custom.js" />"></script>
 <script>
 //// Start Simple Sliders ////
