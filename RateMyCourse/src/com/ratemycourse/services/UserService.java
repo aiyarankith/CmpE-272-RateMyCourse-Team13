@@ -2,9 +2,11 @@ package com.ratemycourse.services;
 
 import java.util.List;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.ratemycourse.model.*;
+import com.ratemycourse.model.Comment;
+import com.ratemycourse.model.Course;
+import com.ratemycourse.model.Ticket;
+import com.ratemycourse.model.User;
 
 public interface UserService {
 
@@ -46,24 +48,6 @@ public interface UserService {
 	public List<JsonObject> getCourseComments(String course_id);
 
 	/**
-	 * To verify user rating confirmation mail, recalculate and update the course rating details.
-	 * @param key - unique key from the url.
-	 * @return confirmation message.
-	 */
-	public String verifyAndUpdateRating(final String key);
-
-	/**
-	 * To create document (doc02) for user rating and comments.   
-	 * @param userName
-	 * @param email
-	 * @param userType
-	 * @param userRating
-	 * @param comment
-	 * @return
-	 */
-	public String saveRating(final String userName, final String email, final String userType,
-			final String userRating, final String comment);
-	/**
 	 * To get top N courses list.
 	 * @return top course list as JsonObject
 	 */
@@ -94,7 +78,6 @@ public interface UserService {
 	 * @return confirmation or conflict message.
 	 */
 	public String insertcomment(Comment comment_detail);
-	
 	/**
 	 * To get list of courses for which a particular course is being a prerequisite or dependent course.
 	 * @param courseId

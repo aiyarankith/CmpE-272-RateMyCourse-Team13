@@ -55,18 +55,6 @@
 	//// End Simple Sliders ////
 </script>
 <script>
-       $(document).ready(function(){
-          document.getElementById("searchValue").value = localStorage.getItem("value");
-          document.getElementById("searchCategory").value = localStorage.getItem("category");
-       });
-</script>
-<script>
-       $(window).on('beforeunload', function() {
-          localStorage.setItem("value",document.getElementById("searchValue").value);
-          localStorage.setItem("category",document.getElementById("searchCategory").value);
-      });
-</script>
-<script>
 	var json = JSON.parse(course_details);
 	var name = json["name"];
 </script>
@@ -85,16 +73,14 @@
 						<option id="cname" value="CNAME">Course Name</option>
 						<option id="cid" value="CID">Course ID</option>
 						<option id="cdesc" value="CDESC">Course Content</option>
-				</select>
-				<label class="accessibly-hidden">Search for:</label>
-				<input
-					type="text" class="search-terms" name="searchValue" id="searchValue"
+				</select> <label class="accessibly-hidden">Search for:</label> <input
+					type="text" class="search-terms" name="searchValue"
+					id="searchValue"
 					onfocus="if(this.value == 'Search...') { this.value = ''; }"
 					onblur="if(this.value == '') { this.value = 'Search...'; }"
 					placeholder="Search..." /> <label for="search-which"
 					class="accessibly-hidden">Search these:</label>
-				</span>
-				<input type="submit" name="search-submit" id="search-submit"
+				</span> <input type="submit" name="search-submit" id="search-submit"
 					value="Search" />
 			</form>
 
@@ -116,6 +102,7 @@
 		</div>
 		<!-- End H1 Title -->
 		<!-- Start Main Body Wrap -->
+		
 		<div id="main-wrap">
 
 			<!-- Start Latest Project titles -->
@@ -125,20 +112,25 @@
 
 					<div class="clear"></div>
 					<hr />
-					<% List<JsonObject> courseList = (List<JsonObject>) request.getAttribute("courseList");
-						if (courseList != null && courseList.size() > 0) {
-							Iterator<JsonObject> itr = courseList.iterator();
-							while (itr.hasNext()) {
-								JsonObject courseDetails = (JsonObject) itr.next().get("value");
+					<%
+						List<JsonObject> courseList = (List<JsonObject>) request.getAttribute("courseList");
+									if (courseList != null && courseList.size() > 0) {
+										Iterator<JsonObject> itr = courseList.iterator();
+										while (itr.hasNext()) {
+											try {
+											JsonObject courseDetails = (JsonObject) itr.next().get("value");
 					%>
 					<!-- Start None Split Section -->
 					<div class="splitnone">
- 
+
 						<h3>
-							<a href="${pageContext.request.contextPath}/get_course?courseId=<%=courseDetails.get("c_id").getAsString()%>" ><%=courseDetails.get("name").getAsString()%></a>
-						<form id="ratingsForm">
+							<a
+								href="${pageContext.request.contextPath}/get_course?courseId=<%=courseDetails.get("c_id").getAsString()%>"><%=courseDetails.get("name").getAsString()%></a>
+							<form id="ratingsForm">
 								<div class="stars">
-									<% if ((courseDetails.get("overall_rating").getAsFloat()) == 5 && courseDetails.get("overall_rating").getAsFloat() >= 4.5) { %>
+									<%
+										if ((courseDetails.get("overall_rating").getAsFloat()) == 5 && courseDetails.get("overall_rating").getAsFloat() >= 4.5) {
+									%>
 									<input type="radio" name="star" class="star-1" id="star-1" />
 									<label class="star-1" for="star-1">1</label> <input
 										type="radio" name="star" class="star-2" id="star-2" /> <label
@@ -149,7 +141,9 @@
 										class="star-4" for="star-4">4</label> <input type="radio"
 										name="star" class="star-5" id="star-5" checked /> <label
 										class="star-5" for="star-5">5</label> <span></span>
-									<% } else if (courseDetails.get("overall_rating").getAsFloat() < 4.5 && courseDetails.get("overall_rating").getAsFloat() >= 3.5) { %>
+									<%
+										} else if (courseDetails.get("overall_rating").getAsFloat() < 4.5 && courseDetails.get("overall_rating").getAsFloat() >= 3.5) {
+									%>
 									<input type="radio" name="star" class="star-1" id="star-1" />
 									<label class="star-1" for="star-1">1</label> <input
 										type="radio" name="star" class="star-2" id="star-2" /> <label
@@ -160,7 +154,9 @@
 										class="star-4" for="star-4">4</label> <input type="radio"
 										name="star" class="star-5" id="star-5" /> <label
 										class="star-5" for="star-5">5</label> <span></span>
-									<% } else if (courseDetails.get("overall_rating").getAsFloat() < 3.5 && courseDetails.get("overall_rating").getAsFloat() >= 2.5) { %>
+									<%
+										} else if (courseDetails.get("overall_rating").getAsFloat() < 3.5 && courseDetails.get("overall_rating").getAsFloat() >= 2.5) {
+									%>
 									<input type="radio" name="star" class="star-1" id="star-1" />
 									<label class="star-1" for="star-1">1</label> <input
 										type="radio" name="star" class="star-2" id="star-2" /> <label
@@ -171,7 +167,9 @@
 										class="star-4" for="star-4">4</label> <input type="radio"
 										name="star" class="star-5" id="star-5" /> <label
 										class="star-5" for="star-5">5</label> <span></span>
-									<% } else if (courseDetails.get("overall_rating").getAsFloat() < 2.5 && courseDetails.get("overall_rating").getAsFloat() >= 1.5) { %>
+									<%
+										} else if (courseDetails.get("overall_rating").getAsFloat() < 2.5 && courseDetails.get("overall_rating").getAsFloat() >= 1.5) {
+									%>
 									<input type="radio" name="star" class="star-1" id="star-1" />
 									<label class="star-1" for="star-1">1</label> <input
 										type="radio" name="star" class="star-2" id="star-2" checked />
@@ -182,7 +180,9 @@
 										class="star-4" for="star-4">4</label> <input type="radio"
 										name="star" class="star-5" id="star-5" /> <label
 										class="star-5" for="star-5">5</label> <span></span>
-									<% } else if (courseDetails.get("overall_rating").getAsFloat() < 1.5 && courseDetails.get("overall_rating").getAsFloat() >= 0.5) { %>
+									<%
+										} else if (courseDetails.get("overall_rating").getAsFloat() < 1.5 && courseDetails.get("overall_rating").getAsFloat() >= 0.5) {
+									%>
 									<input type="radio" name="star" class="star-1" id="star-1"
 										checked /> <label class="star-1" for="star-1">1</label> <input
 										type="radio" name="star" class="star-2" id="star-2" /> <label
@@ -193,7 +193,9 @@
 										class="star-4" for="star-4">4</label> <input type="radio"
 										name="star" class="star-5" id="star-5" /> <label
 										class="star-5" for="star-5">5</label> <span></span>
-									<% } else if (courseDetails.get("overall_rating").getAsFloat() < 0.5) { %>
+									<%
+										} else if (courseDetails.get("overall_rating").getAsFloat() < 0.5) {
+									%>
 									<input type="radio" name="star" class="star-1" id="star-1"
 										checked /> <label class="star-1" for="star-1">1</label> <input
 										type="radio" name="star" class="star-2" id="star-2" /> <label
@@ -204,44 +206,52 @@
 										class="star-4" for="star-4">4</label> <input type="radio"
 										name="star" class="star-5" id="star-5" /> <label
 										class="star-5" for="star-5">5</label> <span></span>
-									<% } %>
+									<%
+										}
+									%>
 								</div>
 							</form>
 						</h3>
-						<p><strong>ID/Dept/University:&nbsp;&nbsp;&nbsp;</strong><%=courseDetails.get("c_id").getAsString()%>&nbsp;/&nbsp;<%=courseDetails.get("dept").getAsString()%>&nbsp;/&nbsp;<%=courseDetails.get("university").getAsString()%></p>
-						<p><strong>About:&nbsp;&nbsp;&nbsp;</strong><%=courseDetails.get("description").getAsString().subSequence(0, 125)+"..."%></p>
-					<%
-						}
-						} else {
-					%>
+						<p>
+							<strong>ID/Dept/University:&nbsp;&nbsp;&nbsp;</strong><%=courseDetails.get("c_id").getAsString()%>&nbsp;/&nbsp;<%=courseDetails.get("dept").getAsString()%>&nbsp;/&nbsp;<%=courseDetails.get("university").getAsString()%></p>
+						<p>
+							<strong>About:&nbsp;&nbsp;&nbsp;</strong><%=courseDetails.get("description").getAsString().subSequence(0, 125)+"..."%></p>
+						<%
+							} catch (Exception e) {
+								continue;
+							}
+										}
+										} else {
+						%>
 						<h3>No courses found</h3>
 						<hr />
 						<p>We suggest to,</p>
-						<p>	Double check your input.</p>
+						<p>Double check your input.</p>
 						<p>Try with other search category.</p>
-					<%
-						}
-					%>
-					<hr/>
-					<!-- End None Split Section -->
-					<div class="clear"></div>
-					<hr />
-				</div>
+						<%
+							}
+						%>
+						<hr />
+						<!-- End None Split Section -->
+						<div class="clear"></div>
+						<hr />
+					</div>
 
-				<span class="box-arrow"></span>
+					<span class="box-arrow"></span>
+
+				</div>
+				<!-- End Latest Project titles -->
 
 			</div>
-			<!-- End Latest Project titles -->
+			<!-- End Main Body Wrap -->
 
 		</div>
-		<!-- End Main Body Wrap -->
-
-	</div>
-	<!-- Start Footer -->
-	<%@include file="includes/footer.jsp"%>
+		
+		<!-- Start Footer -->
+		<%@include file="includes/footer.jsp"%>
 		<!-- End Footer -->
-	<!-- Start Scroll To Top Div -->
-	<div id="scrolltab"></div>
-	<!-- End Scroll To Top Div -->
+		<!-- Start Scroll To Top Div -->
+		<div id="scrolltab"></div>
+		<!-- End Scroll To Top Div -->
 </body>
 </html>

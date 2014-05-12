@@ -2,20 +2,13 @@ package com.ratemycourse.services;
 
 import java.util.List;
 
-import javax.sql.DataSource;
-
 //CouchDB Imports
 import org.lightcouch.CouchDbClient;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.google.gson.JsonObject;
 
 
 public class SearchServiceImpl implements SearchService {
-
-
-	@Autowired
-	DataSource dataSource;
 
 	//	@Autowired
 	//	private CouchDbClient dbClient;

@@ -14,24 +14,24 @@
                 
                     <ul>
                     
-                        <li><a href="index.jsp" title="Response Home">Home</a></li>
+                        <li><a href="${pageContext.request.contextPath}/index.jsp" title="Response Home">Home</a></li>
                         <li><a href="#" title="Response Features">Top Facts</a>
                         	<ul>
-                            	<li><a href="most_rated_course" title="Response Buttons">Most Rated Course</a></li>
-                                <li><a href="most_followed_course" title="Response Columns">Most Followed Course</a></li>
-                                <li><a href="industry_oriented_course" title="Response Icons &amp; Lists">Industry Oriented Course</a></li>
-                                <li><a href="top_courses_colleges" title="Response Notifications">Top Courses By Colleges</a></li>
+                            	<li><a href="${pageContext.request.contextPath}/most_rated_course" title="Response Buttons">Most Rated Course</a></li>
+                                <li><a href="${pageContext.request.contextPath}/most_followed_course" title="Response Columns">Most Followed Course</a></li>
+                                <li><a href="${pageContext.request.contextPath}/industry_oriented_course" title="Response Icons &amp; Lists">Industry Oriented Course</a></li>
+                                <li><a href="${pageContext.request.contextPath}/top_courses_colleges" title="Response Notifications">Top Courses By Colleges</a></li>
                             </ul>
                             <% if(session.getAttribute("first_name") != null) { %>
-                            <li><a href="add_course">Course</a>
+                            <li><a href="${pageContext.request.contextPath}/add_course">Course</a>
                         	<ul>
-                        		<li><a href="add_course" title="Response Buttons">Add Course</a></li>
-                            	<li><a href="edit_course" title="Response Buttons">Edit Course</a></li>
+                        		<li><a href="${pageContext.request.contextPath}/add_course" title="Response Buttons">Add Course</a></li>
+                            	<li><a href="${pageContext.request.contextPath}/edit_course" title="Response Buttons">Edit Course</a></li>
                             </ul>
                         </li>
                         <% } else { %>
                         <% } %>
-                        <li><a href="about" title="Respons'se Portfolio">About</a>
+                        <li><a href="${pageContext.request.contextPath}/about" title="Respons'se Portfolio">About</a>
                        
                       	 <% if(session.getAttribute("first_name") != null) { %>
                         	

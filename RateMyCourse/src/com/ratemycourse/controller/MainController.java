@@ -19,13 +19,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
+import com.ratemycourse.model.Comment;
+import com.ratemycourse.model.Course;
 import com.ratemycourse.model.Ticket;
 import com.ratemycourse.model.User;
-import com.ratemycourse.model.Rss;
+import com.ratemycourse.services.RatingVerification;
 import com.ratemycourse.services.SearchService;
 import com.ratemycourse.services.UserService;
-import com.ratemycourse.model.Course;
-import com.ratemycourse.model.Comment;
 
 
 @Controller
@@ -36,6 +36,9 @@ public class MainController {
 
 	@Autowired
 	SearchService searchService;
+	
+	@Autowired
+	RatingVerification ratingService;
 	//Index Page
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView getUserLIst() {
@@ -259,25 +262,13 @@ public class MainController {
 	}
 	//User rating and comment confirmation
 	@RequestMapping(value="/confirm_user_activity", method = RequestMethod.GET)
-	public ModelAndView verifyAndUpdateRating(@RequestParam String key, HttpServletRequest req) {
-		String message = userService.verifyAndUpdateRating(key);
+	public String verifyAndUpdateRating(@RequestParam String key, HttpServletRequest req) {
+		String message = ratingService.verifyAndUpdateRating(key);
 		List<String> RSSList = userService.RSSList();
 		req.setAttribute("message", message);
-		return new ModelAndView("index", "RSSList", RSSList);
+		return "confirmation";
 	}
 
-	//To save user rating and comments
-	@RequestMapping(value="/save_rating", method = RequestMethod.POST)
-	public String saveRating(@RequestParam String userName,
-			@RequestParam String email,
-			@RequestParam String userType,
-			@RequestParam String userRating,
-			@RequestParam String comment,
-			HttpServletRequest req) {
-		String message = userService.saveRating(userName, email, userType, userRating, comment);
-		req.setAttribute("message", message);
-		return "course_ratings";
-	}
 	/**
 	 * Search courses based on various categories,
 	 * 	1)Course Name
@@ -309,5 +300,4 @@ public class MainController {
 		return "search";
 		//return new ModelAndView("search", "courseList", courseList);
 	}
-
 }
