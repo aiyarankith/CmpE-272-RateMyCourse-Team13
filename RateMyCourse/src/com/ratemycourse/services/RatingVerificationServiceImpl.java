@@ -252,7 +252,7 @@ public class RatingVerificationServiceImpl implements RatingVerification {
 				}
 			}
 		}
-		return emailRequiredNow;
+		return true;
 	}
 }
 

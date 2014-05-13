@@ -91,7 +91,7 @@
 								<p>
 									
 									<div align="left" style="color:black"><div class="required"><label><b>Email :</b></div></label><form:input class="contacttextform" path="email" placeholder="Email" id="email" /> </div><br>
-									<div align="left" style="color:black"><div class="required"><label><b>Password :</b></div> </label><form:input class="contacttextform" path="password" placeholder="password" id="password" /></div><br>
+									<div align="left" style="color:black"><div class="required"><label><b>Password :</b></div> </label><form:input type="password" class="contacttextform" path="password" placeholder="password" id="password" /></div><br>
 									
 									<input type="submit" class="contactformbutton" id="submitButton" value="Login" />
 								</p>

@@ -108,7 +108,7 @@ AmCharts.ready(function() {
     <!-- Start H1 Title -->
     <div class="titlesnormal">
     
-    	<h1>Top 10 Industry Oriented Courses</h1>
+    	<h1>Top 20 Industry Oriented Courses</h1>
         
         <span></span>
     

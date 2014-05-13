@@ -98,9 +98,9 @@
 		
         <!-- Start Slider -->
         <div id="slider" class="nivoSlider">
-            <img src="images/slider-banners/slider01.jpg" alt=""/>
-            <img src="images/slider-banners/slider02.jpg" alt=""/>
-            <img src="images/slider-banners/slider03.jpg" alt=""/>
+            <img src="images/slider-banners/slider011.jpg" alt=""/>
+            <img src="images/slider-banners/slider021.jpg" alt=""/>
+            <img src="images/slider-banners/slider031.jpg" alt=""/>
         </div>
         <!-- End Slider -->
         

@@ -250,14 +250,14 @@ public class UserServiceImpl implements UserService {
 		} else {
 			add_course.addProperty("demo_video_link", "");
 		}
-		add_course.addProperty("overall_rating", 0);
-		add_course.addProperty("overall_count", 0);
-		add_course.addProperty("ind_user_rating", 0);
-		add_course.addProperty("overall_count", 0);
-		add_course.addProperty("est_user_rating", 0);
-		add_course.addProperty("est_user_count", 0);
-		add_course.addProperty("uest_user_rating", 0);
-		add_course.addProperty("uest_user_count", 0);
+		add_course.addProperty("overall_rating", "0");
+		add_course.addProperty("overall_count", "0");
+		add_course.addProperty("ind_user_rating", "0");
+		add_course.addProperty("overall_count", "0");
+		add_course.addProperty("est_user_rating", "0");
+		add_course.addProperty("est_user_count", "0");
+		add_course.addProperty("uest_user_rating","0");
+		add_course.addProperty("uest_user_count", "0");
 
 		if(details.getprereq() != null){
 			add_course.addProperty("prereq", details.getprereq());
@@ -313,7 +313,7 @@ public class UserServiceImpl implements UserService {
 			 * http://127.0.0.1:5984/demo/_design/views/_view/by_comments?key="cmpe271"
 			 */
 			commentList = dbClient.view("views/by_comments")
-					.key(cId)
+					.key(cId.trim().toLowerCase())
 					.descending(true)
 					.query(JsonObject.class);
 		} catch (Exception e) {
@@ -418,7 +418,7 @@ public class UserServiceImpl implements UserService {
 	//Calculate user rating based on user type.
 	String userType = comment_detail.gettype_of_user();
 	double total_ratings = 0.00;
-	total_ratings = (Float.valueOf(comment_detail.getcontent_rating()) + Float.valueOf(comment_detail.gettechnology_rating()) + Float.valueOf(comment_detail.getoverall_rating()))/15;
+	total_ratings = (Float.valueOf(comment_detail.getcontent_rating()) + Float.valueOf(comment_detail.gettechnology_rating()) + Float.valueOf(comment_detail.getoverall_rating()))/3;
 	System.out.println("userType:"+userType);
 	if ("Industrialist".equals(userType)) {
 		comment_detail.settype_of_user("IND");
@@ -435,7 +435,7 @@ public class UserServiceImpl implements UserService {
 	String message = null;
 	JsonObject doc_RatingAndComments = new JsonObject();
 	doc_RatingAndComments.addProperty("type", comment_detail.gettype_of_user());
-	doc_RatingAndComments.addProperty("user_rating", total_ratings);
+	doc_RatingAndComments.addProperty("user_rating", String.format("%.2f", total_ratings));
 	doc_RatingAndComments.addProperty("comment", comment_detail.getcomment());
 	doc_RatingAndComments.addProperty("c_id", comment_detail.getcourse_id());
 	doc_RatingAndComments.addProperty("c_name", comment_detail.getcourse_name());

@@ -107,7 +107,7 @@ AmCharts.ready(function() {
     <!-- Start H1 Title -->
     <div class="titlesnormal">
     
-    	<h1>Top 10 Most Rated Courses</h1>
+    	<h1>Top 20 Most Rated Courses</h1>
         
         <span></span>
     
